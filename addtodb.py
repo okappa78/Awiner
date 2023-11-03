@@ -3,23 +3,24 @@ from psycopg2.extensions import register_adapter, AsIs
 from datetime import datetime
 import numpy as np
 
-db_params = {
+"""db_params = {
     'host': 'ec2-54-246-1-94.eu-west-1.compute.amazonaws.com',
     'database': 'DBNAME',
     'user': 'DBUSER',
     'password': 'DBPASS',
     'port': 5432
-}
+}"""
+db_uri = DB_URI 
+
+# Подключение к базе данных
+conn = psycopg2.connect('DB_URI', sslmode='require')
+cursor = conn.cursor()
 
 def get_timestamp():
     return datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 
 def add_to_db_filters(user_id, mydict):
-    # Подключение к базе данных
-    conn = psycopg2.connect(**db_params)
-    cursor = conn.cursor()
-
     # Создание таблицы, если она не существует
     cursor.execute('''
             CREATE TABLE IF NOT EXISTS filters (
@@ -52,10 +53,6 @@ def add_to_db_filters(user_id, mydict):
 
 
 def add_to_db_carts(user_id, mylst):
-    # Подключение к базе данных
-    conn = psycopg2.connect(**db_params)
-    cursor = conn.cursor()
-
     # Создание таблицы, если она не существует
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS carts (
