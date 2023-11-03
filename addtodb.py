@@ -4,7 +4,7 @@ from datetime import datetime
 import numpy as np
 
 db_params = {
-    'host': 'HOST',
+    'host': 'ec2-54-246-1-94.eu-west-1.compute.amazonaws.com',
     'database': 'DBNAME',
     'user': 'DBUSER',
     'password': 'DBPASS',
