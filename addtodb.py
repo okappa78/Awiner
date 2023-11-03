@@ -8,15 +8,16 @@ import os
 load_dotenv()
 db_uri = os.getenv('DB_URI')
 
-# Подключение к базе данных
-conn = psycopg2.connect(db_uri, sslmode='require')
-cursor = conn.cursor()
 
 def get_timestamp():
     return datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 
 def add_to_db_filters(user_id, mydict):
+    # Подключение к базе данных
+    conn = psycopg2.connect(db_uri, sslmode='require')
+    cursor = conn.cursor()
+    
     # Создание таблицы, если она не существует
     cursor.execute('''
             CREATE TABLE IF NOT EXISTS filters (
@@ -49,6 +50,10 @@ def add_to_db_filters(user_id, mydict):
 
 
 def add_to_db_carts(user_id, mylst):
+    # Подключение к базе данных
+    conn = psycopg2.connect(db_uri, sslmode='require')
+    cursor = conn.cursor()
+    
     # Создание таблицы, если она не существует
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS carts (
