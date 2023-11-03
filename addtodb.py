@@ -10,10 +10,9 @@ import numpy as np
     'password': 'DBPASS',
     'port': 5432
 }"""
-db_uri = 'DB_URI' 
 
 # Подключение к базе данных
-conn = psycopg2.connect(db_uri, sslmode='require')
+conn = psycopg2.connect(DB_URI, sslmode='require')
 cursor = conn.cursor()
 
 def get_timestamp():
