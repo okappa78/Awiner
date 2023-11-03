@@ -2,17 +2,14 @@ import psycopg2
 from psycopg2.extensions import register_adapter, AsIs
 from datetime import datetime
 import numpy as np
+from dotenv import load_dotenv
+import os
 
-"""db_params = {
-    'host': 'ec2-54-246-1-94.eu-west-1.compute.amazonaws.com',
-    'database': 'DBNAME',
-    'user': 'DBUSER',
-    'password': 'DBPASS',
-    'port': 5432
-}"""
+load_dotenv()
+db_uri = os.getenv('DB_URI')
 
 # Подключение к базе данных
-conn = psycopg2.connect(DB_URI, sslmode='require')
+conn = psycopg2.connect(db_uri, sslmode='require')
 cursor = conn.cursor()
 
 def get_timestamp():
