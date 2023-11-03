@@ -4,10 +4,10 @@ from datetime import datetime
 import numpy as np
 
 db_params = {
-    'host': 'localhost',
-    'database': 'database_wine',
-    'user': 'postgres',
-    'password': 'postgresql',
+    'host': 'HOST',
+    'database': 'DBNAME',
+    'user': 'DBUSER',
+    'password': 'DBPASS',
     'port': 5432
 }
 
