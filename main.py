@@ -340,7 +340,8 @@ def ordering_address(user_id):
 
 def check_zero(user_id):
     users_cart[user_id][:-1] = [wine for wine in users_cart[user_id][:-1] if wine['amount'] > 0]
-    if sum([wine['amount'] for wine in users_cart[user_id][:-1]]) == 0:
+    users[user_id]['wine_cart'] = set([wine['wine_id'] for wine in users_cart[user_id][:-1]])
+    if not users[user_id]['wine_cart']:
         users_cart[user_id] = []
 
     return users_cart[user_id]
