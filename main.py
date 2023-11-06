@@ -71,8 +71,9 @@ def reset_filters(user_id):
 
 
 def show_menu_step(user_id):
-    reset_filters(user_id)  # удаляем все значения фильтра (если они есть),
-                            # которые последовательно идут после этого stepa
+    # удаляем все значения фильтра (если они есть),
+    # которые последовательно идут после этого stepa
+    reset_filters(user_id)
 
     lang = users[user_id]['lang']
     step = users[user_id]['step']
@@ -126,6 +127,7 @@ def restart_choose_wine(user_id):
         bot.send_message(user_id, text=my_dict.error_msg[1])
         show_language_selection(user_id)
 
+
 def confirm_message(user_id):
     lang = users[user_id]['lang']
     text_message = [['Ваш выбор: ', 'You choose: '][lang]]
@@ -145,8 +147,7 @@ def confirm_message(user_id):
 def check_mandatory_cats(user_id):
     try:
         users[user_id]['wine_type']
-        if users[user_id]['wine_type'] == 'rose'\
-            and all(key in users[user_id] for key in my_dict.mandatory_cats_rose):
+        if users[user_id]['wine_type'] == 'rose' and all(key in users[user_id] for key in my_dict.mandatory_cats_rose):
             return True
         elif all(key in users[user_id] for key in my_dict.mandatory_cats):
             return True
@@ -184,7 +185,8 @@ def filter_wines(user_id):
                          text=my_dict.empty_res_msg[lang])
     else:
         list_of_wines = getwine(wineid_out, user_id, lang=lang)
-        list_of_wines[user_id].append(0) #устанавливаем индекс для показа отфильтрованных вин
+        # устанавливаем индекс для показа отфильтрованных вин
+        list_of_wines[user_id].append(0)
         users_wine.update(list_of_wines)
         send_description(user_id)
 
@@ -222,7 +224,7 @@ def add_to_cart(user_id):
     markup = show_return_lang_button(btn_restart, btn_cart)
 
     txt_add_cart = f"{my_dict.confirm_carts_msg[lang]}\n{wine['title']}"
-    message_to_delete = bot.send_message(user_id, text=txt_add_cart, reply_markup=markup)
+    bot.send_message(user_id, text=txt_add_cart, reply_markup=markup)
 
 
 def send_cart_message(user_id):
@@ -260,8 +262,8 @@ def send_cart_message(user_id):
         total = cart_amount + (0, 5)[del_flag]
         users_cart[user_id].append({'delivery': ('n', 'y')[del_flag]})
 
-        txt = f"{my_dict.cart_summary_msg[lang]} <b>{cart_amount}€</b>\n"+\
-              f"{['Доставка:', 'Delivery:'][lang]} <b>{delivery}</b>\n"+\
+        txt = f"{my_dict.cart_summary_msg[lang]} <b>{cart_amount}€</b>\n" + \
+              f"{['Доставка:', 'Delivery:'][lang]} <b>{delivery}</b>\n" + \
               f"{['Итого:', 'Total:'][lang]} <b>{total}€</b>"
 
         markup_inline = types.InlineKeyboardMarkup(row_width=1)
@@ -357,17 +359,11 @@ def get_text_messages(message):
 
         if message.text == '🇷🇺 Русский':
             users[user_id]['lang'] = 0
-            #with open('userspref.json', 'w') as file:
-            #    json.dump(users, file)
-
             intro_message(user_id)
             show_menu_step(user_id)
 
         elif message.text == '🇬🇧 English':
             users[user_id]['lang'] = 1
-            #with open('userspref.json', 'w') as file:
-            #    json.dump(users, file)
-
             intro_message(user_id)
             show_menu_step(user_id)
 
@@ -409,7 +405,6 @@ def get_text_messages(message):
             elif step == 11:
                 contact_data = message.text
                 add_data_to_order(user_id, contact_data)
-                #users[user_id]['step'] = 12
                 ordering_address(user_id)
             elif step == 12:
                 contact_data = message.text
@@ -421,7 +416,6 @@ def get_text_messages(message):
                 confirm_ordering(user_id)
                 sendmsg(users_cart[user_id])
 
-                #t = threading.Thread(target=add_to_csv_cart, args=(user_id, users_cart[user_id]))
                 t = threading.Thread(target=add_to_db_carts, args=(user_id, users_cart[user_id]))
                 t.start()
 
@@ -429,7 +423,6 @@ def get_text_messages(message):
                 del users_cart[user_id]
                 print('Ordering!!!')
                 print_test()
-
 
 
 @bot.callback_query_handler(func=lambda call: True)
@@ -445,9 +438,8 @@ def get_call(call):
 
         lang = users[user_id]['lang']
 
-        #check wine type
+        # check wine type
         if call.data in my_dict.terms['wine_type']:
-            #users[user_id].pop('wine_grape', None)
             users[user_id]['wine_type'] = call.data
             bot.send_message(user_id,
                              text=f"{['Вы выбрали: ', 'You choose: '][lang]}" +
@@ -457,15 +449,13 @@ def get_call(call):
                 users[user_id]['wine_type'] = call.data
                 users[user_id]['step'] = 4
 
-
             else:
                 users[user_id]['step'] = 2
 
             show_menu_step(user_id)
 
-        #check wine style
+        # check wine style
         elif call.data in my_dict.terms['wine_style']:
-            #users[user_id].pop('wine_grape', None)
             users[user_id]['wine_style'] = call.data
             bot.send_message(user_id,
                              text=f"{['Вы выбрали: ', 'You choose: '][lang]}" +
@@ -477,9 +467,8 @@ def get_call(call):
             users[user_id]['step'] = 3
             show_menu_step(user_id)
 
-        #check sugar in wine
+        # check sugar in wine
         elif call.data in my_dict.terms['wine_sugar']:
-            #users[user_id].pop('wine_grape', None)
             users[user_id]['wine_sugar'] = call.data
             bot.send_message(user_id,
                              text=f"{['Вы выбрали: ', 'You choose: '][lang]}" +
@@ -488,7 +477,7 @@ def get_call(call):
             users[user_id]['step'] = 4
             show_menu_step(user_id)
 
-        #check country
+        # check country
         elif call.data in my_dict.terms['wine_country']:
             users[user_id]['wine_country'] = call.data
             bot.send_message(user_id,
@@ -498,7 +487,8 @@ def get_call(call):
             if users[user_id].get('wine_sugar', None) == 'dry'\
                     or (users[user_id].get('wine_sugar', None) == 'semi_dry'
                         and users[user_id].get('wine_type', None) == 'white'):
-                    users[user_id]['step'] = 5
+                users[user_id]['step'] = 5
+
             else:
                 users[user_id]['step'] = 6
 
@@ -514,7 +504,7 @@ def get_call(call):
             users[user_id]['step'] = 6
             show_menu_step(user_id)
 
-        #check skip option
+        # check skip option
         elif call.data == 'skip' and step == 5:
             users[user_id]['step'] = 6
             show_menu_step(user_id)
@@ -552,9 +542,6 @@ def get_call(call):
             ordering_address(user_id)
 
 
-
-
 if __name__ == '__main__':
     users = {}
-
     bot.polling(none_stop=True, interval=0)
