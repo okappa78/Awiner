@@ -308,7 +308,7 @@ def add_data_to_order(user_id, data):
     try:
         users_cart[user_id]
         if step == 11:
-            users_cart[user_id][:-1] = [wine for wine in users_cart[user_id][:-1] if wine['amount'] > 0]
+            #users_cart[user_id] = check_zero(user_id)
             zip_code = get_address(data)
             users_cart[user_id].append({'zip_code': zip_code})
             users_cart[user_id].append({'address': data})
@@ -336,6 +336,14 @@ def ordering_address(user_id):
         bot.send_message(user_id, text=my_dict.ordering_phone_msg[lang])
     elif step == 13:
         bot.send_message(user_id, text=my_dict.ordering_name[lang])
+
+
+def check_zero(user_id):
+    users_cart[user_id][:-1] = [wine for wine in users_cart[user_id][:-1] if wine['amount'] > 0]
+    if sum([wine['amount'] for wine in users_cart[user_id][:-1]]) == 0:
+        users_cart[user_id] = []
+
+    return users_cart[user_id]
 
 
 @bot.message_handler(commands=['start'])
@@ -536,10 +544,17 @@ def get_call(call):
         elif call.data == 'cart' and users_wine:
             add_to_cart(user_id)
 
+        # Если нажали инлайн-кнопку "Подтвердить количество"
         elif call.data == 'order':
-            users[user_id]['step'] = 11
-            bot.send_message(user_id, text=my_dict.ordering_msg[lang])
-            ordering_address(user_id)
+            # Сделать проверку на количество в корзине и удалить вино с 0
+            users_cart[user_id] = check_zero(user_id)
+            if users_cart[user_id]:
+                users[user_id]['step'] = 11
+                bot.send_message(user_id, text=my_dict.ordering_msg[lang])
+                ordering_address(user_id)
+            else:
+                users[user_id]['step'] = 1
+                show_menu_step(user_id)
 
 
 if __name__ == '__main__':
