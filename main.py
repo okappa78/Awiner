@@ -1,7 +1,6 @@
 import telebot
 from telebot import types
 import my_dict
-import json
 from dotenv import load_dotenv
 import os
 from selection import get_filtered
@@ -124,7 +123,7 @@ def restart_choose_wine(user_id):
         users[user_id]['step'] = 1
         show_menu_step(user_id)
     except KeyError:
-        bot.send_message(user_id, text=my_dict.error_msg[lang])
+        bot.send_message(user_id, text=my_dict.error_msg[1])
         show_language_selection(user_id)
 
 def confirm_message(user_id):
@@ -383,7 +382,6 @@ def get_text_messages(message):
             try:
                 users[user_id]['wine_price']
 
-                #t = threading.Thread(target=add_to_csv_filters, args=(user_id, users[user_id]))
                 t = threading.Thread(target=add_to_db_filters, args=(user_id, users[user_id]))
                 t.start()
 

@@ -231,7 +231,7 @@ fwd_button = ['Вперед', 'Next']
 cart_button = ['В корзину!', 'Add to cart']
 bwd_button = ['Назад', 'Previous']
 
-error_msg = ['Что-то пошло не так!\nДавайте начнем сначала!',
+error_msg = ['Что-то не так!\nДавайте начнем сначала!',
              "Something's gone wrong!\nLet's start again!"]
 
 btn_cart = ['Корзина', 'Cart']
