@@ -339,8 +339,11 @@ def ordering_address(user_id):
 
 
 def check_zero(user_id):
-    users_cart[user_id][:-1] = [wine for wine in users_cart[user_id][:-1] if wine['amount'] > 0]
-    users[user_id]['wine_cart'] = set([wine['wine_id'] for wine in users_cart[user_id][:-1]])
+    try:
+        users_cart[user_id][:-1] = [wine for wine in users_cart[user_id][:-1] if wine['amount'] > 0]
+        users[user_id]['wine_cart'] = set([wine['wine_id'] for wine in users_cart[user_id][:-1]])
+    except:
+        return []
     if not users[user_id]['wine_cart']:
         users_cart[user_id] = []
 
