@@ -4,9 +4,76 @@ import psycopg2
 from psycopg2 import sql
 from dotenv import load_dotenv
 
+import my_dict
 
 load_dotenv()
 db_uri = os.getenv('DB_URI')
+
+countries = {k: v[-1][:-1] for k, v in my_dict.dict_categories['country'].items()}
+grapes = {
+        'red': {
+            'light': {
+                'france': ('pinot noir', 'gamay')
+            },
+            'medium': {
+                'france': ('cabernet franc', 'syrah', 'côt'),
+                'spain': ('tempranillo', 'mencia', 'grenache'),
+                'italy': ('sangiovese', 'nebbiolo', 'terrano')
+            },
+            'full': {
+                'france': ('syrah', 'grenache, syrah, mourvèdre', 'malbec'),
+                'spain': ('tempranillo',),
+                'italy': ('nebbiolo', 'primitivo', 'barbera'),
+                'others': ('malbec', 'cabernet sauvignon', 'blaufrankisch')
+            }
+
+        },
+        'white': {
+            'light': {
+                'portugal': ('loureiro', 'alvarinho'),
+                'france': ('chardonnay', 'muscadet', 'chenin blanc'),
+                'spain': ('alvarinho',),
+                'italy': ('trebbiano',),
+                'others': ('riesling', 'sylvaner')
+            },
+            'medium': {
+                'france': ('chenin blanc', 'riesling', 'chardonnay', 'pinot gris'),
+                'spain': ('torrontés', 'alvarinho'),
+                'italy': ('verdicchio',)
+            },
+            'full': {
+                'france': ('chardonnay',)
+            }
+        }
+    }
+
+
+def clause_country(mydict):
+    country = mydict['country']
+
+    if country != 'others':
+        res = f"(country = '{country}')"
+
+        return res
+
+    country = countries[mydict['wtype']]
+    res = f"country NOT IN {country}".replace(',)', ')')
+
+    return res
+
+
+def clause_grape(mydict):
+    grape = mydict['grape']
+
+    if grape != 'other':
+        res = f"(grape LIKE '%{grape}%')"
+
+        return res
+
+    grape = grapes[mydict['wtype']][mydict['wstyle']][mydict['country']]
+    res = f"grape NOT IN {grape}".replace(',)', ')')
+
+    return res
 
 
 def execute_query(query):
@@ -39,22 +106,26 @@ def get_filtered(my_dict):
     # Make a copy of dict to save the original dict
     user_dict = my_dict.copy()
 
-    # Delete unwanted keys
-    del user_dict['lang']
-    del user_dict['step']
-
     # Create price min/max keys and clause
     user_dict['min_price'], user_dict['max_price'] = map(int, user_dict.pop('price', None).split('_'))
     where_filters = [f"(price >= {user_dict.pop('min_price', None)} AND price < {user_dict.pop('max_price', None)})",
                      f"(stock = True)"]
 
+    # Create clause country
+    fltr = clause_country(user_dict)
+    where_filters.append(fltr)
+
+    # Create clause grape
+    fltr = clause_country(user_dict)
+    where_filters.append(fltr)
+
+    # Delete unneeded keys
+    for k in ('lang', 'step', 'country', 'grape'):
+        del user_dict[k]
+
     # Create the rest of clauses
     for k, v in user_dict.items():
         clause = f"({k} = '{v}')"
-        if (k in ('country', 'grape')) and (not isinstance(v, str)):
-            clause = f"{k} NOT IN {v}".replace(',)', ')')
-        elif k == 'grape':
-            clause = f"({k} LIKE '%{v}%')"
         where_filters.append(clause)
 
     # Construct the SELECT query
