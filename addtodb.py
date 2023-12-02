@@ -34,7 +34,7 @@ def add_to_db_filters(user_id, mydict):
             )
         ''')
 
-    fieldnames = ('wine_type', 'wine_style', 'wine_sugar', 'wine_country', 'wine_grape', 'wine_price', 'lang')
+    fieldnames = ('wtype', 'wstyle', 'sugar', 'country', 'grape', 'price', 'lang')
     filters = [mydict.get(key, None) for key in fieldnames]
     timestamp = get_timestamp()
     add_values = (timestamp, user_id, *filters)
