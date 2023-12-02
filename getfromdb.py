@@ -116,7 +116,7 @@ def get_filtered(my_dict):
     where_filters.append(fltr)
 
     # Create clause grape
-    fltr = clause_country(user_dict)
+    fltr = clause_grape(user_dict)
     where_filters.append(fltr)
 
     # Delete unneeded keys
