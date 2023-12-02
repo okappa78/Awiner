@@ -63,6 +63,9 @@ def clause_country(mydict):
 
 
 def clause_grape(mydict):
+    if 'grape' not in mydict:
+        return ''
+
     grape = mydict['grape']
 
     if grape != 'other':
@@ -121,7 +124,7 @@ def get_filtered(my_dict):
 
     # Delete unneeded keys
     for k in ('lang', 'step', 'country', 'grape'):
-        del user_dict[k]
+        user_dict.pop(k, None)
 
     # Create the rest of clauses
     for k, v in user_dict.items():
