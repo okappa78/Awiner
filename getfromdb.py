@@ -130,11 +130,13 @@ def get_filtered(my_dict):
 
     # Construct the SELECT query
     where_clause = ' AND '.join(where_filters)
+    print(where_clause)
     select_query = sql.SQL(f"SELECT wine_id FROM specifications WHERE {where_clause}")
 
     # Execute the query
     values = execute_query(select_query)
     result = [value[0] for value in values]
+    print('wineids', result)
 
     return result
 
