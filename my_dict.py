@@ -1,3 +1,251 @@
+dict_steps = {
+    1: ('wtype', ('Тип вина: ', 'Wine type: ')),
+    2: ('wstyle', ('Стиль: ', 'Style: ')),
+    3: ('sugar', ('Сахар: ', 'Sugar: ')),
+    4: ('country', ('Страна: ', 'Country: ')),
+    5: ('grape', ('Сорт винограда/Регион: ', 'Grape/Region: ')),
+    6: ('price', ('Цена: ', 'Price: '))
+}
+
+port_regions = (('Дуэйру', 'Алентежу', 'Винью Верде', 'Дао'),
+                ('Douro', 'Alentejo', 'Vinho Verde', 'Dão'),
+                ('douro', 'alentejo', 'vinho verde', 'dao'))
+
+empty_grapes = (('Другой'), ('Other'), ('other'))
+
+grapes_dict = {
+        'douro': ('Дуэйру', 'Douro'),
+        'alentejo': ('Алентежу', 'Alentejo'),
+        'vinho verde': ('Винью Верде', 'Vinho Verde'),
+        'dao': ('Дао', 'Dão'),
+        'pinot noir': ('Пино Нуар', 'Pinot Noir'),
+        'nebbiolo': ('Нибиола', 'Nebbiolo'),
+        'sangiovese': ('Санджовезе', 'Sangiovese'),
+        'garnacha': ('Гарнача', 'Garnacha'),
+        'cabernet sauvignon': ('Каберне Совиньон', 'Cabernet Sauvignon'),
+        'merlot': ('Мерло', 'Merlot'),
+        'syrah': ('Сира', 'Syrah'),
+        'sauvignon blanc': ('Совиньон Блан', 'Sauvignon Blanc'),
+        'riesling': ('Рислинг', 'Riesling'),
+        'alvarinho': ('Альвариньо', 'Alvarinho'),
+        'gewurztraminer': ('Гевюрцтраминер', 'Gewürztraminer'),
+        'muscat': ('Мускат', 'Muscat'),
+        'chardonnay': ('Шардоне', 'Chardonnay'),
+        'chenin blanc': ('Шенен Блан', 'Chenin Blanc'),
+        'gamay': ('Гамэ', 'Gamay'),
+        'cabernet franc': ('Каберне Фран', 'Cabernet Franc'),
+        'côt': ('Кот (Мальбек)', 'Côt (Malbec)'),
+        'tempranillo': ('Темпранильо', 'Tempranillo'),
+        'mencia': ('Менсия', 'Mencia'),
+        'grenache': ('Гренаш', 'Grenache'),
+        'terrano': ('Террано', 'Terrano'),
+        'grenache, syrah, mourvèdre': ('GSM-бленд', 'GSM-blend'),
+        'malbec': ('Мальбек', 'Malbec'),
+        'primitivo': ('Примитиво', 'Primitivo'),
+        'barbera': ('Барбера', 'Barbera'),
+        'blaufrankisch': ('Блауфренкиш', 'Blaufrankisch'),
+        'loureiro': ('Лурейру', 'Loureiro'),
+        'muscadet': ('Мускаде', 'Muscadet'),
+        'trebbiano': ('Треббиано', 'Trebbiano'),
+        'sylvaner': ('Сильванер', 'Sylvaner'),
+        'pinot gris': ('Пино Грис', 'Pinot Gris'),
+        'torrontés': ('Торронтес', 'Torrontés'),
+        'verdicchio': ('Вердиккио', 'Verdicchio'),
+        'other': ('Другой', 'Other')
+    }
+
+# при добавлении нового языка - добавить новое значение в каждый список
+# при добавлении нового значения - добавить новую пару ключ: значение
+terms = {
+    'wtype': {
+        'red': ('Красное', 'Red'),
+        'white': ('Белое', 'White'),
+        'rose': ('Розовое', 'Rose'),
+        'orange': ('Оранж', 'Orange'),
+        'sparkling': ('Игристое', 'Sparkling'),
+        'fortified': ('Крепленое', 'Fortified')
+    },
+    'wstyle': {
+        'light': ('Легкотельное', 'Light-bodied'),
+        'medium': ('Среднетелое', 'Medium-bodied'),
+        'full': ('Полнотелое', 'Full-bodied')
+    },
+    'sugar': {
+        'brut': ('Брют', 'Brut'),
+        'dry': ('Сухое', 'Dry'),
+        'semi_sweet': ('Полусладкое', 'Semi-sweet')
+    },
+    'country': {
+        'portugal': ('Португалия', 'Portugal'),
+        'italy': ('Италия', 'Italy'),
+        'spain': ('Испания', 'Spain'),
+        'georgia': ('Грузия', 'Georgia'),
+        'france': ('Франция', 'France'),
+        'germany': ('Германия', 'Germany'),
+        'others': ('Другие', 'Others')
+    },
+    'grape': grapes_dict,
+    'price': {
+        '0_10': ('До 10 евро', 'Up to 10 euros'),
+        '10_15': ('От 10 до 15 евро', 'Between €10 and €15'),
+        '15_20': ('От 15 до 20 евро', 'Between €15 and €20'),
+        '20_30': ('От 20 до 30 евро', 'Between €20 and €30'),
+        '30_10000': ('Более 30 евро', 'More than €30')
+    }
+}
+
+# при добавлении нового типа - добавить в каждый список
+# при добавлении нового языка - добавить новый список в предпоследний индекс
+# в последнем списке хранятся значения, которые будут передаваться по нажатию кнопки
+dict_categories = {
+    'wtype': (('🍷 Красное', '🥂 Белое', '🌹 Розовое', '🍊 Оранж', '🍾 Игристое', '💪 Крепленое'),
+              ('🍷 Red', '🥂 White', '🌹 Rose', '🍊 Orange', '🍾 Sparkling', '💪 Fortified'),
+              ('red', 'white', 'rose', 'orange', 'sparkling', 'fortified')),
+    'wstyle': (('Легкотелое', 'Среднетелое', 'Полнотелое'),
+               ('Light-bodied', 'Medium-bodied', 'Full-bodied'),
+               ('light', 'medium', 'full')),
+    'sugar': (('Брют', 'Сухое', 'Полусладкое'),
+              ('Brut', 'Dry', 'Semi-sweet'),
+              ('brut', 'dry', 'semi_sweet')),
+    'country': {
+        'red': (('Португалия', 'Франция', 'Италия', 'Испания', 'Грузия', 'Другие'),
+                ('Portugal', 'France', 'Italy', 'Spain', 'Georgia', 'Others'),
+                ('portugal', 'france', 'italy', 'spain', 'georgia',
+                    ('portugal', 'france', 'italy', 'spain', 'georgia'))),
+        'white': (('Португалия', 'Франция', 'Италия', 'Испания', 'Германия', 'Другие'),
+                  ('Portugal', 'France', 'Italy', 'Spain', 'Germany', 'Others'),
+                  ('portugal', 'france', 'italy', 'spain', 'germany',
+                      ('portugal', 'france', 'italy', 'spain', 'germany'))),
+        'rose': (('Португалия', 'Франция', 'Италия', 'Испания', 'Другие'),
+                 ('Portugal', 'France', 'Italy', 'Spain', 'Others'),
+                 ('portugal', 'france', 'italy', 'spain',
+                     ('portugal', 'france', 'italy', 'spain'))),
+        'orange': (('Португалия', 'Италия', 'Грузия', 'Другие'),
+                   ('Portugal', 'Italy', 'Georgia', 'Others'),
+                   ('portugal', 'italy', 'georgia',
+                       ('portugal', 'italy', 'georgia'))),
+        'sparkling': (('Португалия', 'Франция', 'Италия', 'Другие'),
+                      ('Portugal', 'France', 'Italy', 'Others'),
+                      ('portugal', 'france', 'italy',
+                          ('portugal', 'france', 'italy'))),
+        'fortified': (('Португалия', 'Испания', 'Другие'),
+                      ('Portugal', 'Spain', 'Others'),
+                      ('portugal', 'spain',
+                          ('portugal', 'spain')))
+    },
+    'grape': {
+        'red': {
+            'light': {
+                'portugal': empty_grapes,
+                'france': (('Пино Нуар', 'Гамэ', 'Другой'),
+                           ('Pinot Noir', 'Gamay', 'Other'),
+                           ('pinot noir', 'gamay',
+                               ('pinot noir', 'gamay'))),
+                'spain': empty_grapes,
+                'italy': empty_grapes,
+                'georgia': empty_grapes,
+                'others': empty_grapes
+            },
+            'medium': {
+                'portugal': empty_grapes,
+                'france': (('Каберне Фран', 'Сира', 'Кот (Мальбек)', 'Другой'),
+                           ('Cabernet Franc', 'Syrah', 'Côt (Malbec)', 'Other'),
+                           ('cabernet franc', 'syrah', 'côt',
+                               ('cabernet franc', 'syrah', 'côt'))),
+                'spain': (('Темпранильо', 'Менсия', 'Гренаш', 'Другой'),
+                          ('Tempranillo', 'Mencia', 'Grenache', 'Other'),
+                          ('tempranillo', 'mencia', 'grenache',
+                              ('tempranillo', 'mencia', 'grenache'))),
+                'italy': (('Санджовезе', 'Неббиоло', 'Террано', 'Другой'),
+                          ('Sangiovese', 'Nebbiolo', 'Terrano', 'Other'),
+                          ('sangiovese', 'nebbiolo', 'terrano',
+                              ('sangiovese', 'nebbiolo', 'terrano'))),
+                'georgia': empty_grapes,
+                'others': empty_grapes
+            },
+            'full': {
+                'portugal': empty_grapes,
+                'france': (('Сира', 'GSM-бленд', 'Мальбек', 'Другой'),
+                           ('Syrah', 'GSM-blend', 'Malbec', 'Other'),
+                           ('syrah', 'grenache, syrah, mourvèdre', 'malbec',
+                               ('syrah', 'grenache, syrah, mourvèdre', 'malbec'))),
+                'spain': (('Темпранильо', 'Другой'),
+                          ('Tempranillo', 'Other'),
+                          ('tempranillo',
+                              ('tempranillo',))),
+                'italy': (('Неббиоло', 'Примитиво', 'Барбера', 'Другой'),
+                          ('Nebbiolo', 'Primitivo', 'Barbera', 'Other'),
+                          ('nebbiolo', 'primitivo', 'barbera',
+                              ('nebbiolo', 'primitivo', 'barbera'))),
+                'georgia': empty_grapes,
+                'others': (('Мальбек', 'Каберне Совиньон', 'Блауфренкиш', 'Другой'),
+                           ('Malbec', 'Cabernet Sauvignon', 'Blaufrankisch', 'Other'),
+                           ('malbec', 'cabernet sauvignon', 'blaufrankisch',
+                               ('malbec', 'cabernet sauvignon', 'blaufrankisch')))
+            }
+
+        },
+        'white': {
+            'light': {
+                'portugal': (('Лурейру', 'Алваринью', 'Другой'),
+                             ('Loureiro', 'Alvarinho', 'Other'),
+                             ('loureiro', 'alvarinho',
+                                 ('loureiro', 'alvarinho'))),
+                'france': (('Шардоне', 'Мускаде', 'Шенен Блан', 'Другой'),
+                           ('Chardonnay', 'Muscadet', 'Chenin Blanc', 'Other'),
+                           ('chardonnay', 'muscadet', 'chenin blanc',
+                               ('chardonnay', 'muscadet', 'chenin blanc'))),
+                'spain': (('Албаринью', 'Другой'),
+                          ('Alvarinho', 'Other'),
+                          ('alvarinho',
+                              ('alvarinho',))),
+                'italy': (('Треббиано', 'Другой'),
+                          ('Trebbiano', 'Other'),
+                          ('trebbiano',
+                              ('trebbiano',))),
+                'georgia': empty_grapes,
+                'others': (('Рислинг', 'Сильванер', 'Другой'),
+                           ('Riesling', 'Sylvaner', 'Other'),
+                           ('riesling', 'sylvaner',
+                               ('riesling', 'sylvaner')))
+            },
+            'medium': {
+                'portugal': empty_grapes,
+                'france': (('Шенен Блан', 'Рислинг', 'Шардоне', 'Пино Грис', 'Другой'),
+                           ('Chenin Blanc', 'Riesling', 'Chardonnay', 'Pinot Gris', 'Other'),
+                           ('chenin blanc', 'riesling', 'chardonnay', 'pinot gris',
+                               ('chenin blanc', 'riesling', 'chardonnay', 'pinot gris'))),
+                'spain': [('Торронтес', 'Албаринью', 'Другой'),
+                          ('Torrontés', 'Albarinho', 'Other'),
+                          ('torrontés', 'alvarinho',
+                              ('torrontés', 'alvarinho'))],
+                'italy': (('Вердиккио', 'Другой'),
+                          ('Verdicchio', 'Other'),
+                          ('verdicchio',
+                              ('verdicchio',))),
+                'georgia': empty_grapes,
+                'others': empty_grapes
+            },
+            'full': {
+                'portugal': empty_grapes,
+                'france': [('Шардоне', 'Другой'),
+                           ('Chardonnay', 'Other'),
+                           ('chardonnay',
+                            ('chardonnay',))],
+                'spain': empty_grapes,
+                'italy': empty_grapes,
+                'georgia': empty_grapes,
+                'others': empty_grapes
+            }
+        }
+    },
+    'price': (('До 10 евро', 'От 10 до 15 евро', 'От 15 до 20 евро', 'От 20 до 30 евро', 'Более 30 евро'),
+              ('Up to 10 euros', 'Between €10 and €15', 'Between €15 and €20', 'Between €20 and €30', 'More than €30'),
+              ('0_10', '10_15', '15_20', '20_30', '30_10000'))
+}
+
+### СООБЩЕНИЯ И КНОПКИ ################################################################################################
+
 choose_lang = '🇷🇺 Выберите язык\n🇬🇧 Choose your language'
 
 intro_message = ['''
@@ -35,156 +283,6 @@ And I will try to make a choice.
 
 return_button = '🔙 🇷🇺 RU / 🇬🇧 GB (US)'
 
-
-#при добавлении нового языка - добавить новое значение в каждый список
-#при добавлении нового значения - добавить новую пару ключ: значение
-terms = {
-    'wine_type': {
-        'red': ('Красное', 'Red'),
-        'white': ('Белое', 'White'),
-        'rose': ('Розовое', 'Rose')
-    },
-    'wine_style': {
-        'light_red': ('Легкое красное', 'Light red'),
-        'full_red': ('Полнотелое красное', 'Full-bodied red'),
-        'light_white': ('Легкое свежее', 'Light and fresh'),
-        'full_white': ('Фруктовое ароматное', 'Fruity flavour')
-    },
-    'wine_sugar': {
-        'dry': ('Сухое', 'Dry'),
-        'semi_dry': ('Полусухое', 'Semi-dry'),
-        'semi_sweet': ('Полусладкое', 'Semi-sweet')
-    },
-    'wine_country': {
-        'portugal': ('Португалия', 'Portugal'),
-        'import': ('Импорт', 'Import'),
-        'provence': ('Прованс', 'Provence')
-    },
-    'wine_grape': {
-        'douro': ('Дуэйру', 'Douro'),
-        'alentejo': ('Алентежу', 'Alentejo'),
-        'vinho verde': ('Винью Верде', 'Vinho Verde'),
-        'dao': ('Дао', 'Dão'),
-        'pinot noir': ('Пино Нуар', 'Pinot Noir'),
-        'nebbiolo': ('Нибиола', 'Nebbiolo'),
-        'sangiovese': ('Санджовезе', 'Sangiovese'),
-        'garnacha': ('Гарнача', 'Garnacha'),
-        'cabernet sauvignon': ('Каберне Совиньон', 'Cabernet Sauvignon'),
-        'merlot': ('Мерло', 'Merlot'),
-        'syrah': ('Сира', 'Syrah'),
-        'sauvignon blanc': ('Совиньон Блан', 'Sauvignon Blanc'),
-        'riesling': ('Рислинг', 'Riesling'),
-        'albarino': ('Альвариньо', 'Albariño'),
-        'gewurztraminer': ('Гевюрцтраминер', 'Gewürztraminer'),
-        'muscat': ('Мускат', 'Muscat'),
-        'chardonnay': ('Шардоне', 'Chardonnay'),
-        'chenin blanc': ('Шенен Блан', 'Chenin Blanc')
-    },
-    'wine_price': {
-        '0_10': ('До 10 евро', 'Up to 10 euros'),
-        '10_15': ('От 10 до 15 евро', 'Between €10 and €15'),
-        '15_20': ('От 15 до 20 евро', 'Between €15 and €20'),
-        '20_30': ('От 20 до 30 евро', 'Between €20 and €30'),
-        '30_1000': ('Более 30 евро', 'More than €30')
-    }
-}
-
-
-dict_steps = {
-    1: ['wine_type', ['Тип вина: ', 'Wine type: ']],
-    2: ['wine_style', ['Стиль: ', 'Style: ']],
-    3: ['wine_sugar', ['Сахар: ', 'Sugar: ']],
-    4: ['wine_country', ['Тип вина: ', 'Country: ']],
-    5: ['wine_grape', ['Сорт винограда/Регион: ', 'Grape/Region: ']],
-    6: ['wine_price', ['Цена: ', 'Price: ']]
-}
-
-port_regions = (('Дуэйру', 'Алентежу', 'Винью Верде', 'Дао'),
-                ('Douro', 'Alentejo', 'Vinho Verde', 'Dão'),
-                ('douro', 'alentejo', 'vinho verde', 'dao'))
-
-#при добавлении нового типа - добавить в каждый список
-#при добавлении нового языка - добавить новый список в предпоследний индекс
-#в последнем списке хранятся значения, которые будут передаваться по нажатию кнопки
-dict_categories = {
-    'wine_type': [['Красное', 'Белое', 'Розовое'],
-                  ['Red', 'White', 'Rose'],
-                  ['red', 'white', 'rose']],
-    'wine_style': {
-        'red': [['Легкое красное', 'Полнотелое красное'],
-                ['Light red', 'Full-bodied red'],
-                ['light_red', 'full_red']],
-        'white': [['Легкое свежее', 'Фруктовое ароматное'],
-                  ['Light and fresh', 'Fruity flavour'],
-                  ['light_white', 'full_white']]
-    },
-    'wine_sugar': [['Сухое', 'Полусухое', 'Полусладкое'],
-                   ['Dry', 'Semi-dry', 'Semi-sweet'],
-                   ['dry', 'semi_dry', 'semi_sweet']],
-    'wine_country': {
-        'red': [['Португалия', 'Импорт'],
-                ['Portugal', 'Import'],
-                ['portugal', 'import']],
-        'white': [['Португалия', 'Импорт'],
-                  ['Portugal', 'Import'],
-                  ['portugal', 'import']],
-        'rose': [['Португалия', 'Прованс'],
-                 ['Portugal', 'Provence'],
-                 ['portugal', 'provence']]
-    },
-    'wine_grape': {
-        'light_red': {
-            'dry': {
-                'portugal': port_regions,
-                'import': [['Пино Нуар', 'Нибиола', 'Санджовезе', 'Гарнача'],
-                          ['Pinot Noir', 'Nebbiolo', 'Sangiovese', 'Garnacha'],
-                          ['pinot noir', 'nebbiolo', 'sangiovese', 'garnacha']]
-            }
-        },
-        'full_red': {
-            'dry': {
-                'portugal': port_regions,
-                'import': [['Каберне Совиньон', 'Мерло', 'Сира', 'Санджовезе', 'Гарнача'],
-                           ['Cabernet Sauvignon', 'Merlot', 'Syrah', 'Sangiovese', 'Garnacha'],
-                           ['cabernet sauvignon', 'merlot', 'syrah', 'sangiovese', 'garnacha']]
-            }
-        },
-        'light_white': {
-            'dry': {
-                'portugal': port_regions,
-                'import': [['Совиньон Блан', 'Рислинг', 'Альвариньо'],
-                           ['Sauvignon Blanc', 'Riesling', 'Albariño'],
-                           ['sauvignon blanc', 'riesling', 'albarino']]
-            },
-            'semi_dry': {
-                'portugal': port_regions,
-                'import': [['Рислинг', 'Гевюрцтраминер', 'Мускат'],
-                           ['Riesling', 'Gewürztraminer', 'Muscat'],
-                           ['riesling', 'gewurztraminer', 'muscat']]
-            }
-        },
-        'full_white': {
-            'dry':{
-                'portugal': port_regions,
-                'import': [['Шардоне', 'Шенен Блан'],
-                           ['Chardonnay', 'Chenin Blanc'],
-                           ['chardonnay', 'chenin blanc']]
-            },
-            'semi_dry': {
-                'portugal': port_regions,
-                'import': [['Рислинг', 'Гевюрцтраминер', 'Мускат'],
-                           ['Riesling', 'Gewürztraminer', 'Muscat'],
-                           ['riesling', 'gewurztraminer', 'muscat']]
-            }
-        }
-    },
-    'wine_price': [['До 10 евро', 'От 10 до 15 евро', 'От 15 до 20 евро', 'От 20 до 30 евро', 'Более 30 евро'],
-                   ['Up to 10 euros', 'Between €10 and €15', 'Between €15 and €20', 'Between €20 and €30',
-                    'More than €30'],
-                   ['0_10', '10_15', '15_20', '20_30', '30_1000']]
-}
-
-
 dict_messages = {
     1: ['Какой тип вина вы предпочитаете?',
         'What type of wine do you prefer?'],
@@ -193,8 +291,8 @@ dict_messages = {
 Вы предпочли бы легкое и освежающее вино или полнотелое и насыщенное?''',
 '''Now, let's choose the wine style.
 Would you prefer a light and refreshing wine or a full-bodied and rich one?'''],
-    3: ['Сухое, полусухое, а может быть полусладкое?',
-        'Dry, semi-dry, or perhaps semi-sweet?'],
+    3: ['Какое содержание сахара?',
+        'How much sugar content?'],
     4: ["Давайте выберем страну!",
         "Let's choose a country!"],
     5: ["Вы предпочитаете какие-то конкретные сорта винограда?\n"
@@ -236,8 +334,11 @@ error_msg = ['Что-то не так!\nДавайте начнем сначал
 
 btn_cart = ['Корзина', 'Cart']
 
-mandatory_cats = ('wine_style', 'wine_sugar', 'wine_country', 'wine_price')
-mandatory_cats_rose = ('wine_country', 'wine_price')
+mandatory_cats = ('wstyle', 'sugar', 'country', 'price')
+mandatory_cats_rose = ('country', 'price')
+mandatory_cats_orange = ('wstyle', 'country', 'price')
+mandatory_cats_sparkling = ('sugar', 'country', 'price')
+mandatory_cats_fortified = ('wstyle', 'price')
 
 more_cats_msg = ['Не хватает данных!\nНачнем сначала)', "Not enough data! Let's start over)"]
 

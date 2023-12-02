@@ -16,6 +16,7 @@ df_ws = pd.read_csv(StringIO(response.text))
 
 def get_filtered(user_dict):
         filters = []
+        print('user_dict ', user_dict)
 
         min_price, max_price = map(int, user_dict['wine_price'].split('_'))
         price_filter = (df_ws['price'] >= min_price) & (df_ws['price'] <= max_price)

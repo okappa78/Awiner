@@ -3,12 +3,14 @@ from telebot import types
 import my_dict
 from dotenv import load_dotenv
 import os
-from selection import get_filtered
-from getwine import getwine, getphoto
+from getfromdb import get_filtered, get_description, get_photo
+#from selection import get_filtered
+#from getwine import getwine, getphoto
 from addtodb import add_to_db_filters, add_to_db_carts
 from cart import get_numbers, get_address, get_phone, get_orderid
 from sendmsg import sendmsg
 import threading
+
 
 load_dotenv()
 bot = telebot.TeleBot(os.getenv('TOKEN'))
@@ -63,7 +65,7 @@ def reset_filters(user_id):
     if step == 7:
         step = 1
     # Проверка на возврат к выбору Розового вина и вероятные ошибки
-    elif users[user_id].get('wine_type', None) == 'rose' and step < 5:
+    elif users[user_id].get('wtype', None) in ('rose', 'fortified') and step < 5:
         step = 2
 
     for i in range(step, length):
@@ -71,34 +73,54 @@ def reset_filters(user_id):
 
 
 def show_menu_step(user_id):
-    # удаляем все значения фильтра (если они есть),
-    # которые последовательно идут после этого stepa
-    reset_filters(user_id)
-
     lang = users[user_id]['lang']
     step = users[user_id]['step']
     options = my_dict.dict_categories[my_dict.dict_steps[step][0]]
 
-    if step == 2 or step == 4:
-        wtype = users[user_id].get('wine_type', None)
-        if wtype is None:
+    # удаляем все значения фильтра (если они есть),
+    # которые последовательно идут после этого stepa
+    reset_filters(user_id)
+
+    # задаем количество кнопок в ряду
+    rw = 2 if step in (1, 4) else 1
+    # список, в который будут помещаться кнопки
+    btns = []
+
+    if step > 1:
+        try:
+            wtype = users[user_id]['wtype']
+            if step == 2 and wtype == 'orange':
+                options = [option[1:] for option in options]
+            elif step == 3:
+                if wtype == 'sparkling':
+                    options = [option[:2] for option in options]
+                else:
+                    options = [option[1:] for option in options]
+            elif step == 4:
+                options = options[wtype]
+            elif step == 5:
+                wstyle = users[user_id]['wstyle']
+                wcountry = users[user_id]['country']
+                options = options[wtype][wstyle][wcountry]
+                if len(options[lang]) < 2:
+                    users[user_id]['step'] = 6
+                    return show_menu_step(user_id)
+        except:
             users[user_id]['step'] = 1
             bot.send_message(user_id, text=my_dict.error_msg[lang])
             return show_menu_step(user_id)
 
-        options = options[wtype]
+    #if step == 5:
+    #    wstyle = users[user_id]['wstyle']
+    #    wsugar = users[user_id]['sugar']
+    #    wcountry = users[user_id]['country']
+    #    options = options[wstyle][wsugar][wcountry]
 
-    elif step == 5:
-        wstyle = users[user_id]['wine_style']
-        wsugar = users[user_id]['wine_sugar']
-        wcountry = users[user_id]['wine_country']
-        options = options[wstyle][wsugar][wcountry]
-
-    markup = types.InlineKeyboardMarkup(row_width=1)
+    markup = types.InlineKeyboardMarkup(row_width=rw)
     for i, option in enumerate(options[lang]):
-        button = types.InlineKeyboardButton(option,
-                                            callback_data=options[-1][i])
-        markup.add(button)
+        btn = types.InlineKeyboardButton(option, callback_data=options[-1][i])
+        btns.append(btn)
+    markup.add(*btns)
 
     if step == 5:
         button = types.InlineKeyboardButton(text=my_dict.skip_text[lang],
@@ -146,13 +168,22 @@ def confirm_message(user_id):
 
 def check_mandatory_cats(user_id):
     try:
-        users[user_id]['wine_type']
-        if users[user_id]['wine_type'] == 'rose' and all(key in users[user_id] for key in my_dict.mandatory_cats_rose):
+        wtype = users[user_id]['wtype']
+        if wtype in ('rose', 'fortified') and all(key in users[user_id] for key in my_dict.mandatory_cats_rose):
             return True
+
+        elif wtype == 'sparkling' and all(key in users[user_id] for key in my_dict.mandatory_cats_sparkling):
+            return True
+
+        elif wtype == 'orange' and all(key in users[user_id] for key in my_dict.mandatory_cats_orange):
+            return True
+
         elif all(key in users[user_id] for key in my_dict.mandatory_cats):
             return True
+
         else:
             return False
+
     except KeyError:
         return False
 
@@ -184,11 +215,11 @@ def filter_wines(user_id):
         bot.send_message(user_id,
                          text=my_dict.empty_res_msg[lang])
     else:
-        list_of_wines = getwine(wineid_out, user_id, lang=lang)
+        list_of_wines = get_description(wineid_out, user_id, lang=lang)
         # устанавливаем индекс для показа отфильтрованных вин
         list_of_wines[user_id].append(0)
         users_wine.update(list_of_wines)
-        send_description(user_id)
+        show_wines(user_id)
 
 
 def send_description(user_id):
@@ -207,9 +238,67 @@ def send_description(user_id):
     next_button = types.InlineKeyboardButton(my_dict.fwd_button[lang], callback_data='next')
     markup.add(prev_button, next_button, cart_button)
 
-    photo_url = getphoto(wine['wine_id'])
+    photo_url = get_photo(wine['wine_id'])
     sent_message = bot.send_photo(user_id, photo_url, caption=description_text, reply_markup=markup)
     prev_messages[user_id] = sent_message.message_id
+
+
+def show_wines(user_id):
+    index = users_wine[user_id][-1]
+    lang = users[user_id]['lang']
+    wine = users_wine[user_id][index]
+
+    # Create the attributes which we'll take from description
+    lst_attr = [['title', 'collection', 'volume'],
+                ['wtype', 'sugar', 'wstyle', 'alcohol'],
+                ['grape', 'region', 'country'],
+                ['price'], ['bouquet'], ['palate'], ['food']]
+
+    # Create the headers for text output
+    title_attr = [['', ''], ['', ''], ['', ''], ['Цена:', 'Price:'],
+                  ['Запах:', 'Bouquet:'], ['Вкус:', 'Palate:'], ['Еда:', 'Food:']]
+
+    # Delete the previous message
+    if user_id in prev_messages:
+        bot.delete_message(user_id, prev_messages[user_id])
+
+    # Create the list with attributes. Start from number of current position / amount of all position
+    description_text = [f"({index + 1}/{len(users_wine[user_id]) - 1})"]
+
+    # Add the descriptions to the list of attributes
+    for title, attr in zip(title_attr, lst_attr):
+        row = [title[lang]]
+        for key in attr:
+            chunk = wine.get(key, None)
+            if chunk is None:
+                continue
+            chunk = str(chunk)
+
+            if key == 'price':
+                chunk += '0 €'
+
+            row.append(chunk)
+        row = ' '.join(row).lstrip()
+
+        if 'title' in attr:
+            row = f'<b>{row}</b>'
+
+        description_text.append(row)
+
+    # Convert the list of attr to the text for output
+    description_text = '\n'.join(description_text)
+
+    markup = types.InlineKeyboardMarkup(row_width=2)
+    prev_button = types.InlineKeyboardButton(my_dict.bwd_button[lang], callback_data='prev')
+    cart_button = types.InlineKeyboardButton(my_dict.cart_button[lang], callback_data='cart')
+    next_button = types.InlineKeyboardButton(my_dict.fwd_button[lang], callback_data='next')
+    markup.add(prev_button, next_button, cart_button)
+
+    photo_url = get_photo(wine['wine_id'])
+    sent_message = bot.send_photo(user_id, photo_url, caption=description_text, reply_markup=markup, parse_mode='HTML')
+    prev_messages[user_id] = sent_message.message_id
+
+    return description_text
 
 
 def add_to_cart(user_id):
@@ -315,7 +404,7 @@ def add_data_to_order(user_id, data):
         elif step == 12:
             data = get_phone(data)
             if not data:
-                return bot.send_message(user_id, text=['Неверый ввод', 'Wrong data'][lang])
+                return bot.send_message(user_id, text=['Неверный ввод', 'Wrong data'][lang])
             users_cart[user_id].append({'phone': data})
         elif step == 13:
             users_cart[user_id].append({'name': data})
@@ -343,7 +432,9 @@ def check_zero(user_id):
         users_cart[user_id][:-1] = [wine for wine in users_cart[user_id][:-1] if wine['amount'] > 0]
         users[user_id]['wine_cart'] = set([wine['wine_id'] for wine in users_cart[user_id][:-1]])
     except:
+
         return []
+
     if not users[user_id]['wine_cart']:
         users_cart[user_id] = []
 
@@ -388,7 +479,7 @@ def get_text_messages(message):
 
         elif message.text in my_dict.confirm_button:
             try:
-                users[user_id]['wine_price']
+                users[user_id]['price']
 
                 t = threading.Thread(target=add_to_db_filters, args=(user_id, users[user_id]))
                 t.start()
@@ -407,7 +498,7 @@ def get_text_messages(message):
             users[user_id]['step'] = 9
             users_wine.pop(user_id, None)
             cart_wineids = list(map(int, users[user_id]['wine_cart']))
-            list_for_cart = getwine(cart_wineids, user_id, complete=False)
+            list_for_cart = get_description(cart_wineids, user_id, complete=False)
             users_cart.update(list_for_cart)
             send_cart_message(user_id)
 
@@ -448,18 +539,23 @@ def get_call(call):
 
     else:
 
-        lang = users[user_id]['lang']
+        try:
+            lang = users[user_id]['lang']
+        except KeyError:
+            return show_language_selection(user_id)
 
         # check wine type
-        if call.data in my_dict.terms['wine_type']:
-            users[user_id]['wine_type'] = call.data
+        if call.data in my_dict.terms['wtype']:
+            users[user_id]['wtype'] = call.data
             bot.send_message(user_id,
                              text=f"{['Вы выбрали: ', 'You choose: '][lang]}" +
-                                  f"{my_dict.terms['wine_type'][users[user_id]['wine_type']][lang]}")
+                                  f"{my_dict.terms['wtype'][users[user_id]['wtype']][lang]}")
 
-            if call.data == 'rose':
-                users[user_id]['wine_type'] = call.data
+            if call.data in ('rose', 'fortified'):
                 users[user_id]['step'] = 4
+
+            elif call.data == 'sparkling':
+                users[user_id]['step'] = 3
 
             else:
                 users[user_id]['step'] = 2
@@ -467,38 +563,44 @@ def get_call(call):
             show_menu_step(user_id)
 
         # check wine style
-        elif call.data in my_dict.terms['wine_style']:
-            users[user_id]['wine_style'] = call.data
+        elif call.data in my_dict.terms['wstyle']:
+            users[user_id]['wstyle'] = call.data
             bot.send_message(user_id,
                              text=f"{['Вы выбрали: ', 'You choose: '][lang]}" +
-                                  f"{my_dict.terms['wine_style'][users[user_id]['wine_style']][lang]}")
+                                  f"{my_dict.terms['wstyle'][users[user_id]['wstyle']][lang]}")
 
             # КОСТЫЛЬ!!! Разобраться!!!
-            users[user_id]['wine_type'] = users[user_id]['wine_style'].split('_')[-1]
+            #users[user_id]['wtype'] = users[user_id]['wstyle'].split('_')[-1]
 
             users[user_id]['step'] = 3
+            if users[user_id]['wtype'] == 'orange':
+                users[user_id]['step'] = 4
+            elif users[user_id]['wtype'] == 'fortified':
+                users[user_id]['step'] = 6
             show_menu_step(user_id)
 
         # check sugar in wine
-        elif call.data in my_dict.terms['wine_sugar']:
-            users[user_id]['wine_sugar'] = call.data
+        elif call.data in my_dict.terms['sugar']:
+            users[user_id]['sugar'] = call.data
             bot.send_message(user_id,
                              text=f"{['Вы выбрали: ', 'You choose: '][lang]}" +
-                                  f"{my_dict.terms['wine_sugar'][users[user_id]['wine_sugar']][lang]}")
+                                  f"{my_dict.terms['sugar'][users[user_id]['sugar']][lang]}")
 
             users[user_id]['step'] = 4
             show_menu_step(user_id)
 
         # check country
-        elif call.data in my_dict.terms['wine_country']:
-            users[user_id]['wine_country'] = call.data
+        elif call.data in my_dict.terms['country']:
+            users[user_id]['country'] = call.data
             bot.send_message(user_id,
                              text=f"{['Вы выбрали: ', 'You choose: '][lang]}" +
-                                  f"{my_dict.terms['wine_country'][users[user_id]['wine_country']][lang]}")
+                                  f"{my_dict.terms['country'][users[user_id]['country']][lang]}")
 
-            if users[user_id].get('wine_sugar', None) == 'dry'\
-                    or (users[user_id].get('wine_sugar', None) == 'semi_dry'
-                        and users[user_id].get('wine_type', None) == 'white'):
+#НЕ ЗАБЫТЬ УДАЛИТЬ ЛИШНЕЕ УСЛОВИЕ or (users[user_id].get('sugar', None) == 'semi_dry'
+            if users[user_id].get('wtype', None) in ('red', 'white')\
+                and users[user_id].get('sugar', None) == 'dry':
+                    #or (users[user_id].get('sugar', None) == 'semi_dry'
+                        #and users[user_id].get('wtype', None) == 'white'):
                 users[user_id]['step'] = 5
 
             else:
@@ -507,11 +609,11 @@ def get_call(call):
             show_menu_step(user_id)
 
         # check grapes
-        elif call.data in my_dict.terms['wine_grape']:
-            users[user_id]['wine_grape'] = call.data
+        elif call.data in my_dict.terms['grape']:
+            users[user_id]['grape'] = call.data
             bot.send_message(user_id,
                              text=f"{['Вы выбрали: ', 'You choose: '][lang]}" +
-                                  f"{my_dict.terms['wine_grape'][users[user_id]['wine_grape']][lang]}")
+                                  f"{my_dict.terms['grape'][users[user_id]['grape']][lang]}")
 
             users[user_id]['step'] = 6
             show_menu_step(user_id)
@@ -522,8 +624,8 @@ def get_call(call):
             show_menu_step(user_id)
 
         # check price
-        elif call.data in my_dict.terms['wine_price']:
-            users[user_id]['wine_price'] = call.data
+        elif call.data in my_dict.terms['price']:
+            users[user_id]['price'] = call.data
 
             if check_mandatory_cats(user_id):
                 confirm_message(user_id)
@@ -540,10 +642,10 @@ def get_call(call):
 
         elif call.data == 'prev' and users_wine:
             users_wine[user_id][-1] = max(0, users_wine[user_id][-1] - 1)
-            send_description(user_id)
+            show_wines(user_id)
         elif call.data == 'next' and users_wine:
             users_wine[user_id][-1] = min(len(users_wine[user_id]) - 2, users_wine[user_id][-1] + 1)
-            send_description(user_id)
+            show_wines(user_id)
 
         elif call.data == 'cart' and users_wine:
             add_to_cart(user_id)
