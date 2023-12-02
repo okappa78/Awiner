@@ -479,12 +479,11 @@ def get_text_messages(message):
 
         elif message.text in my_dict.confirm_button:
             try:
-                print('111')
                 users[user_id]['price']
-                print('222')
+
                 t = threading.Thread(target=add_to_db_filters, args=(user_id, users[user_id]))
                 t.start()
-                print('333')
+
                 users[user_id]['step'] = 7
                 filter_wines(user_id)
 
