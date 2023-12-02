@@ -63,9 +63,6 @@ def clause_country(mydict):
 
 
 def clause_grape(mydict):
-    if 'grape' not in mydict:
-        return ''
-
     grape = mydict['grape']
 
     if grape != 'other':
@@ -114,21 +111,18 @@ def get_filtered(my_dict):
     where_filters = [f"(price >= {user_dict.pop('min_price', None)} AND price < {user_dict.pop('max_price', None)})",
                      f"(stock = True)"]
 
-    # Create clause country
-    fltr = clause_country(user_dict)
-    where_filters.append(fltr)
-
-    # Create clause grape
-    fltr = clause_grape(user_dict)
-    where_filters.append(fltr)
-
     # Delete unneeded keys
-    for k in ('lang', 'step', 'country', 'grape'):
+    for k in ('lang', 'step'):
         user_dict.pop(k, None)
 
     # Create the rest of clauses
     for k, v in user_dict.items():
-        clause = f"({k} = '{v}')"
+        if k == 'grape':
+            clause = clause_grape(user_dict)
+        elif k == 'country':
+            clause = clause_country(user_dict)
+        else:
+            clause = f"({k} = '{v}')"
         where_filters.append(clause)
 
     # Construct the SELECT query
