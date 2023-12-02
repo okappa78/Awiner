@@ -11,7 +11,7 @@ port_regions = (('Дуэйру', 'Алентежу', 'Винью Верде', '�
                 ('Douro', 'Alentejo', 'Vinho Verde', 'Dão'),
                 ('douro', 'alentejo', 'vinho verde', 'dao'))
 
-empty_grapes = (('Другой'), ('Other'), ('other'))
+empty_grapes = (('Другой',), ('Other',), ('other',))
 
 grapes_dict = {
         'douro': ('Дуэйру', 'Douro'),
