@@ -341,6 +341,12 @@ def send_cart_message(user_id):
 
         text_message.append(point)
 
+        short_description = f"\n<i>{w['wtype']} {w['sugar']}</i>".capitalize()
+        if w['wstyle'] is not None:
+            short_description = f"\n<i>{w['wtype']} {w['wstyle']} {w['sugar']}</i>".capitalize()
+
+        text_message.append(short_description)
+
     if step == 9:
         bot.send_message(user_id,
                          text=my_dict.wine_cart_msg[lang])

@@ -144,7 +144,7 @@ def get_description(list_of_ids, user_id, lang=0, complete=True):
     table_name = f"description_{['rus', 'eng'][lang]}"
 
     # choose the list of attributes
-    lst_attr = ['wine_id', 'title', 'collection', 'price']
+    lst_attr = ['wine_id', 'title', 'collection', 'price', 'wtype', 'wstyle', 'sugar']
     if complete:
         lst_attr = ['wine_id', 'wtype', 'country', 'region', 'title', 'collection', 'volume', 'price',
                     'wstyle', 'sugar', 'grape', 'alcohol', 'bouquet', 'palate', 'food']
