@@ -352,15 +352,15 @@ def send_cart_message(user_id):
                      text='\n\n'.join(text_message), parse_mode='HTML', reply_markup=markup)
 
     if step == 10:
-        cart_amount = sum([w['price'] * w['amount'] for w in wines])
+        cart_amount = round(sum([w['price'] * w['amount'] for w in wines]), 1)
         del_flag = int(cart_amount < 30)
         delivery = ['0€', '5€'][del_flag]
         total = cart_amount + (0, 5)[del_flag]
         users_cart[user_id].append({'delivery': ('n', 'y')[del_flag]})
 
-        txt = f"{my_dict.cart_summary_msg[lang]} <b>{cart_amount}€</b>\n" + \
+        txt = f"{my_dict.cart_summary_msg[lang]} <b>{cart_amount}0€</b>\n" + \
               f"{['Доставка:', 'Delivery:'][lang]} <b>{delivery}</b>\n" + \
-              f"{['Итого:', 'Total:'][lang]} <b>{total}€</b>"
+              f"{['Итого:', 'Total:'][lang]} <b>{total}0€</b>"
 
         markup_inline = types.InlineKeyboardMarkup(row_width=1)
         order_button = types.InlineKeyboardButton(my_dict.order_button[lang], callback_data='order')
