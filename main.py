@@ -4,8 +4,6 @@ import my_dict
 from dotenv import load_dotenv
 import os
 from getfromdb import get_filtered, get_description, get_photo
-#from selection import get_filtered
-#from getwine import getwine, getphoto
 from addtodb import add_to_db_filters, add_to_db_carts
 from cart import get_numbers, get_address, get_phone, get_orderid
 from sendmsg import sendmsg
@@ -263,7 +261,7 @@ def show_wines(user_id):
         bot.delete_message(user_id, prev_messages[user_id])
 
     # Create the list with attributes. Start from number of current position / amount of all position
-    description_text = [f"({index + 1}/{len(users_wine[user_id]) - 1})"]
+    description_text = [f"{['Вино №', 'Wine #'][lang]}{index + 1} {['из', 'of'][lang]} {len(users_wine[user_id]) - 1})"]
 
     # Add the descriptions to the list of attributes
     for title, attr in zip(title_attr, lst_attr):
@@ -323,7 +321,7 @@ def send_cart_message(user_id):
     text_message = [['Ваша корзина: ', 'Your cart: '][lang]]
 
     for i, w in enumerate(wines, 1):
-        point = f"<b>{i}. {w['title']}, {w['price']}.00 €</b>"
+        point = f"<b>{i}. {w['title']} {w['collection']}, {w['price']}0 €</b>"
         if 'amount' in w:
             point += f"<b> - {w['amount']}{['шт', 'qty'][lang]}</b>"
             if w['amount'] == 0:
