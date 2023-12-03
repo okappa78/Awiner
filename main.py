@@ -373,7 +373,7 @@ def send_cart_message(user_id):
         order_button = types.InlineKeyboardButton(my_dict.order_button[lang], callback_data='order')
         markup_inline.add(order_button)
         bot.send_message(user_id, text=txt, parse_mode='HTML', reply_markup=markup_inline)
-        bot.send_message(user_id, text=my_dict.edit_qty_msg)
+        bot.send_message(user_id, text=my_dict.edit_qty_msg[lang])
 
 
 def get_amount(user_id, numbers):
