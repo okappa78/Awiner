@@ -112,7 +112,7 @@ def get_filtered(my_dict):
                      f"(stock = True)"]
 
     # Delete unneeded keys
-    for k in ('lang', 'step'):
+    for k in ('lang', 'step', 'wine_cart'):
         user_dict.pop(k, None)
 
     # Create the rest of clauses
