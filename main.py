@@ -247,8 +247,8 @@ def show_wines(user_id):
     wine = users_wine[user_id][index]
 
     # Create the attributes which we'll take from description
-    lst_attr = [['title', 'collection', 'volume'],
-                ['wtype', 'sugar', 'wstyle', 'alcohol'],
+    lst_attr = [['title', 'collection'],
+                ['wtype', 'wstyle', 'sugar', 'alcohol'],
                 ['grape', 'region', 'country'],
                 ['price'], ['bouquet'], ['palate'], ['food']]
 
@@ -261,7 +261,9 @@ def show_wines(user_id):
         bot.delete_message(user_id, prev_messages[user_id])
 
     # Create the list with attributes. Start from number of current position / amount of all position
-    description_text = [f"{['Вино №', 'Wine #'][lang]}{index + 1} {['из', 'of'][lang]} {len(users_wine[user_id]) - 1})"]
+    description_text = [f"{['Вино ', 'Wine '][lang]}{index + 1} "
+                        f"{['из', 'of'][lang]} {len(users_wine[user_id]) - 1} "
+                        f"{['найденных', 'found'][lang]}"]
 
     # Add the descriptions to the list of attributes
     for title, attr in zip(title_attr, lst_attr):
@@ -272,7 +274,11 @@ def show_wines(user_id):
                 continue
             chunk = str(chunk)
 
-            if key == 'price':
+            if key == 'sugar' or key == 'region':
+                chunk += ','
+            elif key == 'country':
+                chunk += f" {['из', 'from'][lang]}"
+            elif key == 'price':
                 chunk += '0 €'
 
             row.append(chunk)
@@ -280,6 +286,8 @@ def show_wines(user_id):
 
         if 'title' in attr:
             row = f'<b>{row}</b>'
+        elif 'wtype' in attr:
+            row = row.capitalize()
 
         description_text.append(row)
 
@@ -321,7 +329,8 @@ def send_cart_message(user_id):
     text_message = [['Ваша корзина: ', 'Your cart: '][lang]]
 
     for i, w in enumerate(wines, 1):
-        point = f"<b>{i}. {w['title']} {w['collection']}, {w['price']}0 €</b>"
+        title = f"{w['title']} {w['collection']}" if w['collection'] is not None else f"{w['title']}"
+        point = f"<b>{i}. {title}, {w['price']}0 €</b>"
         if 'amount' in w:
             point += f"<b> - {w['amount']}{['шт', 'qty'][lang]}</b>"
             if w['amount'] == 0:
