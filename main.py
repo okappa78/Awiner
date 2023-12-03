@@ -276,7 +276,7 @@ def show_wines(user_id):
 
             if key == 'sugar' or key == 'region':
                 chunk += ','
-            elif key == 'country':
+            elif key == 'grape':
                 chunk += f" {['из', 'from'][lang]}"
             elif key == 'price':
                 chunk += '0 €'
