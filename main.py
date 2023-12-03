@@ -321,7 +321,7 @@ def add_to_cart(user_id):
     btn_cart = types.KeyboardButton(text=my_dict.btn_cart[lang])
     markup = show_return_lang_button(btn_restart, btn_cart)
 
-    txt_add_cart = f"{my_dict.confirm_carts_msg[lang]}\n{wine['title']}"
+    txt_add_cart = f"{my_dict.confirm_carts_msg[lang]}\n{wine['title']} {wine['collection']}"
     bot.send_message(user_id, text=txt_add_cart, reply_markup=markup)
 
 
@@ -338,9 +338,9 @@ def send_cart_message(user_id):
             point += f"<b> - {w['amount']}{['шт', 'qty'][lang]}</b>"
             if w['amount'] == 0:
                 point = f"<s>{point}</s>"
-        short_description = f"\n<i>{w['wtype'].lower()} {w['sugar'].lower()}</i>"
+        short_description = f"\n<i>{w['wtype']} {w['sugar'].lower()}</i>"
         if w['wstyle'] is not None:
-            short_description = f"\n<i>{w['wtype']} {w['wstyle'].lower()} {w['sugar'].lower()}</i>".capitalize()
+            short_description = f"\n<i>{w['wtype']} {w['wstyle'].lower()} {w['sugar'].lower()}</i>"
 
         point += short_description
         text_message.append(point)
@@ -510,9 +510,10 @@ def get_text_messages(message):
         # ИДЕМ В КОРЗИНУ И РЕДАКТИРУЕМ КОЛИЧЕСТВО
         elif message.text in my_dict.btn_cart:
             users[user_id]['step'] = 9
+            lang = users[user_id]['lang']
             users_wine.pop(user_id, None)
             cart_wineids = list(map(int, users[user_id]['wine_cart']))
-            list_for_cart = get_description(cart_wineids, user_id, complete=False)
+            list_for_cart = get_description(cart_wineids, user_id, lang=lang, complete=False)
             users_cart.update(list_for_cart)
             send_cart_message(user_id)
 
