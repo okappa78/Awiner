@@ -338,14 +338,12 @@ def send_cart_message(user_id):
             point += f"<b> - {w['amount']}{['шт', 'qty'][lang]}</b>"
             if w['amount'] == 0:
                 point = f"<s>{point}</s>"
-
-        text_message.append(point)
-
-        short_description = f"\n<i>{w['wtype']} {w['sugar']}</i>".capitalize()
+        short_description = f"\n<i>{w['wtype'].lower()} {w['sugar'].lower()}</i>"
         if w['wstyle'] is not None:
-            short_description = f"\n<i>{w['wtype']} {w['wstyle']} {w['sugar']}</i>".capitalize()
+            short_description = f"\n<i>{w['wtype']} {w['wstyle'].lower()} {w['sugar'].lower()}</i>".capitalize()
 
-        text_message.append(short_description)
+        point += short_description
+        text_message.append(point)
 
     if step == 9:
         bot.send_message(user_id,
