@@ -48,11 +48,14 @@ def show_language_selection(user_id):
 def intro_message(user_id):
     lang = users[user_id]['lang']
 
-    markup = show_return_lang_button()
+    btn_cart = None
+    if users[user_id].get('wine_cart', None):
+        btn_cart = types.KeyboardButton(text=my_dict.btn_cart[lang])
+    markup = show_return_lang_button(btn_cart)
 
     bot.send_message(user_id, text=my_dict.intro_message[lang])
-    bot.send_message(user_id, text=my_dict.help_message[lang])
-    bot.send_message(user_id, text=my_dict.ai_message[lang], reply_markup=markup)
+    bot.send_message(user_id, text=my_dict.help_message[lang], reply_markup=markup)
+    # bot.send_message(user_id, text=my_dict.ai_message[lang], reply_markup=markup)
 
 
 def reset_filters(user_id):
