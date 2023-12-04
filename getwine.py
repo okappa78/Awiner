@@ -38,9 +38,6 @@ def getphoto(wine_id):
     photo_url = file_url + f"{wine_id}.png"
 
     if requests.head(photo_url).status_code != 200:
-        photo_url = file_url + 'noname.png'
-
-    #response = requests.get(photo_url)
-    #photo = BytesIO(response.content)
+        photo_url = file_url + 'grapes.png'
 
     return photo_url
