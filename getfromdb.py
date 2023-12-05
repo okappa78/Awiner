@@ -169,7 +169,7 @@ def get_description(list_of_ids, user_id, lang=0, complete=True):
 
 def get_photo(wine_id):
     file_url = os.getenv('file_img_url')
-    photo_url = file_url + f"{wine_id}.png"
+    photo_url = file_url + f"aw_n{wine_id}.png"
 
     if requests.head(photo_url).status_code != 200:
         photo_url = file_url + 'grapes.jpg'
