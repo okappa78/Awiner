@@ -146,7 +146,7 @@ def get_description(list_of_ids, user_id, lang=0, complete=True):
     # choose the list of attributes
     lst_attr = ['wine_id', 'title', 'collection', 'price', 'wtype', 'wstyle', 'sugar']
     if complete:
-        lst_attr = ['wine_id', 'wtype', 'country', 'region', 'title', 'collection', 'volume', 'price',
+        lst_attr = ['wine_id', 'wtype', 'country', 'region', 'title', 'maker', 'collection', 'volume', 'price',
                     'wstyle', 'sugar', 'grape', 'alcohol', 'bouquet', 'palate', 'food']
 
     # create where clause based on wine_ids

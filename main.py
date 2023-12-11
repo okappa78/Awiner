@@ -250,14 +250,14 @@ def show_wines(user_id):
     wine = users_wine[user_id][index]
 
     # Create the attributes which we'll take from description
-    lst_attr = [['title', 'collection'],
+    '''lst_attr = [['title', 'collection'],
                 ['wtype', 'wstyle', 'sugar', 'alcohol'],
                 ['grape', 'region', 'country'],
                 ['price'], ['bouquet'], ['palate'], ['food']]
 
     # Create the headers for text output
     title_attr = [['', ''], ['', ''], ['', ''], ['Цена:', 'Price:'],
-                  ['Запах:', 'Bouquet:'], ['Вкус:', 'Palate:'], ['Еда:', 'Food:']]
+                  ['Аромат:', 'Bouquet:'], ['Вкус:', 'Palate:'], ['Еда:', 'Food:']]
 
     # Delete the previous message
     if user_id in prev_messages:
@@ -289,6 +289,56 @@ def show_wines(user_id):
 
         if 'title' in attr:
             row = f'<b>{row}</b>'
+        elif 'wtype' in attr:
+            row = row.capitalize()
+
+        description_text.append(row)'''
+
+    # Create the attributes which we'll take from description
+    lst_attr = [['title', 'collection'],
+                ['maker'],
+                ['wtype', 'wstyle', 'sugar', 'alcohol'],
+                ['grape'],
+                ['region', 'country'],
+                ['price'], ['bouquet'], ['palate'], ['food']]
+
+    # Create the headers for text output
+    title_attr = [['Вино:', 'Wine:'], ['Производитель:', 'Producer:'], ['Тип:', 'Type:'],
+                  ['Виноград:', 'Grape:'], ['Регион:', 'Region:'], ['Цена:', 'Price:'],
+                  ['Аромат:', 'Bouquet:'], ['Вкус:', 'Palate:'], ['Гастрономия:', 'Gastronomy:']]
+
+    # Delete the previous message
+    if user_id in prev_messages:
+        bot.delete_message(user_id, prev_messages[user_id])
+
+    # Create the list with attributes. Start from number of current position / amount of all position
+    description_text = [f"{['Вино ', 'Wine '][lang]}{index + 1} "
+                        f"{['из', 'of'][lang]} {len(users_wine[user_id]) - 1} "
+                        f"{['найденных', 'found'][lang]}"]
+
+    # Add the descriptions to the list of attributes
+    for title, attr in zip(title_attr, lst_attr):
+        row = [title[lang]]
+        for key in attr:
+            chunk = wine.get(key, None)
+            if chunk is None:
+                continue
+            chunk = str(chunk)
+
+            if key == 'sugar' or key == 'region':
+                chunk += ','
+            elif key == 'price':
+                chunk += '0 €'
+
+            row.append(chunk)
+        row = ' '.join(row).lstrip()
+
+        if 'title' in attr or 'price' in attr:
+            row_split = row.split(': ')
+            row = f'{row_split[0]}: <b>{row_split[1:]}</b>'
+        elif 'maker' in attr:
+            row_split = row.split(': ')
+            row = f'{row_split[0]}: <i>{row_split[1:]}</i>'
         elif 'wtype' in attr:
             row = row.capitalize()
 
