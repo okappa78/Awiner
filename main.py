@@ -312,7 +312,7 @@ def show_wines(user_id):
         bot.delete_message(user_id, prev_messages[user_id])
 
     # Create the list with attributes. Start from number of current position / amount of all position
-    description_text = [f"{['Вино ', 'Wine '][lang]}{index + 1} "
+    description_text = [f"{index + 1} "
                         f"{['из', 'of'][lang]} {len(users_wine[user_id]) - 1} "
                         f"{['найденных', 'found'][lang]}"]
 
@@ -335,10 +335,10 @@ def show_wines(user_id):
 
         if 'title' in attr or 'price' in attr:
             row_split = row.split(': ')
-            row = f'{row_split[0]}: <b>{row_split[1:]}</b>'
+            row = f'{row_split[0]}: <b>{*row_split[1:]}</b>'
         elif 'maker' in attr:
             row_split = row.split(': ')
-            row = f'{row_split[0]}: <i>{row_split[1:]}</i>'
+            row = f'{row_split[0]}: <i>{*row_split[1:]}</i>'
         elif 'wtype' in attr:
             row = row.capitalize()
 
