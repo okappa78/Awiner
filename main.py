@@ -335,10 +335,10 @@ def show_wines(user_id):
 
         if 'title' in attr or 'price' in attr:
             row_split = row.split(': ')
-            row = f'{row_split[0]}: <b>{*row_split[1:]}</b>'
+            row = f'{row_split[0]}: <b>{row_split[1]}</b>'
         elif 'maker' in attr:
             row_split = row.split(': ')
-            row = f'{row_split[0]}: <i>{*row_split[1:]}</i>'
+            row = f'{row_split[0]}: <i>{row_split[1]}</i>'
         elif 'wtype' in attr:
             row = row.capitalize()
 
