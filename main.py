@@ -261,7 +261,7 @@ def wine_template(index, lngth, lang, wine):
                          f"{wine.get('sugar', None)}, {wine.get('alcohol', None)}".replace('  ', ' ')
     dict_head['grape'] = f"{['Виноград:', 'Grape:'][lang]} {wine.get('grape', None)}"
     dict_head['region'] = f"{['Регион:', 'Region:'][lang]} {wine.get('country', None)}, {wine.get('region', None)}"
-    if 'subregion' in wine:
+    if wine.get('subregion', None):
         dict_head['region'] += f", {wine.get('subregion', None)}"
     dict_head['price'] = f"{['Цена:', 'Price:'][lang]} <b>{wine.get('price', None)}0 €</b>"
     dict_head['bouquet'] = f"{['Аромат:', 'Bouquet:'][lang]} {wine.get('bouquet', None)}"
