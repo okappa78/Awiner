@@ -255,7 +255,7 @@ def wine_template(index, lngth, lang, wine):
                         f"{['найденных', 'found'][lang]}"]
 
     # Fill the dictionary for text output
-    dict_head['wine'] = f"{['Вино:', 'Wine:'][lang]} <b>{wine.get('title', '')}</b>".rstrip()
+    dict_head['wine'] = f"{['Вино:', 'Wine:'][lang]} <b>{wine.get('title', None)}</b>".rstrip()
     dict_head['maker'] = f"{['Пр-ль:', 'Producer:'][lang]} <i>{wine.get('maker', None)}</i>"
     dict_head['wtype'] = f"{['Тип:', 'Type:'][lang]} {wine.get('wtype', None)} {wine.get('wstyle', None)} " \
                          f"{wine.get('sugar', None)}, {wine.get('alcohol', None)}".replace(' None', '')
@@ -278,53 +278,6 @@ def show_wines(user_id):
     index = users_wine[user_id][-1]
     lang = users[user_id]['lang']
     wine = users_wine[user_id][index]
-
-    # Create the attributes which we'll take from description
-    '''lst_attr = [['title', 'collection'],
-                ['wtype', 'wstyle', 'sugar', 'alcohol'],
-                ['grape', 'region', 'country'],
-                ['price'], ['bouquet'], ['palate'], ['food']]
-
-    # Create the headers for text output
-    title_attr = [['', ''], ['', ''], ['', ''], ['Цена:', 'Price:'],
-                  ['Аромат:', 'Bouquet:'], ['Вкус:', 'Palate:'], ['Еда:', 'Food:']]
-
-    # Delete the previous message
-    if user_id in prev_messages:
-        bot.delete_message(user_id, prev_messages[user_id])
-
-    # Create the list with attributes. Start from number of current position / amount of all position
-    description_text = [f"{['Вино ', 'Wine '][lang]}{index + 1} "
-                        f"{['из', 'of'][lang]} {len(users_wine[user_id]) - 1} "
-                        f"{['найденных', 'found'][lang]}"]
-
-    # Add the descriptions to the list of attributes
-    for title, attr in zip(title_attr, lst_attr):
-        row = [title[lang]]
-        for key in attr:
-            chunk = wine.get(key, None)
-            if chunk is None:
-                continue
-            chunk = str(chunk)
-
-            if key == 'sugar' or key == 'region':
-                chunk += ','
-            elif key == 'grape':
-                chunk += f" {['из', 'from'][lang]}"
-            elif key == 'price':
-                chunk += '0 €'
-
-            row.append(chunk)
-        row = ' '.join(row).lstrip()
-
-        if 'title' in attr:
-            row = f'<b>{row}</b>'
-        elif 'wtype' in attr:
-            row = row.capitalize()
-
-        description_text.append(row)'''
-
-
 
     # Delete the previous message
     if user_id in prev_messages:
