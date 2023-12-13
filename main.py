@@ -255,7 +255,7 @@ def wine_template(index, lngth, lang, wine):
                         f"{['найденных', 'found'][lang]}"]
 
     # Fill the dictionary for text output
-    dict_head['wine'] = f"{['Вино:', 'Wine:'][lang]} <b>{wine.get('title', None)} {wine.get('title', '')}</b>".rstrip()
+    dict_head['wine'] = f"{['Вино:', 'Wine:'][lang]} <b>{wine.get('title', '')}</b>".rstrip()
     dict_head['maker'] = f"{['Пр-ль:', 'Producer:'][lang]} <i>{wine.get('maker', None)}</i>"
     dict_head['wtype'] = f"{['Тип:', 'Type:'][lang]} {wine.get('wtype', None)} {wine.get('wstyle', None)} " \
                          f"{wine.get('sugar', None)}, {wine.get('alcohol', None)}".replace(' None', '')
