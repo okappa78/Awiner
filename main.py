@@ -223,7 +223,7 @@ def filter_wines(user_id):
         show_wines(user_id)
 
 
-def send_description(user_id):
+'''def send_description(user_id):
     index = users_wine[user_id][-1]
     lang = users[user_id]['lang']
     wine = users_wine[user_id][index]
@@ -241,7 +241,7 @@ def send_description(user_id):
 
     photo_url = get_photo(wine['wine_id'])
     sent_message = bot.send_photo(user_id, photo_url, caption=description_text, reply_markup=markup)
-    prev_messages[user_id] = sent_message.message_id
+    prev_messages[user_id] = sent_message.message_id'''
 
 
 def show_wines(user_id):
@@ -299,7 +299,7 @@ def show_wines(user_id):
                 ['maker'],
                 ['wtype', 'wstyle', 'sugar', 'alcohol'],
                 ['grape'],
-                ['region', 'country'],
+                ['country', 'region', 'subregion'],
                 ['price'], ['bouquet'], ['palate'], ['food']]
 
     # Create the headers for text output
@@ -325,24 +325,28 @@ def show_wines(user_id):
                 continue
             chunk = str(chunk)
 
-            if key == 'sugar' or key == 'region':
+            if key in ('title', 'price'):
+                chunk = f'<b>{chunk}</b>'
+            elif key == 'maker':
+                chunk = f'<i>{chunk}</i>'
+            elif key == 'sugar':
                 chunk += ','
             elif key == 'price':
                 chunk += '0 €'
 
             row.append(chunk)
-        row = ' '.join(row).lstrip()
+        description_row = ' '.join(row).lstrip()
+        if 'country' in attr:
+            description_row = ', '.join(row).lstrip()
 
-        if 'title' in attr or 'price' in attr:
+        """if 'title' in attr or 'price' in attr:
             row_split = row.split(': ')
             row = f'{row_split[0]}: <b>{row_split[1]}</b>'
         elif 'maker' in attr:
             row_split = row.split(': ')
-            row = f'{row_split[0]}: <i>{row_split[1]}</i>'
-        elif 'wtype' in attr:
-            row = row.capitalize()
+            row = f'{row_split[0]}: <i>{row_split[1]}</i>'"""
 
-        description_text.append(row)
+        description_text.append(description_row)
 
     # Convert the list of attr to the text for output
     description_text = '\n'.join(description_text)
@@ -388,9 +392,9 @@ def send_cart_message(user_id):
             point += f"<b> - {w['amount']}{['шт', 'qty'][lang]}</b>"
             if w['amount'] == 0:
                 point = f"<s>{point}</s>"
-        short_description = f"\n<i>{w['wtype']} {w['sugar'].lower()}</i>"
+        short_description = f"\n<i>{w['wtype'].capitalize()} {w['sugar']}</i>"
         if w['wstyle'] is not None:
-            short_description = f"\n<i>{w['wtype']} {w['wstyle'].lower()} {w['sugar'].lower()}</i>"
+            short_description = f"\n<i>{w['wtype'].capitalize()} {w['wstyle']} {w['sugar']}</i>"
 
         point += short_description
         text_message.append(point)
