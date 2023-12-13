@@ -244,6 +244,36 @@ def filter_wines(user_id):
     prev_messages[user_id] = sent_message.message_id'''
 
 
+def wine_template(index, lngth, lang, wine):
+    # Create list with headers and dictionary
+    lst_header = ['wine', 'maker', 'wtype', 'grape', 'region', 'price', 'bouquet', 'palate', 'food']
+    dict_head = {}
+
+    # Start description text from number of current position / amount of all position
+    description_text = [f"{index + 1} "
+                        f"{['из', 'of'][lang]} {lngth} "
+                        f"{['найденных', 'found'][lang]}"]
+
+    # Fill the dictionary for text output
+    dict_head['wine'] = f"{['Вино:', 'Wine:'][lang]} <b>{wine.get('title', None)} {wine.get('title', '')}</b>".rstrip()
+    dict_head['maker'] = f"{['Пр-ль:', 'Producer:'][lang]} <i>{wine.get('maker', None)}</i>"
+    dict_head['wtype'] = f"{['Тип:', 'Type:'][lang]} {wine.get('wtype', None)} {wine.get('wstyle', '')} " \
+                         f"{wine.get('sugar', None)}, {wine.get('alcohol', None)}".replace('  ', ' ')
+    dict_head['grape'] = f"{['Виноград:', 'Grape:'][lang]} {wine.get('grape', None)}"
+    dict_head['region'] = f"{['Регион:', 'Region:'][lang]} {wine.get('country', None)}, {wine.get('region', None)}"
+    if 'subregion' in wine:
+        dict_head['region'] += f", {wine.get('subregion', None)}"
+    dict_head['price'] = f"{['Цена:', 'Price:'][lang]} <b>{wine.get('price', None)}0 €</b>"
+    dict_head['bouquet'] = f"{['Аромат:', 'Bouquet:'][lang]} {wine.get('bouquet', None)}"
+    dict_head['palate'] = f"{['Вкус:', 'Palate:'][lang]} {wine.get('palate', None)}"
+    dict_head['food'] = f"{['Гастрономия:', 'Gastronomy:'][lang]} {wine.get('food', None)}"
+
+    for header in lst_header:
+        description_text.append(dict_head[header])
+
+    return description_text
+
+
 def show_wines(user_id):
     index = users_wine[user_id][-1]
     lang = users[user_id]['lang']
@@ -294,62 +324,18 @@ def show_wines(user_id):
 
         description_text.append(row)'''
 
-    # Create the attributes which we'll take from description
-    lst_attr = [['title', 'collection'],
-                ['maker'],
-                ['wtype', 'wstyle', 'sugar', 'alcohol'],
-                ['grape'],
-                ['country', 'region', 'subregion'],
-                ['price'], ['bouquet'], ['palate'], ['food']]
 
-    # Create the headers for text output
-    title_attr = [['Вино:', 'Wine:'], ['Производитель:', 'Producer:'], ['Тип:', 'Type:'],
-                  ['Виноград:', 'Grape:'], ['Регион:', 'Region:'], ['Цена:', 'Price:'],
-                  ['Аромат:', 'Bouquet:'], ['Вкус:', 'Palate:'], ['Гастрономия:', 'Gastronomy:']]
 
     # Delete the previous message
     if user_id in prev_messages:
         bot.delete_message(user_id, prev_messages[user_id])
 
-    # Create the list with attributes. Start from number of current position / amount of all position
-    description_text = [f"{index + 1} "
-                        f"{['из', 'of'][lang]} {len(users_wine[user_id]) - 1} "
-                        f"{['найденных', 'found'][lang]}"]
+    lngth = len(users_wine[user_id]) - 1
 
-    # Add the descriptions to the list of attributes
-    for title, attr in zip(title_attr, lst_attr):
-        row = [title[lang]]
-        for key in attr:
-            chunk = wine.get(key, None)
-            if chunk is None:
-                continue
-            chunk = str(chunk)
-
-            if key in ('title', 'price'):
-                chunk = f'<b>{chunk}</b>'
-            elif key == 'maker':
-                chunk = f'<i>{chunk}</i>'
-            elif key == 'sugar':
-                chunk += ','
-            elif key == 'price':
-                chunk += '0 €'
-
-            row.append(chunk)
-        description_row = ' '.join(row).lstrip()
-        if 'country' in attr:
-            description_row = ', '.join(row).lstrip()
-
-        """if 'title' in attr or 'price' in attr:
-            row_split = row.split(': ')
-            row = f'{row_split[0]}: <b>{row_split[1]}</b>'
-        elif 'maker' in attr:
-            row_split = row.split(': ')
-            row = f'{row_split[0]}: <i>{row_split[1]}</i>'"""
-
-        description_text.append(description_row)
+    description_txt = wine_template(index, lngth, lang, wine)
 
     # Convert the list of attr to the text for output
-    description_text = '\n'.join(description_text)
+    description_text = '\n'.join(description_txt)
 
     markup = types.InlineKeyboardMarkup(row_width=2)
     prev_button = types.InlineKeyboardButton(my_dict.bwd_button[lang], callback_data='prev')
