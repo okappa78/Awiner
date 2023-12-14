@@ -59,8 +59,8 @@ def intro_message(user_id):
 
 
 def reset_filters(user_id):
-    step = users[user_id]['step']
-    length = len(my_dict.dict_steps) + 1
+    step = users[user_id]['step'] if users[user_id]['step'] < 50 else 5
+    length = 7
 
     # Если пользователь подтвердил все фильтры, то после их обработки, удаляем все фильтры
     if step == 7:
@@ -71,6 +71,9 @@ def reset_filters(user_id):
 
     for i in range(step, length):
         users[user_id].pop(my_dict.dict_steps[i][0], None)
+        if i == 5:
+            users[user_id].pop('grape', None)
+            users[user_id].pop('region', None)
 
 
 def show_menu_step(user_id):
