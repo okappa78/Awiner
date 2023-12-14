@@ -165,7 +165,7 @@ def restart_choose_wine(user_id):
 def confirm_message(user_id):
     lang = users[user_id]['lang']
     text_message = [['Ваш выбор: ', 'You choose: '][lang]]
-    for i in range(1, 7):
+    for i in (1, 2, 3, 4, 51, 52, 6):
         step_val = my_dict.dict_steps[i]
         if step_val[0] in users[user_id]:
             fltr_point = f'{step_val[1][lang]}' \
