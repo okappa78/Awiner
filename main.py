@@ -83,7 +83,7 @@ def show_menu_step(user_id):
     reset_filters(user_id)
 
     # задаем количество кнопок в ряду
-    rw = 2 if step in (1, 4) else 1
+    rw = 2 if step in (1, 4, 6, 8) else 1
     # список, в который будут помещаться кнопки
     btns = []
 
@@ -99,7 +99,7 @@ def show_menu_step(user_id):
                     options = [option[1:] for option in options]
             elif step == 4:
                 options = options[wtype]
-            elif step == 5:
+            elif step == 51:
                 wstyle = users[user_id]['wstyle']
                 wcountry = users[user_id]['country']
                 options = options[wtype][wstyle][wcountry]
@@ -123,7 +123,7 @@ def show_menu_step(user_id):
         btns.append(btn)
     markup.add(*btns)
 
-    if step == 5:
+    if step in (5, 51, 52):
         button = types.InlineKeyboardButton(text=my_dict.skip_text[lang],
                                             callback_data='skip')
         markup.add(button)
@@ -615,6 +615,12 @@ def get_call(call):
                 users[user_id]['step'] = 6
 
             show_menu_step(user_id)
+        # check next step
+        elif call.data in my_dict.terms['next_step']:
+            users[user_id]['step'] = 52
+            if call.data == 'step_grape':
+                users[user_id]['step'] = 51
+            show_menu_step(user_id)
 
         # check grapes
         elif call.data in my_dict.terms['grape']:
@@ -627,7 +633,7 @@ def get_call(call):
             show_menu_step(user_id)
 
         # check skip option
-        elif call.data == 'skip' and step == 5:
+        elif call.data == 'skip' and step in (5, 51, 52):
             users[user_id]['step'] = 6
             show_menu_step(user_id)
 

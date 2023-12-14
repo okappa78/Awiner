@@ -3,21 +3,41 @@ dict_steps = {
     2: ('wstyle', ('Стиль: ', 'Style: ')),
     3: ('sugar', ('Сахар: ', 'Sugar: ')),
     4: ('country', ('Страна: ', 'Country: ')),
-    5: ('grape', ('Сорт винограда/Регион: ', 'Grape/Region: ')),
+    5: ('next_step', ('Следующий шаг: ', 'Next step: ')),
+    51: ('grape', ('Сорт винограда: ', 'Grape: ')),
+    52: ('region', ('Регион: ', 'Region: ')),
     6: ('price', ('Цена: ', 'Price: '))
 }
 
-port_regions = (('Дуэйру', 'Алентежу', 'Винью Верде', 'Дао'),
-                ('Douro', 'Alentejo', 'Vinho Verde', 'Dão'),
-                ('douro', 'alentejo', 'vinho verde', 'dao'))
-
 empty_grapes = (('Другой',), ('Other',), ('other',))
 
-grapes_dict = {
-        'douro': ('Дуэйру', 'Douro'),
+regions_dict = {
+        'abruzzo': ('Абруццо', 'Abruzzo'),
         'alentejo': ('Алентежу', 'Alentejo'),
-        'vinho verde': ('Винью Верде', 'Vinho Verde'),
-        'dao': ('Дао', 'Dão'),
+        'alsace': ('Эльзас', 'Alsace'),
+        'alto adige': ('Альто-Адидже', 'Alto Adige'),
+        'bairrada': ('Байррада', 'Bairrada'),
+        'bordeaux': ('Бордо', 'Bordeaux'),
+        'borgonha': ('Бургундия', 'Borgonha'),
+        'canarias': ('Канарские о-ва', 'Canarias'),
+        'dão': ('Дао', 'Dão'),
+        'douro': ('Дору', 'Douro'),
+        'galicia': ('Галисия', 'Galicia'),
+        'lisboa': ('Лиссабон', 'Lisboa'),
+        'loire': ('Луара', 'Loire'),
+        'piemonte': ('Пьемонт', 'Piemonte'),
+        'puglia': ('Апулия', 'Puglia'),
+        'rhône': ('Рона', 'Rhône'),
+        'ribera del duero': ('Рибера-дель-Дуэро', 'Ribera Del Duero'),
+        'rioja': ('Риоха', 'Rioja'),
+        'sicilia': ('Сицилия', 'Sicilia'),
+        'toscana': ('Тоскана', 'Toscana'),
+        'veneto': ('Венето', 'Veneto'),
+        'vinho verde': ('Винью Верде', 'Vinho Verde')
+}
+
+
+grapes_dict = {
         'pinot noir': ('Пино Нуар', 'Pinot Noir'),
         'nebbiolo': ('Нибиола', 'Nebbiolo'),
         'sangiovese': ('Санджовезе', 'Sangiovese'),
@@ -84,7 +104,12 @@ terms = {
         'germany': ('Германия', 'Germany'),
         'others': ('Другие', 'Others')
     },
+    'next_step': {
+        'step_grape': ('Виноград', 'Grape'),
+        'step_region': ('Регион', 'Region')
+    },
     'grape': grapes_dict,
+    'region': regions_dict,
     'price': {
         '0_15': ('До 15 евро', 'Up to €15'),
         '15_25': ('От 15 до 25 евро', 'Between €15 and €25'),
@@ -127,6 +152,9 @@ dict_categories = {
                       ('Portugal', 'Spain', 'Others'),
                       ('portugal', 'spain', 'others'))
     },
+    'next_step': (('Виноград', 'Регион'),
+                  ('Grape', 'Region'),
+                  ('grape', 'region')),
     'grape': {
         'red': {
             'light': {
@@ -272,9 +300,17 @@ Would you prefer a light and refreshing wine or a full-bodied and rich one?'''],
         'How much sugar content?'],
     4: ["Давайте выберем страну!",
         "Let's choose a country!"],
-    5: ["Вы предпочитаете какие-то конкретные сорта винограда?\n"
+    5: ["Вы выбираете вино по винограду или региону?\n"
+        "*Эти шаги можно пропустить*",
+        "Do you choose your wine by grape or region?\n"
+        "*These steps can be skipped*"],
+    51: ["Какие сорта винограда вы предпочитаете?\n"
         "*Этот шаг можно пропустить*",
-        "Do you prefer any particular grape varieties?\n"
+        "What grape varieties do you prefer?\n"
+        "*This step can be skipped*"],
+    52: ["Какой регион вы предпочитаете?\n"
+        "*Этот шаг можно пропустить*",
+        "What region do you prefer?\n"
         "*This step can be skipped*"],
     6: ["Давайте определимся с ценой!",
         "Let's set a price!"]
