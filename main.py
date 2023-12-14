@@ -86,7 +86,7 @@ def show_menu_step(user_id):
     reset_filters(user_id)
 
     # задаем количество кнопок в ряду
-    rw = 2 if step in (1, 4, 6, 8) else 1
+    rw = 2 if len(options) > 5 else 1
     # список, в который будут помещаться кнопки
     btns = []
 

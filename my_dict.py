@@ -154,7 +154,7 @@ dict_categories = {
     },
     'next_step': (('Виноград', 'Регион'),
                   ('Grape', 'Region'),
-                  ('grape', 'region')),
+                  ('step_grape', 'step_region')),
     'grape': {
         'red': {
             'light': {
