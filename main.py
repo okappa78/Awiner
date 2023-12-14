@@ -126,7 +126,7 @@ def show_menu_step(user_id):
     #    options = options[wstyle][wsugar][wcountry]
 
     # задаем количество кнопок в ряду
-    rw = 2 if len(options[-1]) > 4 else 1
+    rw = 1 if len(options[-1]) < 5 or step == 6 else 2
 
     markup = types.InlineKeyboardMarkup(row_width=rw)
     for i, option in enumerate(options[lang]):

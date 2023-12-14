@@ -131,7 +131,7 @@ dict_categories = {
                ('light', 'medium', 'full')),
     'sugar': (('Брют', 'Сухое', 'Полусладкое'),
               ('Brut', 'Dry', 'Semi-sweet'),
-              ('brut', 'dry', 'semi_sweet')),
+              ('brut', 'dry', 'medium_sweet')),
     'country': {
         'red': (('Португалия', 'Франция', 'Италия', 'Испания', 'Грузия', 'Другие'),
                 ('Portugal', 'France', 'Italy', 'Spain', 'Georgia', 'Others'),
