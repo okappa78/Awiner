@@ -26,7 +26,6 @@ grapes = {
                 'italy': ('nebbiolo', 'primitivo', 'barbera'),
                 'others': ('malbec', 'cabernet sauvignon', 'blaufrankisch')
             }
-
         },
         'white': {
             'light': {
@@ -47,6 +46,21 @@ grapes = {
         }
     }
 
+regions = {
+        'red': {
+                'portugal': ('alentejo', 'bairrada', 'dão', 'douro', 'lisboa', 'vinho verde'),
+                'france': ('bordeaux', 'bourgogne', 'loire', 'rhône', 'other'),
+                'spain': ('ribera del duero', 'rioja'),
+                'italy': ('piemonte', 'puglia', 'toscana', 'veneto')
+        },
+        'white': {
+                'portugal': ('alentejo', 'bairrada', 'dão', 'douro', 'lisboa', 'vinho verde'),
+                'france': ('alsace', 'bordeaux', 'bourgogne', 'loire'),
+                'spain': ('canarias', 'galicia'),
+                'italy': ('abruzzo', 'alto adige', 'sicilia', 'toscana')
+        }
+    }
+
 
 def clause_country(mydict):
     country = mydict['country']
@@ -58,6 +72,20 @@ def clause_country(mydict):
 
     country = countries[mydict['wtype']]
     res = f"country NOT IN {country}".replace(',)', ')')
+
+    return res
+
+
+def clause_region(mydict):
+    region = mydict['region']
+
+    if region != 'other':
+        res = f"(region = '{region}')"
+
+        return res
+
+    region = regions[mydict['wtype']][mydict['country']]
+    res = f"region NOT IN {region}".replace(',)', ')')
 
     return res
 
@@ -121,6 +149,8 @@ def get_filtered(my_dict):
             clause = clause_grape(user_dict)
         elif k == 'country':
             clause = clause_country(user_dict)
+        elif k == 'region':
+            clause = clause_region(user_dict)
         else:
             clause = f"({k} = '{v}')"
         where_filters.append(clause)
@@ -144,7 +174,7 @@ def get_description(list_of_ids, user_id, lang=0, complete=True):
     table_name = f"description_{['rus', 'eng'][lang]}"
 
     # choose the list of attributes
-    lst_attr = ['wine_id', 'title', 'collection', 'price', 'wtype', 'wstyle', 'sugar']
+    lst_attr = ['wine_id', 'title', 'region', 'collection', 'price', 'wtype', 'wstyle', 'sugar']
     if complete:
         lst_attr = ['wine_id', 'wtype', 'country', 'region', 'subregion', 'title',
                     'maker', 'collection', 'volume', 'price', 'wstyle', 'sugar',
