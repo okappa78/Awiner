@@ -18,7 +18,7 @@ regions_dict = {
         'alto adige': ('Альто-Адидже', 'Alto Adige'),
         'bairrada': ('Байррада', 'Bairrada'),
         'bordeaux': ('Бордо', 'Bordeaux'),
-        'borgonha': ('Бургундия', 'Borgonha'),
+        'bourgogne': ('Бургундия', 'Bourgogne'),
         'canarias': ('Канарские о-ва', 'Canarias'),
         'dão': ('Дао', 'Dão'),
         'douro': ('Дору', 'Douro'),
@@ -242,6 +242,40 @@ dict_categories = {
                 'georgia': empty_grapes,
                 'others': empty_grapes
             }
+        }
+    },
+    'region': {
+        'red': {
+                'portugal': (('Алентежу', 'Байррада', 'Дао', 'Дору', 'Лиссабон', 'Винью Верде', 'Другой'),
+                             ('Alentejo', 'Bairrada', 'Dão', 'Douro', 'Lisboa', 'Vinho Verde', 'Other'),
+                             ('alentejo', 'bairrada', 'dão', 'douro', 'lisboa', 'vinho verde', 'other')),
+                'france': (('Эльзас', 'Бордо', 'Бургундия', 'Луара', 'Другой'),
+                           ('Alsace', 'Bordeaux', 'Bourgogne', 'Loire', 'Other'),
+                           ('alsace', 'bordeaux', 'bourgogne', 'loire', 'other')),
+                'spain': (('Рибера-дель-Дуэро', 'Риоха', 'Другой'),
+                          ('Ribera Del Duero', 'Rioja', 'Other'),
+                          ('ribera del duero', 'rioja', 'other')),
+                'italy': (('Пьемонт', 'Апулия', 'Тоскана', 'Венето', 'Другой'),
+                          ('Piemonte', 'Puglia', 'Toscana', 'Veneto', 'Other'),
+                          ('piemonte', 'puglia', 'toscana', 'veneto', 'other')),
+                'georgia': empty_grapes,
+                'others': empty_grapes
+        },
+        'white': {
+                'portugal': (('Алентежу', 'Байррада', 'Дао', 'Дору', 'Лиссабон', 'Винью Верде', 'Другой'),
+                             ('Alentejo', 'Bairrada', 'Dão', 'Douro', 'Lisboa', 'Vinho Verde', 'Other'),
+                             ('alentejo', 'bairrada', 'dão', 'douro', 'lisboa', 'vinho verde', 'other')),
+                'france': (('Бордо', 'Бургундия', 'Луара', 'Рона', 'Другой'),
+                           ('Bordeaux', 'Bourgogne', 'Loire', 'Rhône', 'Other'),
+                           ('bordeaux', 'bourgogne', 'loire', 'rhône', 'other')),
+                'spain': (('Канарские о-ва', 'Галисия', 'Другой'),
+                          ('Canarias', 'Galicia', 'Other'),
+                          ('canarias', 'galicia', 'other')),
+                'italy': (('Абруццо', 'Альто-Адидже', 'Сицилия', 'Тоскана', 'Другой'),
+                          ('Abruzzo', 'Alto Adige', 'Sicilia', 'Toscana', 'Other'),
+                          ('abruzzo', 'alto adige', 'sicilia', 'toscana', 'other')),
+                'georgia': empty_grapes,
+                'others': empty_grapes
         }
     },
     'price': (('До 15 евро', 'От 15 до 25 евро', 'От 25 до 35 евро', 'От 35 до 50 евро', 'Более 50 евро'),
