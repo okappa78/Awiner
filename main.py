@@ -85,8 +85,6 @@ def show_menu_step(user_id):
     # которые последовательно идут после этого stepa
     reset_filters(user_id)
 
-    # задаем количество кнопок в ряду
-    rw = 2 if len(options) > 5 else 1
     # список, в который будут помещаться кнопки
     btns = []
 
@@ -109,6 +107,13 @@ def show_menu_step(user_id):
                 if len(options[lang]) < 2:
                     users[user_id]['step'] = 6
                     return show_menu_step(user_id)
+            elif step == 51:
+                wcountry = users[user_id]['country']
+                options = options[wtype][wcountry]
+                if len(options[lang]) < 2:
+                    users[user_id]['step'] = 6
+                    return show_menu_step(user_id)
+
         except:
             users[user_id]['step'] = 1
             bot.send_message(user_id, text=my_dict.error_msg[lang])
@@ -119,6 +124,9 @@ def show_menu_step(user_id):
     #    wsugar = users[user_id]['sugar']
     #    wcountry = users[user_id]['country']
     #    options = options[wstyle][wsugar][wcountry]
+
+    # задаем количество кнопок в ряду
+    rw = 2 if len(options[-1]) > 5 else 1
 
     markup = types.InlineKeyboardMarkup(row_width=rw)
     for i, option in enumerate(options[lang]):
@@ -631,6 +639,16 @@ def get_call(call):
             bot.send_message(user_id,
                              text=f"{['Вы выбрали: ', 'You choose: '][lang]}" +
                                   f"{my_dict.terms['grape'][users[user_id]['grape']][lang]}")
+
+            users[user_id]['step'] = 6
+            show_menu_step(user_id)
+
+        # check regions
+        elif call.data in my_dict.terms['region']:
+            users[user_id]['region'] = call.data
+            bot.send_message(user_id,
+                             text=f"{['Вы выбрали: ', 'You choose: '][lang]}" +
+                                  f"{my_dict.terms['region'][users[user_id]['region']][lang]}")
 
             users[user_id]['step'] = 6
             show_menu_step(user_id)
