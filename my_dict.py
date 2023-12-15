@@ -93,7 +93,7 @@ terms = {
     'sugar': {
         'brut': ('Брют', 'Brut'),
         'dry': ('Сухое', 'Dry'),
-        'semi_sweet': ('Полусладкое', 'Semi-sweet')
+        'medium_sweet': ('Полусладкое', 'Semi-sweet')
     },
     'country': {
         'portugal': ('Португалия', 'Portugal'),
