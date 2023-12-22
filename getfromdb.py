@@ -13,35 +13,39 @@ countries = {k: v[-1][:-1] for k, v in my_dict.dict_categories['country'].items(
 grapes = {
         'red': {
             'light': {
-                'france': ('pinot noir', 'gamay')
+                'france': ('gamay', 'pinot noir'),
+                'spain': ('garnacha', 'mencia'),
+                'italy': ('barbera', 'corvina', 'dolcetto', 'sangiovese')
             },
             'medium': {
-                'france': ('cabernet franc', 'syrah', 'côt'),
-                'spain': ('tempranillo', 'mencia', 'grenache'),
-                'italy': ('sangiovese', 'nebbiolo', 'terrano')
+                'france': ('cabernet franc', 'carignan', 'côt', 'grenache', 'merlot', 'syrah'),
+                'spain': ('carignan', 'mencia', 'tempranillo'),
+                'italy': ('montepulciano', 'nebbiolo', 'primitivo', 'sangiovese')
             },
             'full': {
-                'france': ('syrah', 'grenache, syrah, mourvèdre', 'malbec'),
-                'spain': ('tempranillo',),
-                'italy': ('nebbiolo', 'primitivo', 'barbera'),
-                'others': ('malbec', 'cabernet sauvignon', 'blaufrankisch')
+                'france': ('cabernet sauvignon', 'merlot', 'mourvèdre', 'syrah'),
+                'spain': ('monastrell', 'tempranillo'),
+                'italy': ('aglianico', 'nebbiolo', 'primitivo', 'sangiovese'),
+                'others': ('cabernet sauvignon', 'blaufrankisch', 'malbec')
             }
         },
         'white': {
             'light': {
-                'portugal': ('loureiro', 'alvarinho'),
-                'france': ('chardonnay', 'muscadet', 'chenin blanc'),
-                'spain': ('alvarinho',),
-                'italy': ('trebbiano',),
+                'portugal': ('alvarinho', 'loureiro'),
+                'france': ('chardonnay', 'sauvignon blanc', 'grenache blanc', 'muscadet'),
+                'spain': ('albariño', 'verdejo'),
+                'italy': ('glera', 'moscato', 'pinot grigio', 'trebbiano'),
                 'others': ('riesling', 'sylvaner')
             },
             'medium': {
-                'france': ('chenin blanc', 'riesling', 'chardonnay', 'pinot gris'),
-                'spain': ('torrontés', 'alvarinho'),
-                'italy': ('verdicchio',)
+                'france': ('chardonnay', 'chenin blanc', 'riesling', 'viognier'),
+                'spain': ('airén', 'albariño', 'torrontés', 'viura'),
+                'italy': ('chardonnay', 'pinot bianco', 'verdicchio', 'vermentino')
             },
             'full': {
-                'france': ('chardonnay',)
+                'france': ('chardonnay', 'gewurztraminer', 'riesling', 'viognier'),
+                'spain': ('albariño', 'garnacha blanca'),
+                'italy': ('fiano di avellino', 'verdicchio')
             }
         }
     }
