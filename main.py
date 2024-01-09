@@ -404,6 +404,7 @@ def confirm_ordering(user_id):
     users_cart[user_id].append({'order_id': order_id})
     txt = f"{['# заказа: ', '# order: '][lang]}<b>{order_id}</b>\n" + my_dict.ordering_confirm_msg[lang]
     bot.send_message(user_id, text=txt, parse_mode='HTML')
+    users[user_id]['step'] = 1
     return show_menu_step(user_id)
 
 
