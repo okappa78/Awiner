@@ -355,11 +355,11 @@ dict_messages = {
     1: ['Какой тип вина вам предложить?',
         'What type of wine can I offer you?'],
     2: ["Теперь давайте выберем стиль (или 'тело') вина.\n"
-        "||Тело вина – это его насыщенность, структура, вес, густота. "
-        "Чем ярче эти свойства, тем более полнотелым считается напиток.||",
+        "<tg-spoiler>Тело вина – это его насыщенность, структура, вес, густота. "
+        "Чем ярче эти свойства, тем более полнотелым считается напиток.</tg-spoiler>",
         "Now let's choose the style (or 'body') of the wine.\n"
-        "||Body of wine – it refers to its richness, structure, weight, and density. "
-        "The more pronounced these characteristics are, the fuller-bodied the beverage is considered.||"],
+        "<tg-spoiler>Body of wine – it refers to its richness, structure, weight, and density. "
+        "The more pronounced these characteristics are, the fuller-bodied the beverage is considered.</tg-spoiler>"],
     3: ['Какое содержание сахара?',
         'How much sugar content?'],
     4: ["Давайте выберем страну!",

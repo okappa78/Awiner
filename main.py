@@ -143,7 +143,7 @@ def show_menu_step(user_id):
 
     bot.send_message(user_id,
                      text=my_dict.dict_messages[step][lang],
-                     reply_markup=markup, parse_mode='MarkdownV2')
+                     reply_markup=markup, parse_mode='HTML')
 
 
 def restart_choose_wine(user_id):
