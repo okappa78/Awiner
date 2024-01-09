@@ -246,10 +246,10 @@ def ask_suggestion(user_id):
 
     bot.send_message(user_id, text=my_dict.empty_res_msg[lang])
     markup = types.InlineKeyboardMarkup()
-    suggest_btn = types.InlineKeyboardButton(my_dict.ok_button, callback_data='offerme')
+    suggest_btn = types.InlineKeyboardButton(my_dict.ok_button[lang], callback_data='offerme')
     markup.add(suggest_btn)
     bot.send_message(user_id, text=my_dict.empty_res_msg_alt[lang], reply_markup=markup)
-    bot.send_message(user_id, text=my_dict.empty_res_msg_alt_change)
+    bot.send_message(user_id, text=my_dict.empty_res_msg_alt_change[lang])
 
 
 def wine_template(index, lngth, lang, wine):
