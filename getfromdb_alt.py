@@ -64,7 +64,7 @@ regions = {
                 'italy': ('abruzzo', 'alto adige', 'sicilia', 'toscana')
         }
     }
-
+incr_idx = -1
 
 def clause_country(mydict):
     country = mydict['country']
@@ -143,9 +143,27 @@ def remove_keys(dict_to_change):
 
         return dict_to_change
 
-    dict_to_change.pop('country', None)
+    elif 'country' in dict_to_change:
+        dict_to_change.pop('country', None)
+
+        return dict_to_change
+
+    dict_to_change['price'] = change_price(dict_to_change['price'])
 
     return dict_to_change
+
+
+def change_price(price):
+    global incr_idx
+
+    price_idx = my_dict.dict_categories['price'][2].index(price)
+    if price_idx == 0:
+        incr_idx = 1
+
+    price_idx += incr_idx
+    print('price', my_dict.dict_categories['price'][2][price_idx])
+
+    return my_dict.dict_categories['price'][2][price_idx]
 
 
 # get wine_id based on the user's criteria
