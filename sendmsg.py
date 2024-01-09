@@ -11,9 +11,10 @@ contact_list = [('zip_code', 'Индекс'), ('address', 'Адрес'),
 
 
 def sendmsg(mylist):
+    sep_line = '-' + 13 * 'x-'
     delivery, sum_total, txt = 0, 0, ''
 
-    for i in range(-1,-6,-1):
+    for i in range(-1, -6, -1):
         txt1 = f"{contact_list[i][1]}: <b>{mylist[i][contact_list[i][0]]}</b>"
         bot.send_message(chat_id, text=txt1, parse_mode='HTML')
 
@@ -21,8 +22,9 @@ def sendmsg(mylist):
         delivery = 5
 
     for wine in mylist[:-6]:
-        txt += f"<b>{wine['title']}</b>: {wine['price']}€ x <b>{wine['amount']}</b>\n"
+        txt += f"<b>{wine['wine_id']}</b> <b>{wine['title']}</b>: {wine['price']}€ x <b>{wine['amount']}</b>\n"
         sum_total += wine['price'] * wine['amount']
 
     txt += f"Доставка: {delivery}€\nОбщая сумма <b>{sum_total + delivery}€</b>"
     bot.send_message(chat_id, text=txt, parse_mode='HTML')
+    bot.send_message(chat_id, text=sep_line)

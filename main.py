@@ -1,15 +1,15 @@
 import telebot
 from telebot import types
-import my_dict
 from dotenv import load_dotenv
 import os
+import threading
+
+import my_dict
 from getfromdb import get_description, get_photo
 from getfromdb_alt import get_filtered
 from addtodb import add_to_db_filters, add_to_db_carts
 from cart import get_numbers, get_address, get_phone, get_orderid
 from sendmsg import sendmsg
-import threading
-import time
 
 
 load_dotenv()
@@ -543,6 +543,8 @@ def get_text_messages(message):
                 del users_cart[user_id]
                 print('Ordering!!!')
                 print_test()
+
+                show_menu_step(user_id)
 
 
 @bot.callback_query_handler(func=lambda call: True)

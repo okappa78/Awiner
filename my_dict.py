@@ -323,7 +323,7 @@ intro_message = ['''
 ''',
                  '''
 Welcome!!!
-I am Awiner's virtual assistant 🦸
+I am Awiner, your virtual assistant 🦸
 Ready to help you with your wine selection!
 ''']
 
@@ -405,12 +405,12 @@ empty_res_msg = ['К сожалению, ничего не удалось най
 empty_res_msg_alt = ['Позвольте предложить вам вина, которые могут соответствовать вашим вкусовым предпочтениям',
                      'Allow me to suggest wines that may align with your taste preferences.']
 
-ok_button = ['🍷Предложи🍷', '🍷Offer me🍷']
+ok_button = ['🍷 Предложи мне 🍷', '🍷 Offer me 🍷']
 
 empty_res_msg_alt_change = ['Или попробуйте изменить критерии,\n'
-                            'нажав ⬇Начать заново!⬇',
+                            'нажав ⬇ Начать заново! ⬇',
                             'Or try changing the criteria,\n'
-                            'press ⬇Start over!⬇']
+                            'press ⬇ Start over! ⬇']
 
 empty_req_msg = ['Попробуйте изменить критерии',
                  'Try changing the criteria.']
