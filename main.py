@@ -404,7 +404,7 @@ def confirm_ordering(user_id):
     users_cart[user_id].append({'order_id': order_id})
     txt = f"{['# заказа: ', '# order: '][lang]}<b>{order_id}</b>\n" + my_dict.ordering_confirm_msg[lang]
     bot.send_message(user_id, text=txt, parse_mode='HTML')
-    return show_language_selection(user_id)
+    return show_menu_step(user_id)
 
 
 def add_data_to_order(user_id, data):
@@ -544,7 +544,7 @@ def get_text_messages(message):
                 print('Ordering!!!')
                 print_test()
 
-                show_menu_step(user_id)
+
 
 
 @bot.callback_query_handler(func=lambda call: True)
