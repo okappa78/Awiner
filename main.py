@@ -222,17 +222,22 @@ def filter_wines(user_id):
                      text=my_dict.show_wines_msg[lang],
                      reply_markup=markup)
 
-    wineid_out, ff = get_filtered(users[user_id])
-    reset_filters(user_id)
-    if not ff:
-        bot.send_message(user_id,
-                         text=my_dict.empty_res_msg_alt[lang])
+    try:
+        wineid_out, ff = get_filtered(users[user_id])
+        reset_filters(user_id)
+        if not ff:
+            bot.send_message(user_id,
+                             text=my_dict.empty_res_msg_alt[lang])
 
-    list_of_wines = get_description(wineid_out, user_id, lang=lang)
-    # устанавливаем индекс для показа отфильтрованных вин
-    list_of_wines[user_id].append(0)
-    users_wine.update(list_of_wines)
-    show_wines(user_id)
+        list_of_wines = get_description(wineid_out, user_id, lang=lang)
+        # устанавливаем индекс для показа отфильтрованных вин
+        list_of_wines[user_id].append(0)
+        users_wine.update(list_of_wines)
+        show_wines(user_id)
+
+    except RecursionError:
+        bot.send_message(user_id,
+                         text=my_dict.empty_res_msg[lang])
 
 
 '''def send_description(user_id):

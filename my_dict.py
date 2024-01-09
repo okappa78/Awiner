@@ -399,7 +399,10 @@ restart_text = ["Давайте сделаем еще один выбор!",
 show_wines_msg = ['Согласно вашему запросу:',
                   'According to your request:']
 
-empty_res_msg = ['Ничего не найдено!', 'Nothing found!']
+empty_res_msg = ['К сожалению, ничего не удалось найти.\n'
+                 'Попробуйте изменить критерии.',
+                 'Unfortunately, nothing could be found.\n'
+                 'Try changing the criteria.']
 
 empty_res_msg_alt = ['К сожалению, ничего не удалось найти.\n'
                      'Позвольте предложить вам вина, '
