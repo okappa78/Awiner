@@ -9,6 +9,7 @@ from addtodb import add_to_db_filters, add_to_db_carts
 from cart import get_numbers, get_address, get_phone, get_orderid
 from sendmsg import sendmsg
 import threading
+import time
 
 
 load_dotenv()
@@ -228,6 +229,7 @@ def filter_wines(user_id):
         if not ff:
             bot.send_message(user_id,
                              text=my_dict.empty_res_msg_alt[lang])
+            time.sleep(2)
 
         list_of_wines = get_description(wineid_out, user_id, lang=lang)
         # устанавливаем индекс для показа отфильтрованных вин
