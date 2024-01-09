@@ -226,41 +226,30 @@ def filter_wines(user_id):
     try:
         wineid_out, ff = get_filtered(users[user_id])
         reset_filters(user_id)
-        if not ff:
-            bot.send_message(user_id,
-                             text=my_dict.empty_res_msg_alt[lang])
-            time.sleep(2)
-
         list_of_wines = get_description(wineid_out, user_id, lang=lang)
         # устанавливаем индекс для показа отфильтрованных вин
         list_of_wines[user_id].append(0)
         users_wine.update(list_of_wines)
-        show_wines(user_id)
+
+        if not ff:
+            ask_suggestion(user_id)
+        else:
+            show_wines(user_id)
 
     except RecursionError:
-        bot.send_message(user_id,
-                         text=my_dict.empty_res_msg[lang])
+        bot.send_message(user_id, text=my_dict.empty_res_msg[lang])
+        bot.send_message(user_id, text=my_dict.empty_req_msg[lang])
 
 
-'''def send_description(user_id):
-    index = users_wine[user_id][-1]
+def ask_suggestion(user_id):
     lang = users[user_id]['lang']
-    wine = users_wine[user_id][index]
 
-    if user_id in prev_messages:
-        bot.delete_message(user_id, prev_messages[user_id])
-
-    description_text = f"({index + 1}/{len(users_wine[user_id]) - 1}) {wine['wine_id']}\n{wine['description']}"[:400]
-
-    markup = types.InlineKeyboardMarkup(row_width=2)
-    prev_button = types.InlineKeyboardButton(my_dict.bwd_button[lang], callback_data='prev')
-    cart_button = types.InlineKeyboardButton(my_dict.cart_button[lang], callback_data='cart')
-    next_button = types.InlineKeyboardButton(my_dict.fwd_button[lang], callback_data='next')
-    markup.add(prev_button, next_button, cart_button)
-
-    photo_url = get_photo(wine['wine_id'])
-    sent_message = bot.send_photo(user_id, photo_url, caption=description_text, reply_markup=markup)
-    prev_messages[user_id] = sent_message.message_id'''
+    bot.send_message(user_id, text=my_dict.empty_res_msg[lang])
+    markup = types.InlineKeyboardMarkup()
+    suggest_btn = types.InlineKeyboardButton(my_dict.ok_button, callback_data='offerme')
+    markup.add(suggest_btn)
+    bot.send_message(user_id, text=my_dict.empty_res_msg_alt[lang], reply_markup=markup)
+    bot.send_message(user_id, text=my_dict.empty_res_msg_alt_change)
 
 
 def wine_template(index, lngth, lang, wine):
@@ -683,6 +672,9 @@ def get_call(call):
                     markup = show_return_lang_button(btn_cart)
                 bot.send_message(user_id, text=my_dict.more_cats_msg[lang], reply_markup=markup)
                 show_menu_step(user_id)
+
+        elif call.data == 'offerme':
+            show_wines(user_id)
 
         elif call.data == 'prev' and users_wine:
             users_wine[user_id][-1] = max(0, users_wine[user_id][-1] - 1)
