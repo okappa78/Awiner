@@ -401,6 +401,12 @@ show_wines_msg = ['Согласно вашему запросу:',
 
 empty_res_msg = ['Ничего не найдено!', 'Nothing found!']
 
+empty_res_msg_alt = ['К сожалению, ничего не удалось найти.\n'
+                     'Позвольте предложить вам вина, '
+                     'которые могут соответствовать вашим вкусовым предпочтениям',
+                     'Unfortunately, nothing was found.\n'
+                     'Allow me to suggest wines that may align with your taste preferences.']
+
 fwd_button = ['Следующее', 'Next']
 cart_button = ['В корзину!', 'Add to cart']
 bwd_button = ['Предыдущее', 'Previous']

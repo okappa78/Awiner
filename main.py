@@ -3,7 +3,8 @@ from telebot import types
 import my_dict
 from dotenv import load_dotenv
 import os
-from getfromdb import get_filtered, get_description, get_photo
+from getfromdb import get_description, get_photo
+from getfromdb_alt import get_filtered
 from addtodb import add_to_db_filters, add_to_db_carts
 from cart import get_numbers, get_address, get_phone, get_orderid
 from sendmsg import sendmsg
@@ -221,17 +222,17 @@ def filter_wines(user_id):
                      text=my_dict.show_wines_msg[lang],
                      reply_markup=markup)
 
-    wineid_out = get_filtered(users[user_id])
+    wineid_out, ff = get_filtered(users[user_id])
     reset_filters(user_id)
-    if not wineid_out:
+    if not ff:
         bot.send_message(user_id,
-                         text=my_dict.empty_res_msg[lang])
-    else:
-        list_of_wines = get_description(wineid_out, user_id, lang=lang)
-        # устанавливаем индекс для показа отфильтрованных вин
-        list_of_wines[user_id].append(0)
-        users_wine.update(list_of_wines)
-        show_wines(user_id)
+                         text=my_dict.empty_res_msg_alt[lang])
+
+    list_of_wines = get_description(wineid_out, user_id, lang=lang)
+    # устанавливаем индекс для показа отфильтрованных вин
+    list_of_wines[user_id].append(0)
+    users_wine.update(list_of_wines)
+    show_wines(user_id)
 
 
 '''def send_description(user_id):
