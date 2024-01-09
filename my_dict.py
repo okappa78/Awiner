@@ -147,8 +147,8 @@ dict_categories = {
     'wtype': (('🍷 Красное', '🥂 Белое', '🌹 Розовое', '🍊 Оранж', '🍾 Игристое', '💪 Крепленое'),
               ('🍷 Red', '🥂 White', '🌹 Rose', '🍊 Orange', '🍾 Sparkling', '💪 Fortified'),
               ('red', 'white', 'rose', 'orange', 'sparkling', 'fortified')),
-    'wstyle': (('Легкотелое', 'Среднетелое', 'Полнотелое'),
-               ('Light-bodied', 'Medium-bodied', 'Full-bodied'),
+    'wstyle': (('🌷 Легкое', '🌸 Среднее', '🌹 Полнотелое'),
+               ('🌷 Light-bodied', '🌸 Medium-bodied', '🌹 Full-bodied'),
                ('light', 'medium', 'full')),
     'sugar': (('Брют', 'Сухое', 'Полусладкое'),
               ('Brut', 'Dry', 'Semi-sweet'),
@@ -328,13 +328,13 @@ Ready to help you with your wine selection!
 ''']
 
 help_message = ['''
-Вам будет предложено поочердно выбрать из таких критериев вина, как:
-тип, стиль, содержание сахара, страна, сорт винограда и цена.
+Вам будет предложено поочердно выбрать из таких критериев, как:
+тип, стиль, содержание сахара, страна, сорт винограда, регион, цена.
 Давайте начнем!
 ''',
                 '''
 You will be asked to take turns selecting a wine based on criteria such as:
-type, style, sugar content, country, grape variety and price.
+type, style, sugar content, country, grape variety, region, price.
 Let's get started!
 ''']
 
@@ -352,13 +352,14 @@ And I will try to make a choice.
 return_button = '🔙 🇷🇺 RU / 🇬🇧 GB (US)'
 
 dict_messages = {
-    1: ['Какой тип вина вы предпочитаете?',
-        'What type of wine do you prefer?'],
-    2: [
-'''Теперь давайте выберем стиль вина.
-Вы предпочли бы легкое и освежающее вино или полнотелое и насыщенное?''',
-'''Now, let's choose the wine style.
-Would you prefer a light and refreshing wine or a full-bodied and rich one?'''],
+    1: ['Какой тип вина вам предложить?',
+        'What type of wine can I offer you?'],
+    2: ["Теперь давайте выберем стиль (или 'тело') вина.\n"
+        "||Тело вина – это его насыщенность, структура, вес, густота. "
+        "Чем ярче эти свойства, тем более полнотелым считается напиток.||",
+        "Now let's choose the style (or 'body') of the wine.\n"
+        "||Body of wine – it refers to its richness, structure, weight, and density. "
+        "The more pronounced these characteristics are, the fuller-bodied the beverage is considered.||"],
     3: ['Какое содержание сахара?',
         'How much sugar content?'],
     4: ["Давайте выберем страну!",
