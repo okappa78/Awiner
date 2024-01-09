@@ -3,6 +3,7 @@ import requests
 import psycopg2
 from psycopg2 import sql
 from dotenv import load_dotenv
+import random
 
 import my_dict
 
@@ -65,6 +66,7 @@ regions = {
         }
     }
 incr_idx = -1
+
 
 def clause_country(mydict):
     country = mydict['country']
@@ -210,6 +212,10 @@ def get_filtered(mydict):
         ff = False
 
     print('wineids', result)
+    # set the number of wines to show in case our suggestion
+    number_to_show = 4
+    if not ff:
+        result = random.sample(result, number_to_show) if len(result) >= number_to_show else result
 
     return result, ff
 
