@@ -166,6 +166,8 @@ def get_filtered(my_dict):
 
     # Execute the query
     values = execute_query(select_query)
+        
+    print('values', values)
     result = [value[0] for value in values]
     print('wineids', result)
 
