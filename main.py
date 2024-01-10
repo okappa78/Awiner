@@ -401,8 +401,17 @@ def new_start(user_id):
     lang = users[user_id]['lang']
 
     bot.send_sticker(user_id, my_dict.sticker_id_dikaprio)
-    bot.send_message(user_id, text=my_dict.new_start_msg)
+    bot.send_message(user_id, text=my_dict.new_start_msg[lang])
 
+    # add order to the database
+    t = threading.Thread(target=add_to_db_carts, args=(user_id, users_cart[user_id]))
+    t.start()
+
+    # delete unnecessary info
+    del users[user_id]['wine_cart']
+    del users_cart[user_id]
+
+    # set step to 1
     users[user_id]['step'] = 1
 
 
@@ -417,14 +426,6 @@ def confirm_ordering(user_id):
 
     # send message to employees that order has been made
     sendmsg(users_cart[user_id])
-
-    # add order to the database
-    t = threading.Thread(target=add_to_db_carts, args=(user_id, users_cart[user_id]))
-    t.start()
-
-    # delete unnecessary info
-    del users[user_id]['wine_cart']
-    del users_cart[user_id]
 
     print('Ordering!!!')
     print_test()
@@ -461,11 +462,11 @@ def ordering_address(user_id):
     step = users[user_id]['step']
     lang = users[user_id]['lang']
     if step == 11:
-        bot.send_message(user_id, text=my_dict.ordering_address_msg[lang])
+        bot.send_message(user_id, text=my_dict.ordering_address_msg[lang], parse_mode='HTML')
     elif step == 12:
-        bot.send_message(user_id, text=my_dict.ordering_phone_msg[lang])
+        bot.send_message(user_id, text=my_dict.ordering_phone_msg[lang], parse_mode='HTML')
     elif step == 13:
-        bot.send_message(user_id, text=my_dict.ordering_name[lang])
+        bot.send_message(user_id, text=my_dict.ordering_name[lang], parse_mode='HTML')
 
 
 def check_zero(user_id):
