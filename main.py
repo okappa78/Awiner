@@ -11,7 +11,6 @@ from addtodb import add_to_db_filters, add_to_db_carts
 from cart import get_numbers, get_address, get_phone, get_orderid
 from sendmsg import sendmsg
 
-
 load_dotenv()
 bot = telebot.TeleBot(os.getenv('TOKEN'))
 users_wine = {}
@@ -121,7 +120,7 @@ def show_menu_step(user_id):
             bot.send_message(user_id, text=my_dict.error_msg[lang])
             return show_menu_step(user_id)
 
-    #if step == 5:
+    # if step == 5:
     #    wstyle = users[user_id]['wstyle']
     #    wsugar = users[user_id]['sugar']
     #    wcountry = users[user_id]['country']
@@ -398,14 +397,39 @@ def get_amount(user_id, numbers):
         send_cart_message(user_id)
 
 
+def new_start(user_id):
+    lang = users[user_id]['lang']
+
+    bot.send_sticker(user_id, my_dict.sticker_id_dikaprio)
+    bot.send_message(user_id, text=my_dict.new_start_msg)
+
+    users[user_id]['step'] = 1
+
+
 def confirm_ordering(user_id):
     lang = users[user_id]['lang']
+
+    # send message to the customer that order has been made
     order_id = get_orderid()
     users_cart[user_id].append({'order_id': order_id})
     txt = f"{['# заказа: ', '# order: '][lang]}<b>{order_id}</b>\n" + my_dict.ordering_confirm_msg[lang]
     bot.send_message(user_id, text=txt, parse_mode='HTML')
-    users[user_id]['step'] = 1
-    return show_menu_step(user_id)
+
+    # send message to employees that order has been made
+    sendmsg(users_cart[user_id])
+
+    # add order to the database
+    t = threading.Thread(target=add_to_db_carts, args=(user_id, users_cart[user_id]))
+    t.start()
+
+    # delete unnecessary info
+    del users[user_id]['wine_cart']
+    del users_cart[user_id]
+
+    print('Ordering!!!')
+    print_test()
+
+    return new_start(user_id)
 
 
 def add_data_to_order(user_id, data):
@@ -414,7 +438,7 @@ def add_data_to_order(user_id, data):
     try:
         users_cart[user_id]
         if step == 11:
-            #users_cart[user_id] = check_zero(user_id)
+            # users_cart[user_id] = check_zero(user_id)
             zip_code = get_address(data)
             users_cart[user_id].append({'zip_code': zip_code})
             users_cart[user_id].append({'address': data})
@@ -535,17 +559,6 @@ def get_text_messages(message):
                 contact_data = message.text
                 add_data_to_order(user_id, contact_data)
                 confirm_ordering(user_id)
-                sendmsg(users_cart[user_id])
-
-                t = threading.Thread(target=add_to_db_carts, args=(user_id, users_cart[user_id]))
-                t.start()
-
-                del users[user_id]['wine_cart']
-                del users_cart[user_id]
-                print('Ordering!!!')
-                print_test()
-
-
 
 
 @bot.callback_query_handler(func=lambda call: True)
@@ -590,7 +603,7 @@ def get_call(call):
                                   f"{my_dict.terms['wstyle'][users[user_id]['wstyle']][lang]}")
 
             # КОСТЫЛЬ!!! Разобраться!!!
-            #users[user_id]['wtype'] = users[user_id]['wstyle'].split('_')[-1]
+            # users[user_id]['wtype'] = users[user_id]['wstyle'].split('_')[-1]
 
             users[user_id]['step'] = 3
             if users[user_id]['wtype'] == 'orange':
@@ -616,11 +629,11 @@ def get_call(call):
                              text=f"{['Вы выбрали: ', 'You choose: '][lang]}" +
                                   f"{my_dict.terms['country'][users[user_id]['country']][lang]}")
 
-#НЕ ЗАБЫТЬ УДАЛИТЬ ЛИШНЕЕ УСЛОВИЕ or (users[user_id].get('sugar', None) == 'semi_dry'
-            if users[user_id].get('wtype', None) in ('red', 'white')\
-                and users[user_id].get('sugar', None) == 'dry':
-                    #or (users[user_id].get('sugar', None) == 'semi_dry'
-                        #and users[user_id].get('wtype', None) == 'white'):
+            # НЕ ЗАБЫТЬ УДАЛИТЬ ЛИШНЕЕ УСЛОВИЕ or (users[user_id].get('sugar', None) == 'semi_dry'
+            if users[user_id].get('wtype', None) in ('red', 'white') \
+                    and users[user_id].get('sugar', None) == 'dry':
+                # or (users[user_id].get('sugar', None) == 'semi_dry'
+                # and users[user_id].get('wtype', None) == 'white'):
                 users[user_id]['step'] = 5
 
             else:
