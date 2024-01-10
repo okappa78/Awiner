@@ -428,7 +428,7 @@ def confirm_ordering(user_id):
     bot.send_message(user_id, text=txt, parse_mode='HTML')
 
     # send message to employees that order has been made
-    sendmsg(users_cart[user_id])
+    # sendmsg(users_cart[user_id])
 
     return new_start(user_id)
 
