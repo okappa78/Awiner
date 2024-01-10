@@ -400,7 +400,7 @@ def get_amount(user_id, numbers):
 def new_start(user_id):
     lang = users[user_id]['lang']
 
-    # bot.send_sticker(user_id, my_dict.sticker_id_dikaprio)
+    bot.send_sticker(user_id, my_dict.sticker_id_dikaprio)
     bot.send_message(user_id, text=my_dict.new_start_msg[lang])
 
     # add order to the database
@@ -410,6 +410,9 @@ def new_start(user_id):
     # delete unnecessary info
     del users[user_id]['wine_cart']
     del users_cart[user_id]
+
+    print('Ordering!!!')
+    print_test()
 
     # set step to 1
     users[user_id]['step'] = 1
@@ -426,9 +429,6 @@ def confirm_ordering(user_id):
 
     # send message to employees that order has been made
     sendmsg(users_cart[user_id])
-
-    print('Ordering!!!')
-    print_test()
 
     return new_start(user_id)
 
