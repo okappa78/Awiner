@@ -400,7 +400,7 @@ def get_amount(user_id, numbers):
 def new_start(user_id):
     lang = users[user_id]['lang']
 
-    bot.send_sticker(user_id, my_dict.sticker_id_dikaprio)
+    # bot.send_sticker(user_id, my_dict.sticker_id_dikaprio)
     bot.send_message(user_id, text=my_dict.new_start_msg[lang])
 
     # add order to the database

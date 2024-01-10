@@ -492,5 +492,5 @@ ordering_confirm_msg = ['Спасибо за ваш заказ!\n'
 
 new_start_msg = ['Чтобы сделать новый заказ, нажмите\n'
                  '⬇ Начать заново! ⬇',
-                 'To place a new order, click\n'
+                 'To place a new order, press\n'
                  '⬇ Start over! ⬇']
