@@ -466,21 +466,29 @@ edit_qty_msg = ['Для редактирования количества вве
 ordering_msg = ['Для завершения оформления вам потребуется ввести:\n'
                 '- адрес\n- телефон\n -имя',
                 'You will need to enter the following to complete the application\n'
-                '- address\n- telephone number\n-name']
+                '- address\n- phone number\n-name']
 
-ordering_address_msg = ['Введите адрес доставки\nПо возможности укажите почтовый индекс',
-                        'Enter the delivery address\nPlease enter the postcode if possible']
+ordering_address_msg = ['Введите адрес доставки\n'
+                        '<i>По возможности укажите почтовый индекс</i>',
+                        'Enter the delivery address\n'
+                        '<i>Please enter the postcode if possible</i>']
 
-ordering_phone_msg = ['Укажите номер телефона (6-12 цифр)',
-                      'Enter local phone number (6-12 digits)']
+ordering_phone_msg = ['Укажите номер телефона (9-12 цифр)\n'
+                      'Используйте формат 123456789\n'
+                      '<i>Для НЕпортугальских номеров не забудьте указать код страны</i>',
+                      'Enter phone number (9-12 digits)\n'
+                      'Use the format 123456789\n'
+                      '<i>For non-Portuguese phone, do not forget to enter the country code</i>']
 
-ordering_name = ['Напишите, пожалуйста, ваше имя',
-                 'Please write your name']
+ordering_name = ['Введите, пожалуйста, ваше имя',
+                 'Please enter your name']
 
 ordering_confirm_msg = ['Спасибо за ваш заказ!\n'
-                        'В ближайшее время мы свяжемся с вами для уточнения деталей доставки',
+                        'Мы были рады помочь вам!\n'
+                        'В ближайшее время мы свяжемся с вами для уточнения деталей доставки.',
                         'Thank you for your order!\n'
-                        'We will contact you shortly for delivery details']
+                        'It was our pleasure to help you!\n'
+                        'We will contact you shortly for delivery details.']
 
 new_start_msg = ['Чтобы сделать новый заказ, нажмите\n'
                  '⬇ Начать заново! ⬇',

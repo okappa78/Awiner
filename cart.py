@@ -23,7 +23,7 @@ def get_address(text):
 
 def get_phone(text):
     phone = re.sub(r'\D', '', text)
-    if phone == '' or len(phone) < 6 or len(phone) > 12:
+    if phone == '' or len(phone) < 9 or len(phone) > 12:
         return False
 
     return phone
