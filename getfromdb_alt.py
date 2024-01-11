@@ -276,9 +276,9 @@ def check_exist_address(user_id):
     values = execute_query(select_query)
     value = values[0]
     print('address', values)
-    if all(value):
+    if any(value):
         result = dict(zip(lst_attr, value))
-
+        print('address', result)
         return result
 
     return False
