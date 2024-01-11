@@ -134,3 +134,22 @@ def add_to_db_carts(user_id, mylst):
     conn.close()
 
 
+def add_to_db_address(user_id, contact_data_lst):
+    zip_code = contact_data_lst[0]['zip_code']
+    address = contact_data_lst[1]['address']
+    phone = contact_data_lst[2]['phone']
+    customer_name = contact_data_lst[3]['name']
+
+    # connect to database
+    conn = psycopg2.connect(db_uri, sslmode='require')
+    cursor = conn.cursor()
+
+    cursor.execute('''UPDATE customers
+                      SET customer_name=%s, zip_code=%s, address=%s, phone=%s
+                      WHERE user_id=%s''', (customer_name, zip_code, address, phone, user_id))
+
+    # committing the changes
+    conn.commit()
+    # close connection
+    conn.close()
+    print('new address was added')
