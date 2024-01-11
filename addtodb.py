@@ -138,7 +138,7 @@ def add_to_db_address(user_id, contact_data_lst):
     zip_code = contact_data_lst[0]['zip_code']
     address = contact_data_lst[1]['address']
     phone = contact_data_lst[2]['phone']
-    customer_name = contact_data_lst[3]['name']
+    customer_name = contact_data_lst[3]['customer_name']
 
     # connect to database
     conn = psycopg2.connect(db_uri, sslmode='require')

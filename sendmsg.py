@@ -7,7 +7,7 @@ load_dotenv()
 bot = telebot.TeleBot(os.getenv('TOKEN'))
 chat_id = os.getenv('CHAT_ID')
 contact_list = [('zip_code', 'Индекс'), ('address', 'Адрес'),
-                ('phone', 'Телефон'), ('name', 'Имя'), ('order_id', '# заказа')]
+                ('phone', 'Телефон'), ('customer_name', 'Имя'), ('order_id', '# заказа')]
 
 
 def sendmsg(mylist):
