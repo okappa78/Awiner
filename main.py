@@ -7,7 +7,7 @@ import threading
 import my_dict
 from getfromdb import get_description, get_photo
 from getfromdb_alt import get_filtered
-from addtodb import add_to_db_filters, add_to_db_carts
+from addtodb import add_to_db_filters, add_to_db_carts, add_to_db_customers
 from cart import get_numbers, get_address, get_phone, get_orderid
 from sendmsg import sendmsg
 
@@ -22,6 +22,7 @@ def print_test():
     print('users', users)
     print('users_cart', users_cart)
     print('users_wine', users_wine)
+    print('prev_messages', prev_messages)
 
 
 def show_return_lang_button(*before_btns):
@@ -506,11 +507,13 @@ def get_text_messages(message):
         if message.text == '🇷🇺 Русский':
             users[user_id]['lang'] = 0
             intro_message(user_id)
+            add_to_db_customers(user_id, users[user_id]['lang'])
             show_menu_step(user_id)
 
         elif message.text == '🇬🇧 English':
             users[user_id]['lang'] = 1
             intro_message(user_id)
+            add_to_db_customers(user_id, users[user_id]['lang'])
             show_menu_step(user_id)
 
         elif message.text in my_dict.return_button:
