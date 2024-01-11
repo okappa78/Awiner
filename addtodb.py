@@ -13,6 +13,43 @@ def get_timestamp():
     return datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 
+def add_to_db_customers(user_id, lang):
+    # connect to database
+    conn = psycopg2.connect(db_uri, sslmode='require')
+    cursor = conn.cursor()
+
+    # create table if not exist
+    cursor.execute('''
+                CREATE TABLE IF NOT EXISTS customers (
+                    id SERIAL PRIMARY KEY,
+                    start_time TIMESTAMP,
+                    user_id INTEGER,
+                    name VARCHAR(30),
+                    zip_code VARCHAR(10),
+                    address VARCHAR(50),
+                    phone VARCHAR(15),
+                    lang INTEGER
+                )
+            ''')
+
+    # check if user exist in table
+    cursor.execute("SELECT * FROM users WHERE user_id=?", (user_id,))
+    existing_user = cursor.fetchone()
+
+    if existing_user:
+        cursor.execute('''UPDATE users SET lang=? WHERE user_id=?''', (lang, user_id))
+    else:
+        timestamp = get_timestamp()
+        cursor.execute('''INSERT INTO customers (start_time, user_id, lang)
+                                          VALUES (%s, %s, %s)''', (timestamp, user_id, lang))
+
+    # committing the changes
+    conn.commit()
+    # close connection
+    conn.close()
+    print('new customer was added')
+
+
 def add_to_db_filters(user_id, mydict):
     # Подключение к базе данных
     conn = psycopg2.connect(db_uri, sslmode='require')
