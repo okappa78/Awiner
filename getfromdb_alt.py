@@ -268,4 +268,4 @@ def check_exist_address(user_id):
 
     # execute the query
     values = execute_query(select_query)
-    print(values)
+    print('address', values)
