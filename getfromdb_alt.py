@@ -264,7 +264,7 @@ def get_photo(wine_id):
 def check_exist_address(user_id):
 
     select_query = sql.SQL(f"SELECT zip_code, address, phone, customer_name "
-                           f"FROM specifications WHERE user_id = {user_id}")
+                           f"FROM customers WHERE user_id = {user_id}")
 
     # execute the query
     values = execute_query(select_query)
