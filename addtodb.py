@@ -33,11 +33,11 @@ def add_to_db_customers(user_id, lang):
             ''')
 
     # check if user exist in table
-    cursor.execute("SELECT * FROM users WHERE user_id=%s", (user_id,))
+    cursor.execute("SELECT * FROM customers WHERE user_id=%s", (user_id,))
     existing_user = cursor.fetchone()
 
     if existing_user:
-        cursor.execute('''UPDATE users SET lang=%s WHERE user_id=%s''', (lang, user_id))
+        cursor.execute('''UPDATE customers SET lang=%s WHERE user_id=%s''', (lang, user_id))
     else:
         timestamp = get_timestamp()
         cursor.execute('''INSERT INTO customers (start_time, user_id, lang)
