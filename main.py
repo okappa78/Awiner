@@ -431,6 +431,8 @@ def confirm_address(user_id):
     markup = types.InlineKeyboardMarkup(row_width=2)
     btn1 = types.InlineKeyboardButton(my_dict.confirm_button[lang], callback_data='okaddress')
     btn2 = types.InlineKeyboardButton(my_dict.correct_button[lang], callback_data='correctaddress')
+    print('last step')
+    print_test()
 
     markup.add(btn1, btn2)
 
