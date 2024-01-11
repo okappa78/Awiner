@@ -7,7 +7,7 @@ import threading
 import my_dict
 from getfromdb import get_description, get_photo
 from getfromdb_alt import get_filtered, check_exist_address
-from addtodb import add_to_db_filters, add_to_db_carts, add_to_db_customers
+from addtodb import add_to_db_filters, add_to_db_carts, add_to_db_customers, add_to_db_address
 from cart import get_numbers, get_address, get_phone, get_orderid
 from sendmsg import sendmsg
 
@@ -753,6 +753,8 @@ def get_call(call):
 
         # если подтвердили адрес
         elif call.data == 'okaddress':
+            contact_data = users_cart[user_id][-4:]
+            add_to_db_address(user_id, contact_data)
             confirm_ordering(user_id)
 
         # если не подтвердили адрес
