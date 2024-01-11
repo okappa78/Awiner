@@ -428,8 +428,10 @@ def confirm_ordering(user_id):
     bot.send_message(user_id, text=txt, parse_mode='HTML')
 
     # send message to employees that order has been made
+
     t = threading.Thread(target=sendmsg, args=(users_cart.get(user_id),))
     t.start()
+
 
     return new_start(user_id)
 
