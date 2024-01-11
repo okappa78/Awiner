@@ -372,7 +372,7 @@ def send_cart_message(user_id):
               f"{['Итого:', 'Total:'][lang]} <b>{total}0€</b>"
 
         markup_inline = types.InlineKeyboardMarkup(row_width=1)
-        order_button = types.InlineKeyboardButton(my_dict.order_button[lang], callback_data='order')
+        order_button = types.InlineKeyboardButton(my_dict.confirm_button[lang], callback_data='order')
         markup_inline.add(order_button)
         bot.send_message(user_id, text=txt, parse_mode='HTML', reply_markup=markup_inline)
         bot.send_message(user_id, text=my_dict.edit_qty_msg[lang], parse_mode='HTML')
@@ -419,6 +419,22 @@ def new_start(user_id):
     users[user_id]['step'] = 1
 
 
+def confirm_address(user_id):
+    lang = users[user_id]['lang']
+
+    txt = my_dict.confirm_address_msg[lang]
+    for contact in users_cart[user_id][-3:]:
+        txt += f"{contact}\n"
+
+    markup = types.InlineKeyboardMarkup()
+    btn1 = types.InlineKeyboardButton(my_dict.confirm_button, callback_data='okaddress')
+    btn2 = types.InlineKeyboardButton(my_dict.correct_button, callback_data='correctaddress')
+
+    markup.add(btn1, btn2)
+
+    bot.send_message(user_id, text=txt, reply_markup=markup)
+
+
 def confirm_ordering(user_id):
     lang = users[user_id]['lang']
 
@@ -433,7 +449,6 @@ def confirm_ordering(user_id):
     t = threading.Thread(target=sendmsg, args=(users_cart.get(user_id),))
     t.start()
 
-
     return new_start(user_id)
 
 
@@ -447,7 +462,6 @@ def check_address(user_id):
         return ordering_address(user_id)
 
     return ordering_address(user_id)
-
 
 
 def add_data_to_order(user_id, data):
@@ -578,7 +592,7 @@ def get_text_messages(message):
             elif step == 13:
                 contact_data = message.text
                 add_data_to_order(user_id, contact_data)
-                confirm_ordering(user_id)
+                confirm_address(user_id)
 
 
 @bot.callback_query_handler(func=lambda call: True)
@@ -734,6 +748,15 @@ def get_call(call):
             else:
                 users[user_id]['step'] = 1
                 show_menu_step(user_id)
+
+        # если подтвердили адрес
+        elif call.data == 'okaddress':
+            confirm_ordering(user_id)
+
+        # если не подтвердили адрес
+        elif call.data == 'correctaddress':
+            users[user_id]['step'] = 11
+            ordering_address(user_id)
 
 
 if __name__ == '__main__':
