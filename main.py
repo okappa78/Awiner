@@ -425,7 +425,7 @@ def confirm_address(user_id):
     txt = my_dict.confirm_address_msg[lang]
     txt += f"{users_cart[user_id][-3]['address']}\n"
     txt += f"{users_cart[user_id][-2]['phone']}\n"
-    txt += f"{users_cart[user_id][-1]['name']}"
+    txt += f"{users_cart[user_id][-1]['customer_name']}"
     print('contact data', txt)
 
     markup = types.InlineKeyboardMarkup(row_width=2)
@@ -484,7 +484,7 @@ def add_data_to_order(user_id, data):
                 return bot.send_message(user_id, text=['Неверный ввод', 'Wrong data'][lang])
             users_cart[user_id].append({'phone': data})
         elif step == 13:
-            users_cart[user_id].append({'name': data})
+            users_cart[user_id].append({'customer_name': data})
 
         users[user_id]['step'] += 1
 
