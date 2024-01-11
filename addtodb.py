@@ -24,7 +24,7 @@ def add_to_db_customers(user_id, lang):
                     id SERIAL PRIMARY KEY,
                     start_time TIMESTAMP,
                     user_id INTEGER,
-                    name VARCHAR(30),
+                    customer_name VARCHAR(30),
                     zip_code VARCHAR(10),
                     address VARCHAR(50),
                     phone VARCHAR(15),
@@ -106,7 +106,7 @@ def add_to_db_carts(user_id, mylst):
             zip_code VARCHAR(10),
             address VARCHAR(50),
             phone VARCHAR(15),
-            name VARCHAR(30)
+            customer_name VARCHAR(30)
         )
     ''')
 
@@ -118,14 +118,14 @@ def add_to_db_carts(user_id, mylst):
     mylst = mylst[:-6]
 
     fieldnames = ('timestamp', 'order_id', 'user_id', 'wine_id', 'title',
-                  'price', 'amount', 'delivery', 'zip_code', 'address', 'phone', 'name')
+                  'price', 'amount', 'delivery', 'zip_code', 'address', 'phone', 'customer_name')
     # Получаем данные в виде списка списков
     lst_values = [tuple([wine.get(key, None) for key in fieldnames]) for wine in mylst]
 
     register_adapter(np.int64, AsIs)
     for values in lst_values:
         cursor.execute('''INSERT INTO carts (timestamp, order_id, user_id, wine_id, title, price,
-                                                  amount, delivery, zip_code, address, phone, name)
+                                                  amount, delivery, zip_code, address, phone, customer_name)
                                       VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)''', values)
 
     # Committing the changes

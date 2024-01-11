@@ -6,7 +6,7 @@ import threading
 
 import my_dict
 from getfromdb import get_description, get_photo
-from getfromdb_alt import get_filtered
+from getfromdb_alt import get_filtered, check_exist_address
 from addtodb import add_to_db_filters, add_to_db_carts, add_to_db_customers
 from cart import get_numbers, get_address, get_phone, get_orderid
 from sendmsg import sendmsg
@@ -349,7 +349,7 @@ def send_cart_message(user_id):
 
     if step == 9:
         bot.send_message(user_id,
-                         text=my_dict.wine_cart_msg[lang])
+                         text=my_dict.wine_cart_msg[lang], parse_mode='HTML')
         bot.send_message(user_id,
                          text=my_dict.delivery_price_msg[lang])
 
@@ -375,7 +375,7 @@ def send_cart_message(user_id):
         order_button = types.InlineKeyboardButton(my_dict.order_button[lang], callback_data='order')
         markup_inline.add(order_button)
         bot.send_message(user_id, text=txt, parse_mode='HTML', reply_markup=markup_inline)
-        bot.send_message(user_id, text=my_dict.edit_qty_msg[lang])
+        bot.send_message(user_id, text=my_dict.edit_qty_msg[lang], parse_mode='HTML')
 
 
 def get_amount(user_id, numbers):
@@ -435,6 +435,10 @@ def confirm_ordering(user_id):
 
 
     return new_start(user_id)
+
+
+def check_address(user_id):
+    check_exist_address(user_id)
 
 
 def add_data_to_order(user_id, data):
@@ -715,6 +719,8 @@ def get_call(call):
             users_cart[user_id] = check_zero(user_id)
             if users_cart[user_id]:
                 users[user_id]['step'] = 11
+                bot.send_message(user_id, text=my_dict.confirm_quantity_msg[lang])
+                check_address(user_id)
                 bot.send_message(user_id, text=my_dict.ordering_msg[lang])
                 ordering_address(user_id)
             else:

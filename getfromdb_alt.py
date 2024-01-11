@@ -258,3 +258,14 @@ def get_photo(wine_id):
         photo_url = file_url + 'grapes.jpg'
 
     return photo_url
+
+
+# check if delivery address already exist and return it
+def check_exist_address(user_id):
+
+    select_query = sql.SQL(f"SELECT zip_code, address, phone, customer_name "
+                           f"FROM specifications WHERE user_id = {user_id}")
+
+    # execute the query
+    values = execute_query(select_query)
+    print(values)
