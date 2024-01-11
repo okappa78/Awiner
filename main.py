@@ -754,13 +754,13 @@ def get_call(call):
                 show_menu_step(user_id)
 
         # если подтвердили адрес
-        elif call.data == 'okaddress':
+        elif call.data == 'okaddress' and step == 13:
             contact_data = users_cart[user_id][-4:]
             add_to_db_address(user_id, contact_data)
             confirm_ordering(user_id)
 
         # если не подтвердили адрес
-        elif call.data == 'correctaddress':
+        elif call.data == 'correctaddress' and step == 13:
             users[user_id]['step'] = 11
             users_cart[user_id] = users_cart[user_id][:-4]
             print_test()

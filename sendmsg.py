@@ -25,6 +25,7 @@ def sendmsg(mylist):
         txt += f"<b>{wine['wine_id']}</b> <b>{wine['title']}</b>: {wine['price']}€ x <b>{wine['amount']}</b>\n"
         sum_total += wine['price'] * wine['amount']
 
-    txt += f"Доставка: {delivery}€\nОбщая сумма <b>{sum_total + delivery}€</b>"
+    sum_total += delivery
+    txt += f"Доставка: {delivery}€\nОбщая сумма <b>{round(sum_total, 1)}€</b>"
     bot.send_message(chat_id, text=txt, parse_mode='HTML')
     bot.send_message(chat_id, text=sep_line)

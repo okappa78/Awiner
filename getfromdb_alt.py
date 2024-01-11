@@ -65,7 +65,6 @@ regions = {
                 'italy': ('abruzzo', 'alto adige', 'sicilia', 'toscana')
         }
     }
-incr_idx = -1
 
 
 def clause_country(mydict):
@@ -156,14 +155,12 @@ def remove_keys(dict_to_change):
 
 
 def change_price(price):
-    global incr_idx
+    dec_idx = 1
 
     price_idx = my_dict.dict_categories['price'][2].index(price)
-    if price_idx == 0:
-        incr_idx = 1
+    price_idx -= dec_idx
 
-    price_idx += incr_idx
-    print('price', my_dict.dict_categories['price'][2][price_idx])
+    print('price', my_dict.dict_categories['price'][2][abs(price_idx % 5)])
 
     return my_dict.dict_categories['price'][2][price_idx]
 
