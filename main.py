@@ -463,7 +463,9 @@ def check_address(user_id):
 
         return ordering_address(user_id)
 
-    return ordering_address(user_id)
+    users_cart[user_id].extend(is_address)
+
+    return confirm_address(user_id)
 
 
 def add_data_to_order(user_id, data):

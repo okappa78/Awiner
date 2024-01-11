@@ -277,7 +277,7 @@ def check_exist_address(user_id):
     value = values[0]
     print('address', values)
     if any(value):
-        result = dict(zip(lst_attr, value))
+        result = [{key: val} for key, val in zip(lst_attr, value)]
         print('address', result)
         return result
 
