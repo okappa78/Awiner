@@ -438,7 +438,16 @@ def confirm_ordering(user_id):
 
 
 def check_address(user_id):
-    check_exist_address(user_id)
+    lang = users[user_id]['lang']
+    is_address = check_exist_address(user_id)
+
+    if not is_address:
+        bot.send_message(user_id, text=my_dict.ordering_msg[lang])
+
+        return ordering_address(user_id)
+
+    return ordering_address(user_id)
+
 
 
 def add_data_to_order(user_id, data):
@@ -721,8 +730,7 @@ def get_call(call):
                 users[user_id]['step'] = 11
                 bot.send_message(user_id, text=my_dict.confirm_quantity_msg[lang])
                 check_address(user_id)
-                bot.send_message(user_id, text=my_dict.ordering_msg[lang])
-                ordering_address(user_id)
+
             else:
                 users[user_id]['step'] = 1
                 show_menu_step(user_id)
