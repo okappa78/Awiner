@@ -200,7 +200,9 @@ def get_filtered(mydict):
     # Construct the SELECT query
     where_clause = ' AND '.join(where_filters)
     print(where_clause)
-    select_query = sql.SQL(f"SELECT wine_id FROM specifications WHERE {where_clause}")
+    select_query = sql.SQL(f"SELECT wine_id "
+                           f"FROM specifications "
+                           f"WHERE {where_clause}")
 
     # Execute the query
     values = execute_query(select_query)
@@ -239,7 +241,9 @@ def get_description(list_of_ids, user_id, lang=0, complete=True):
     query_attr = ', '.join(lst_attr)
 
     # Construct the SELECT query
-    select_query = sql.SQL(f"SELECT {query_attr} FROM {table_name} WHERE wine_id IN ({where_ids})")
+    select_query = sql.SQL(f"SELECT {query_attr} "
+                           f"FROM {table_name} "
+                           f"WHERE wine_id IN ({where_ids})")
 
     # Execute the query
     values = execute_query(select_query)
@@ -262,10 +266,19 @@ def get_photo(wine_id):
 
 # check if delivery address already exist and return it
 def check_exist_address(user_id):
+    lst_attr = ['zip_code', 'address', 'phone', 'customer_name']
+    query_attr = ', '.join(lst_attr)
 
-    select_query = sql.SQL(f"SELECT zip_code, address, phone, customer_name "
+    select_query = sql.SQL(f"SELECT {query_attr} "
                            f"FROM customers WHERE user_id = {user_id}")
 
     # execute the query
     values = execute_query(select_query)
+    value = values[0]
     print('address', values)
+    if all(value):
+        result = dict(zip(lst_attr, value))
+
+        return result
+
+    return False
