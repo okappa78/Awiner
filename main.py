@@ -428,7 +428,7 @@ def confirm_address(user_id):
     txt += f"{users_cart[user_id][-1]['name']}"
     print('contact data', txt)
 
-    markup = types.InlineKeyboardMarkup()
+    markup = types.InlineKeyboardMarkup(row_width=2)
     btn1 = types.InlineKeyboardButton(my_dict.confirm_button[lang], callback_data='okaddress')
     btn2 = types.InlineKeyboardButton(my_dict.correct_button[lang], callback_data='correctaddress')
 
