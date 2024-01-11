@@ -423,8 +423,10 @@ def confirm_address(user_id):
     lang = users[user_id]['lang']
 
     txt = my_dict.confirm_address_msg[lang]
-    for contact in users_cart[user_id][-3:]:
-        txt += f"{contact}\n"
+    txt += users_cart[user_id][-3]['address']
+    txt += users_cart[user_id][-2]['phone']
+    txt += users_cart[user_id][-1]['name']
+    print('contact data', txt)
 
     markup = types.InlineKeyboardMarkup()
     btn1 = types.InlineKeyboardButton(my_dict.confirm_button, callback_data='okaddress')
@@ -756,6 +758,8 @@ def get_call(call):
         # если не подтвердили адрес
         elif call.data == 'correctaddress':
             users[user_id]['step'] = 11
+            users_cart[user_id] = users_cart[user_id][:-4]
+            print_test()
             ordering_address(user_id)
 
 
