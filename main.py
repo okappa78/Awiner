@@ -423,9 +423,9 @@ def confirm_address(user_id):
     lang = users[user_id]['lang']
 
     txt = my_dict.confirm_address_msg[lang]
-    txt += users_cart[user_id][-3]['address']
-    txt += users_cart[user_id][-2]['phone']
-    txt += users_cart[user_id][-1]['name']
+    txt += f"{users_cart[user_id][-3]['address']}\n"
+    txt += f"{users_cart[user_id][-2]['phone']}\n"
+    txt += f"{users_cart[user_id][-1]['name']}"
     print('contact data', txt)
 
     markup = types.InlineKeyboardMarkup()
