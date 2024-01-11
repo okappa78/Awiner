@@ -22,7 +22,7 @@ def print_test():
     print('users', users)
     print('users_cart', users_cart)
     print('users_wine', users_wine)
-    print('prev_messages', prev_messages)
+    print('prev_messages:', prev_messages)
 
 
 def show_return_lang_button(*before_btns):

@@ -47,6 +47,7 @@ def add_to_db_customers(user_id, lang):
     conn.commit()
     # close connection
     conn.close()
+    print('new customer was added')
 
 
 def add_to_db_filters(user_id, mydict):
