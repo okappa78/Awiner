@@ -11,7 +11,7 @@ contact_list = [('zip_code', 'Индекс'), ('address', 'Адрес'),
 
 
 def sendmsg(mylist):
-    sep_line = '-' + 13 * 'x-'
+    sep_line = '-' + 15 * 'x-'
     delivery, sum_total, txt = 0, 0, ''
 
     for i in range(-1, -6, -1):
