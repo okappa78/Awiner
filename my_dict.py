@@ -385,7 +385,7 @@ dict_messages = {
         "Let's set a price!"]
 }
 
-skip_text = ['Пропустить!', 'Skip!']
+skip_text = ['⏭ Пропустить ⏭ ', '⏭ Skip ⏭ ']
 
 wine_suggest_message = ['Теперь мне достаточно данных для предложения вина!',
                         'Now I have enough data for a wine suggestion!']
@@ -400,7 +400,7 @@ confirm_button = ['✅ Подтвердить ✅',
 correct_button = ['📝 Изменить 📝',
                   '📝 Edit 📝']
 
-restart_button = ['Начать заново!', 'Start again!']
+restart_button = ['🔄 Начать заново 🔄', '🔄 Start over 🔄']
 
 restart_text = ["Давайте сделаем еще один выбор!",
                 "Let's make another choice!"]
@@ -416,13 +416,13 @@ empty_res_msg_alt = ['Позвольте предложить вам вина, �
 
 ok_button = ['🍷 Предложи мне 🍷', '🍷 Offer me 🍷']
 
-empty_res_msg_alt_change = ['Или попробуйте изменить критерии,\n'
-                            'нажав ⬇ Начать заново! ⬇',
-                            'Or try changing the criteria,\n'
-                            'press ⬇ Start over! ⬇']
+empty_res_msg_alt_change = ['Или попробуйте изменить критерии, нажмите\n'
+                            '⬇ Начать заново ⬇',
+                            'Or try changing the criteria, press\n'
+                            '⬇ Start over ⬇']
 
 empty_req_msg = ['Попробуйте изменить критерии',
-                 'Try changing the criteria.']
+                 'Try to change the criteria.']
 
 fwd_button = ['Следующее', 'Next']
 cart_button = ['В корзину!', 'Add to cart']
@@ -439,9 +439,10 @@ mandatory_cats_orange = ('wstyle', 'country', 'price')
 mandatory_cats_sparkling = ('sugar', 'country', 'price')
 mandatory_cats_fortified = ('wstyle', 'price')
 
-more_cats_msg = ['Не хватает данных!\nНачнем сначала)', "Not enough data! Let's start over)"]
+more_cats_msg = ['Не хватает данных!\nНачнем сначала)', "Not enough data!\nLet's start over)"]
 
-confirm_carts_msg = ['Добавлено в корзину:', 'Added to cart:']
+confirm_carts_msg = ['Добавлено в корзину:',
+                     'Added to cart:']
 
 wine_cart_msg = ['Введите через ПРОБЕЛ количество в поле для сообщений\n'
                  '(0 - если хотите удалить вино)\n'
@@ -491,8 +492,8 @@ ordering_phone_msg = ['Укажите номер телефона (9-12 цифр
 ordering_name = ['Введите, пожалуйста, ваше имя',
                  'Please enter your name']
 
-confirm_address_msg = ['Пожалуйста, проверьте ваши контактные данные\n',
-                       'Please check your contact data\n']
+confirm_address_msg = ['Пожалуйста, проверьте ваши контактные данные\n\n',
+                       'Please check your contact data\n\n']
 
 ordering_confirm_msg = ['Спасибо за ваш заказ!\n'
                         'Мы были рады помочь вам!\n'
@@ -502,6 +503,6 @@ ordering_confirm_msg = ['Спасибо за ваш заказ!\n'
                         'We will contact you shortly for delivery details.']
 
 new_start_msg = ['Чтобы сделать новый заказ, нажмите\n'
-                 '⬇ Начать заново! ⬇',
+                 '⬇ Начать заново ⬇',
                  'To place a new order, press\n'
-                 '⬇ Start over! ⬇']
+                 '⬇ Start over ⬇']
