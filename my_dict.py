@@ -374,13 +374,13 @@ dict_messages = {
         "Do you choose your wine by grape or region?\n"
         "*These steps can be skipped*"],
     51: ["Какие сорта винограда вы предпочитаете?\n"
-        "*Этот шаг можно пропустить*",
-        "What grape varieties do you prefer?\n"
-        "*This step can be skipped*"],
+         "*Этот шаг можно пропустить*",
+         "What grape varieties do you prefer?\n"
+         "*This step can be skipped*"],
     52: ["Какой регион вы предпочитаете?\n"
-        "*Этот шаг можно пропустить*",
-        "What region do you prefer?\n"
-        "*This step can be skipped*"],
+         "*Этот шаг можно пропустить*",
+         "What region do you prefer?\n"
+         "*This step can be skipped*"],
     6: ["Давайте определимся с ценой!",
         "Let's set a price!"]
 }
@@ -431,7 +431,7 @@ bwd_button = ['Предыдущее', 'Previous']
 error_msg = ['Что-то не так!\nДавайте начнем сначала!',
              "Something's gone wrong!\nLet's start again!"]
 
-btn_cart = ['Корзина', 'Cart']
+btn_cart = ['🛒 Корзина 🛒', '🛒 Cart 🛒']
 
 mandatory_cats = ('wstyle', 'sugar', 'country', 'price')
 mandatory_cats_rose = ('country', 'price')
@@ -473,9 +473,9 @@ edit_qty_msg = ['Для редактирования количества вве
                 '<i>(0 - if you want to remove a wine)</i>']
 
 ordering_msg = ['Для завершения оформления вам потребуется ввести:\n'
-                '- адрес\n- телефон\n -имя',
+                '🏘️ адрес\n📞 телефон\n🌝 имя',
                 'You will need to enter the following to complete the application\n'
-                '- address\n- phone number\n-name']
+                '🏘️ address\n📞 phone number\n🌝 name']
 
 ordering_address_msg = ['Введите адрес доставки\n'
                         '<i>По возможности укажите почтовый индекс</i>',
@@ -492,7 +492,7 @@ ordering_phone_msg = ['Укажите номер телефона (9-12 цифр
 ordering_name = ['Введите, пожалуйста, ваше имя',
                  'Please enter your name']
 
-confirm_address_msg = ['Пожалуйста, проверьте ваши контактные данные\n\n',
+confirm_address_msg = ['Пожалуйста, проверьте ваши данные\n\n',
                        'Please check your contact data\n\n']
 
 ordering_confirm_msg = ['Спасибо за ваш заказ!\n'
