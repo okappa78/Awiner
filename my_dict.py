@@ -323,23 +323,31 @@ choose_lang = '🇷🇺 Выберите язык\n🇬🇧 Choose your language
 
 intro_message = ['''
 Добро пожаловать!!!
-Я виртуальный ассистент, Awiner 🦸
+Я ваш виртуальный ассистент 🦸
 Готов помочь вам в выборе вина!
 ''',
                  '''
 Welcome!!!
-I am Awiner, your virtual assistant 🦸
+I am your virtual assistant 🦸
 Ready to help you with your wine selection!
 ''']
 
 help_message = ['''
-Вам будет предложено поочердно выбрать из таких критериев, как:
-тип, стиль, содержание сахара, страна, сорт винограда, регион, цена.
+Вам будет предложено выбрать вино по таким критериям, как тип вина, стиль, содержание сахара, страна, виноград или регион. Для некоторых типов вин список критериев может отличаться. Некоторые критерии являются обязательными, а другие можно пропустить. Полезные подсказки подскажут вам на каждом этапе выбора, что и как выбрать.
+
+Добавив вино в корзину, вы можете перейти к оформлению заказа или продолжить поиск по другим критериям.
+
+После оформления заказа вы получите сообщение с номером заказа, и наша команда свяжется с вами для уточнения деталей доставки.
+
 Давайте начнем!
 ''',
                 '''
-You will be asked to take turns selecting a wine based on criteria such as:
-type, style, sugar content, country, grape variety, region, price.
+You'll be prompted to choose wine based on criteria such as wine type, style, sugar content, country, grape, or region. For some wine types, the list of criteria may differ. Certain criteria are mandatory, while others can be skipped. Helpful prompts will guide you at each selection stage on what to choose and how.
+
+After adding wine to your cart, you can proceed to checkout or continue exploring based on other criteria.
+
+Once you've placed an order, you'll receive a message with the order number, and our team will contact you to confirm delivery details.
+
 Let's get started!
 ''']
 
