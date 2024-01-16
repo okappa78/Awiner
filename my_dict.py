@@ -439,7 +439,7 @@ mandatory_cats_orange = ('wstyle', 'country', 'price')
 mandatory_cats_sparkling = ('sugar', 'country', 'price')
 mandatory_cats_fortified = ('wstyle', 'price')
 
-more_cats_msg = ['Не хватает данных!\nНачнем сначала)', "Not enough data!\nLet's New searching)"]
+more_cats_msg = ['Не хватает данных!\nНачнем сначала)', "Not enough data!\nLet's start over)"]
 
 confirm_carts_msg = ['Добавлено в корзину:',
                      'Added to cart:']
