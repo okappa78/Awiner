@@ -391,8 +391,8 @@ wine_suggest_message = ['Теперь мне достаточно данных �
                         'Now I have enough data for a wine suggestion!']
 
 
-confirm_fltr_msg = ['Если все верно - жмите кнопку:\nПодтвердить!\n\nЕсли сомневаетесь:\nНачать заново!',
-                    'If everything is correct - click:\nConfirm!\n\nIf in doubt:\nStart over!']
+confirm_fltr_msg = ['Если все верно - жмите кнопку:\nПодтвердить!\n\nЕсли сомневаетесь:\nНовый поиск!',
+                    'If everything is correct - click:\nConfirm!\n\nIf in doubt:\nNew searching!']
 
 confirm_button = ['✅ Подтвердить ✅',
                   '✅ Confirm ✅']
@@ -400,7 +400,7 @@ confirm_button = ['✅ Подтвердить ✅',
 correct_button = ['📝 Изменить 📝',
                   '📝 Edit 📝']
 
-restart_button = ['🔄 Начать заново 🔄', '🔄 Start over 🔄']
+restart_button = ['🔄 Новый поиск 🔄', '🔄 New searching 🔄']
 
 restart_text = ["Давайте сделаем еще один выбор!",
                 "Let's make another choice!"]
@@ -417,9 +417,9 @@ empty_res_msg_alt = ['Позвольте предложить вам вина, �
 ok_button = ['🍷 Предложи мне 🍷', '🍷 Offer me 🍷']
 
 empty_res_msg_alt_change = ['Или попробуйте изменить критерии, нажмите\n'
-                            '⬇ Начать заново ⬇',
+                            '⬇ Новый поиск ⬇',
                             'Or try changing the criteria, press\n'
-                            '⬇ Start over ⬇']
+                            '⬇ New searching ⬇']
 
 empty_req_msg = ['Попробуйте изменить критерии',
                  'Try to change the criteria.']
@@ -439,7 +439,7 @@ mandatory_cats_orange = ('wstyle', 'country', 'price')
 mandatory_cats_sparkling = ('sugar', 'country', 'price')
 mandatory_cats_fortified = ('wstyle', 'price')
 
-more_cats_msg = ['Не хватает данных!\nНачнем сначала)', "Not enough data!\nLet's start over)"]
+more_cats_msg = ['Не хватает данных!\nНачнем сначала)', "Not enough data!\nLet's New searching)"]
 
 confirm_carts_msg = ['Добавлено в корзину:',
                      'Added to cart:']
@@ -503,6 +503,6 @@ ordering_confirm_msg = ['Спасибо за ваш заказ!\n'
                         'We will contact you shortly for delivery details.']
 
 new_start_msg = ['Чтобы сделать новый заказ, нажмите\n'
-                 '⬇ Начать заново ⬇',
+                 '⬇ Новый поиск ⬇',
                  'To place a new order, press\n'
-                 '⬇ Start over ⬇']
+                 '⬇ New searching ⬇']
