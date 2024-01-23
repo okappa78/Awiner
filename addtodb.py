@@ -113,6 +113,7 @@ def add_to_db_carts(user_id, mylst):
         )
     ''')
 
+    print('mylst', mylst)
     # Обрезаем лишние символы в адресе и имени
     mylst[-3]['address'] = mylst[-3]['address'][:max_length_address]
     mylst[-1]['customer_name'] = mylst[-1]['customer_name'][:max_length_customer_name]
