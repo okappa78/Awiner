@@ -8,6 +8,8 @@ import os
 load_dotenv()
 db_uri = os.getenv('DB_URI')
 
+max_length_address = 100
+max_length_customer_name = 30
 
 def get_timestamp():
     return datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -23,10 +25,10 @@ def add_to_db_customers(user_id, lang):
                 CREATE TABLE IF NOT EXISTS customers (
                     id SERIAL PRIMARY KEY,
                     start_time TIMESTAMP,
-                    user_id INTEGER,
+                    user_id BIGINT,
                     customer_name VARCHAR(30),
                     zip_code VARCHAR(10),
-                    address VARCHAR(50),
+                    address VARCHAR(100),
                     phone VARCHAR(15),
                     lang INTEGER
                 )
@@ -60,26 +62,27 @@ def add_to_db_filters(user_id, mydict):
             CREATE TABLE IF NOT EXISTS filters (
                 id SERIAL PRIMARY KEY,
                 timestamp TIMESTAMP,
-                user_id INTEGER,
+                user_id BIGINT,
                 wine_type VARCHAR(15),
                 wine_style VARCHAR(15),
                 wine_sugar VARCHAR(15),
-                wine_country VARCHAR(15),
+                wine_country VARCHAR(30),
                 wine_grape VARCHAR(50),
                 wine_price VARCHAR(10),
-                lang INTEGER
+                lang INTEGER,
+                wine_region VARCHAR(50)
             )
         ''')
 
-    fieldnames = ('wtype', 'wstyle', 'sugar', 'country', 'grape', 'price', 'lang')
+    fieldnames = ('wtype', 'wstyle', 'sugar', 'country', 'grape', 'price', 'lang', 'region')
     filters = [mydict.get(key, None) for key in fieldnames]
     timestamp = get_timestamp()
     add_values = (timestamp, user_id, *filters)
 
     register_adapter(np.int64, AsIs)
     cursor.execute('''INSERT INTO filters (timestamp, user_id, wine_type, wine_style, wine_sugar,
-                                                  wine_country, wine_grape, wine_price, lang)
-                                      VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)''', add_values)
+                                                  wine_country, wine_grape, wine_price, lang, wine_region)
+                                      VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)''', add_values)
     # Committing the changes
     conn.commit()
     # Закрытие соединения
@@ -97,18 +100,22 @@ def add_to_db_carts(user_id, mylst):
             id SERIAL PRIMARY KEY,
             timestamp TIMESTAMP,
             order_id VARCHAR(10),
-            user_id INTEGER,
+            user_id BIGINT,
             wine_id INTEGER,
             title VARCHAR(50),
-            price DECIMAL(5, 2),
+            price DOUBLE PRECISION,
             amount INTEGER,
             delivery VARCHAR(5),
             zip_code VARCHAR(10),
-            address VARCHAR(50),
+            address VARCHAR(100),
             phone VARCHAR(15),
             customer_name VARCHAR(30)
         )
     ''')
+
+    # Обрезаем лишние символы в адресе и имени
+    mylst[-3]['address'] = mylst[-3]['address'][:max_length_address]
+    mylst[-1]['customer_name'] = mylst[-1]['customer_name'][:max_length_customer_name]
 
     # Преобразовываем список [{вина} + {контактные данны}] в список [{вино + контактные данные}]
     len_dict = len(mylst) - 6
@@ -136,9 +143,9 @@ def add_to_db_carts(user_id, mylst):
 
 def add_to_db_address(user_id, contact_data_lst):
     zip_code = contact_data_lst[0]['zip_code']
-    address = contact_data_lst[1]['address']
+    address = contact_data_lst[1]['address'][:max_length_address]
     phone = contact_data_lst[2]['phone']
-    customer_name = contact_data_lst[3]['customer_name']
+    customer_name = contact_data_lst[3]['customer_name'][:max_length_customer_name]
 
     # connect to database
     conn = psycopg2.connect(db_uri, sslmode='require')
