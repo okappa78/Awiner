@@ -10,6 +10,7 @@ dict_steps = {
 }
 
 empty_grapes = (('Другой',), ('Other',), ('other',))
+empty_regions = (('Другой',), ('Other',), ('other',))
 
 regions_dict = {
         'abruzzo': ('Абруццо', 'Abruzzo'),
@@ -238,7 +239,7 @@ dict_categories = {
                 'italy': (('Глера', 'Москато', 'Пино Гриджио', 'Треббиано', 'Другой'),
                           ('Glera', 'Moscato', 'Pinot Grigio', 'Trebbiano', 'Other'),
                           ('glera', 'moscato', 'pinot grigio', 'trebbiano', 'other')),
-                'georgia': empty_grapes,
+                'germany': empty_grapes,
                 'others': (('Рислинг', 'Сильванер', 'Другой'),
                            ('Riesling', 'Sylvaner', 'Other'),
                            ('riesling', 'sylvaner', 'other'))
@@ -254,7 +255,7 @@ dict_categories = {
                 'italy': (('Шардоне', 'Пино Бьянко', 'Вердиккио', 'Верментино', 'Другой'),
                           ('Chardonnay', 'Pinot Bianco', 'Verdicchio', 'Vermentino', 'Other'),
                           ('chardonnay', 'pinot bianco', 'verdicchio', 'vermentino', 'other')),
-                'georgia': empty_grapes,
+                'germany': empty_grapes,
                 'others': empty_grapes
             },
             'full': {
@@ -268,7 +269,7 @@ dict_categories = {
                 'italy': (('Фиано ди Авеллино', 'Вердиккио', 'Другой'),
                           ('Fiano di Avellino', 'Verdicchio', 'Other'),
                           ('fiano di avellino', 'verdicchio', 'other')),
-                'georgia': empty_grapes,
+                'germany': empty_grapes,
                 'others': empty_grapes
             }
         }
@@ -287,8 +288,8 @@ dict_categories = {
                 'italy': (('Пьемонт', 'Апулия', 'Тоскана', 'Венето', 'Другой'),
                           ('Piemonte', 'Puglia', 'Toscana', 'Veneto', 'Other'),
                           ('piemonte', 'puglia', 'toscana', 'veneto', 'other')),
-                'georgia': empty_grapes,
-                'others': empty_grapes
+                'georgia': empty_regions,
+                'others': empty_regions
         },
         'white': {
                 'portugal': (('Алентежу', 'Байррада', 'Дао', 'Дору', 'Лиссабон', 'Винью Верде', 'Другой'),
@@ -303,8 +304,8 @@ dict_categories = {
                 'italy': (('Абруццо', 'Альто-Адидже', 'Сицилия', 'Тоскана', 'Другой'),
                           ('Abruzzo', 'Alto Adige', 'Sicilia', 'Toscana', 'Other'),
                           ('abruzzo', 'alto adige', 'sicilia', 'toscana', 'other')),
-                'georgia': empty_grapes,
-                'others': empty_grapes
+                'germany': empty_regions,
+                'others': empty_regions
         }
     },
     'price': (('До 15 евро', 'От 15 до 25 евро', 'От 25 до 35 евро', 'От 35 до 50 евро', 'Более 50 евро'),
