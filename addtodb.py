@@ -115,8 +115,8 @@ def add_to_db_carts(user_id, mylst):
 
     print('mylst', mylst)
     # Обрезаем лишние символы в адресе и имени
-    mylst[-4]['address'] = mylst[-3]['address'][:max_length_address]
-    mylst[-2]['customer_name'] = mylst[-1]['customer_name'][:max_length_customer_name]
+    mylst[-4]['address'] = mylst[-4]['address'][:max_length_address]
+    mylst[-2]['customer_name'] = mylst[-2]['customer_name'][:max_length_customer_name]
 
     # Преобразовываем список [{вина} + {контактные данны}] в список [{вино + контактные данные}]
     len_dict = len(mylst) - 6
