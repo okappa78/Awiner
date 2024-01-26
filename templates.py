@@ -10,8 +10,7 @@ def wine_template(index, lngth, lang, wine):
 
     # Fill the dictionary for text output
     dict_head['wine'] = f"{['Вино:', 'Wine:'][lang]} <b>{wine.get('title', None)} " \
-                        f"{wine.get('collection', '')}</b>".replace('None', '').rstrip() + \
-                        f"{wine.get('rating', None)} ⭐"
+                        f"{wine.get('collection', '')}</b>".replace('None', '').rstrip()
     dict_head['maker'] = f"{['Пр-ль:', 'Producer:'][lang]} <i>{wine.get('maker', None)}</i>"
     dict_head['rating'] = f"{['Рейтинг:', 'Rating:'][lang]} {wine.get('rating', None)} ⭐"
     dict_head['wtype'] = f"{['Тип:', 'Type:'][lang]} {wine.get('wtype', None)} {wine.get('wstyle', None)} " \
