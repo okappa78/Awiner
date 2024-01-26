@@ -5,8 +5,8 @@ import os
 import threading
 
 import my_dict
-from getfromdb import get_description, get_photo
-from getfromdb_alt import get_filtered, check_exist_address
+from getfromdb import get_photo
+from getfromdb_alt import get_description, get_filtered, check_exist_address
 from addtodb import add_to_db_filters, add_to_db_carts, add_to_db_customers, add_to_db_address
 from cart import get_numbers, get_address, get_phone, get_orderid
 from sendmsg import sendmsg
