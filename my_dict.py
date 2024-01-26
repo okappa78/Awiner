@@ -155,23 +155,23 @@ dict_categories = {
               ('Brut', 'Dry', 'Semi-sweet'),
               ('brut', 'dry', 'medium_sweet')),
     'country': {
-        'red': (('Португалия', 'Франция', 'Италия', 'Испания', 'Грузия', 'Другие'),
-                ('Portugal', 'France', 'Italy', 'Spain', 'Georgia', 'Others'),
+        'red': (('🇵🇹 Португалия', '🇨🇵 Франция', '🇮🇹 Италия', '🇪🇦 Испания', '🇬🇪 Грузия', '🌐 Другие'),
+                ('🇵🇹 Portugal', '🇨🇵 France', '🇮🇹 Italy', '🇪🇦 Spain', '🇬🇪 Georgia', '🌐 Others'),
                 ('portugal', 'france', 'italy', 'spain', 'georgia', 'others')),
-        'white': (('Португалия', 'Франция', 'Италия', 'Испания', 'Германия', 'Другие'),
-                  ('Portugal', 'France', 'Italy', 'Spain', 'Germany', 'Others'),
+        'white': (('🇵🇹 Португалия', '🇨🇵 Франция', '🇮🇹 Италия', '🇪🇦 Испания', '🇩🇪 Германия', '🌐 Другие'),
+                  ('🇵🇹 Portugal', '🇨🇵 France', '🇮🇹 Italy', '🇪🇦 Spain', '🇩🇪 Germany', '🌐 Others'),
                   ('portugal', 'france', 'italy', 'spain', 'germany', 'others')),
-        'rose': (('Португалия', 'Франция', 'Италия', 'Испания', 'Другие'),
-                 ('Portugal', 'France', 'Italy', 'Spain', 'Others'),
+        'rose': (('🇵🇹 Португалия', '🇨🇵 Франция', '🇮🇹 Италия', '🇪🇦 Испания', '🌐 Другие'),
+                 ('🇵🇹 Portugal', '🇨🇵 France', '🇮🇹 Italy', '🇪🇦 Spain', '🌐 Others'),
                  ('portugal', 'france', 'italy', 'spain', 'others')),
-        'orange': (('Португалия', 'Италия', 'Грузия', 'Другие'),
-                   ('Portugal', 'Italy', 'Georgia', 'Others'),
+        'orange': (('🇵🇹 Португалия', '🇮🇹 Италия', '🇬🇪 Грузия', '🌐 Другие'),
+                   ('🇵🇹 Portugal', '🇮🇹 Italy', '🇬🇪 Georgia', '🌐 Others'),
                    ('portugal', 'italy', 'georgia', 'others')),
-        'sparkling': (('Португалия', 'Франция', 'Италия', 'Другие'),
-                      ('Portugal', 'France', 'Italy', 'Others'),
+        'sparkling': (('🇵🇹 Португалия', '🇨🇵 Франция', '🇮🇹 Италия', '🌐 Другие'),
+                      ('🇵🇹 Portugal', '🇨🇵 France', '🇮🇹 Italy', '🌐 Others'),
                       ('portugal', 'france', 'italy', 'others')),
-        'fortified': (('Португалия', 'Испания', 'Другие'),
-                      ('Portugal', 'Spain', 'Others'),
+        'fortified': (('🇵🇹 Португалия', '🇪🇦 Испания', '🌐 Другие'),
+                      ('🇵🇹 Portugal', '🇪🇦 Spain', '🌐 Others'),
                       ('portugal', 'spain', 'others'))
     },
     'next_step': (('Виноград', 'Регион'),
@@ -333,24 +333,24 @@ I am your virtual assistant 🦸
 Ready to help you with your wine selection!
 ''']
 
-help_message = ['''
-Вам будет предложено выбрать вино по таким критериям, как тип вина, стиль, содержание сахара, страна, виноград или регион. Для некоторых типов вин список критериев может отличаться. Некоторые критерии являются обязательными, а другие можно пропустить. Полезные подсказки подскажут вам на каждом этапе выбора, что и как выбрать.
-
-Добавив вино в корзину, вы можете перейти к оформлению заказа или продолжить поиск по другим критериям.
-
-После оформления заказа вы получите сообщение с номером заказа, и наша команда свяжется с вами для уточнения деталей доставки.
-
-Давайте начнем!
-''',
-                '''
-You'll be prompted to choose wine based on criteria such as wine type, style, sugar content, country, grape, or region. For some wine types, the list of criteria may differ. Certain criteria are mandatory, while others can be skipped. Helpful prompts will guide you at each selection stage on what to choose and how.
-
-After adding wine to your cart, you can proceed to checkout or continue exploring based on other criteria.
-
-Once you've placed an order, you'll receive a message with the order number, and our team will contact you to confirm delivery details.
-
-Let's get started!
-''']
+help_message = [f"Вам будет предложено выбрать вино по таким критериям, как тип вина, стиль, содержание сахара, "
+                f"страна, виноград или регион. Для некоторых типов вин список критериев может отличаться. "
+                f"Некоторые критерии являются обязательными, а другие можно пропустить. "
+                f"Полезные подсказки подскажут вам на каждом этапе выбора, что и как выбирать.\n\n"
+                f"Добавив вино в корзину, вы можете перейти к оформлению заказа или продолжить поиск "
+                f"по другим критериям.\n\n"
+                f"После оформления заказа вы получите сообщение с номером заказа, и наша команда свяжется "
+                f"с вами для уточнения деталей доставки.\n\n"
+                f"Давайте начнем!",
+                f"You'll be prompted to choose wine based on criteria such as wine type, style, sugar, country, "
+                f"grape, or region. For some wine types, the list of criteria may differ. Certain criteria are "
+                f"mandatory, while others can be skipped. Helpful prompts will guide you at each selection stage "
+                f"on what to choose and how.\n\n"
+                f"After adding wine to your cart, you can proceed to checkout or continue exploring based on other "
+                f"criteria.\n\n"
+                f"Once you've placed an order, you'll receive a message with the order number, and our team will "
+                f"contact you to confirm delivery details.\n\n"
+                f"Let's get started!"]
 
 ai_message = ['''
 Или вы можете написать мне сообщение о ваших предпочтениях
@@ -368,10 +368,10 @@ return_button = '🔙 🇷🇺 RU / 🇬🇧 GB (US)'
 dict_messages = {
     1: ['Какой тип вина вам предложить?',
         'What type of wine can I offer you?'],
-    2: ["Теперь давайте выберем стиль (или 'тело') вина.\n"
+    2: ["Теперь давайте выберем стиль (или \"тело\") вина.\n"
         "<tg-spoiler>Тело вина – это его насыщенность, структура, вес, густота. "
         "Чем ярче эти свойства, тем более полнотелым считается напиток.</tg-spoiler>",
-        "Now let's choose the style (or 'body') of the wine.\n"
+        "Now let's choose the style (or \"body\") of the wine.\n"
         "<tg-spoiler>Body of wine – it refers to its richness, structure, weight, and density. "
         "The more pronounced these characteristics are, the fuller-bodied the beverage is considered.</tg-spoiler>"],
     3: ['Какое содержание сахара?',
@@ -382,9 +382,9 @@ dict_messages = {
         "*Эти шаги можно пропустить*",
         "Do you choose your wine by grape or region?\n"
         "*These steps can be skipped*"],
-    51: ["Какие сорта винограда вы предпочитаете?\n"
+    51: ["Какой сорт винограда вы предпочитаете?\n"
          "*Этот шаг можно пропустить*",
-         "What grape varieties do you prefer?\n"
+         "What grape variety do you prefer?\n"
          "*This step can be skipped*"],
     52: ["Какой регион вы предпочитаете?\n"
          "*Этот шаг можно пропустить*",
@@ -433,9 +433,9 @@ empty_res_msg_alt_change = ['Или попробуйте изменить кри
 empty_req_msg = ['Попробуйте изменить критерии',
                  'Try to change the criteria.']
 
-fwd_button = ['Следующее', 'Next']
-cart_button = ['В корзину!', 'Add to cart']
-bwd_button = ['Предыдущее', 'Previous']
+fwd_button = ['Следующее ➡', 'Next ➡']
+cart_button = ['⤵ В корзину! ⤵', '⤵ Add to cart ⤵']
+bwd_button = ['⬅ Предыдущее', '⬅ Previous']
 
 error_msg = ['Что-то не так!\nДавайте начнем сначала!',
              "Something's gone wrong!\nLet's start again!"]

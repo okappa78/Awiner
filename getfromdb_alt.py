@@ -229,7 +229,7 @@ def get_description(list_of_ids, user_id, lang=0, complete=True):
     if complete:
         lst_attr = ['wine_id', 'wtype', 'country', 'region', 'subregion', 'title',
                     'maker', 'collection', 'volume', 'price', 'wstyle', 'sugar',
-                    'grape', 'alcohol', 'bouquet', 'palate', 'food']
+                    'grape', 'alcohol', 'bouquet', 'palate', 'food', 'rating']
 
     # create where clause based on wine_ids
     where_ids = ', '.join(map(str, list_of_ids))
