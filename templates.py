@@ -12,7 +12,8 @@ def wine_template(index, lngth, lang, wine):
     dict_head['wine'] = f"{['Вино:', 'Wine:'][lang]} <b>{wine.get('title', None)} " \
                         f"{wine.get('collection', '')}</b>".replace('None', '').rstrip()
     dict_head['maker'] = f"{['Пр-ль:', 'Producer:'][lang]} <i>{wine.get('maker', None)}</i>"
-    dict_head['rating'] = f"{['Рейтинг:', 'Rating:'][lang]} {wine.get('rating', None)} ⭐"
+    rating = [f"{wine.get('rating', None)} ⭐", "n/a"][wine.get('rating', None) is None]
+    dict_head['rating'] = f"{['Рейтинг:', 'Rating:'][lang]} {rating}"
     dict_head['wtype'] = f"{['Тип:', 'Type:'][lang]} {wine.get('wtype', None)} {wine.get('wstyle', None)} " \
                          f"{wine.get('sugar', None)}, {wine.get('alcohol', None)}".replace(' None', '')
     dict_head['grape'] = f"{['Виноград:', 'Grape:'][lang]} {wine.get('grape', None)}"
