@@ -10,6 +10,7 @@ from getfromdb_alt import get_filtered, check_exist_address
 from addtodb import add_to_db_filters, add_to_db_carts, add_to_db_customers, add_to_db_address
 from cart import get_numbers, get_address, get_phone, get_orderid
 from sendmsg import sendmsg
+from templates import wine_template
 
 load_dotenv()
 bot = telebot.TeleBot(os.getenv('TOKEN'))
@@ -250,37 +251,6 @@ def ask_suggestion(user_id):
     markup.add(suggest_btn)
     bot.send_message(user_id, text=my_dict.empty_res_msg_alt[lang], reply_markup=markup)
     bot.send_message(user_id, text=my_dict.empty_res_msg_alt_change[lang])
-
-
-def wine_template(index, lngth, lang, wine):
-    # Create list with headers and dictionary
-    lst_header = ['wine', 'maker', 'wtype', 'grape', 'region', 'price', 'bouquet', 'palate', 'food']
-    dict_head = {}
-
-    # Start description text from number of current position / amount of all position
-    description_text = [f"{index + 1} "
-                        f"{['из', 'of'][lang]} {lngth} "
-                        f"{['найденных', 'found'][lang]}"]
-
-    # Fill the dictionary for text output
-    dict_head['wine'] = f"{['Вино:', 'Wine:'][lang]} <b>{wine.get('title', None)} " \
-                        f"{wine.get('collection', '')}</b>".replace('None', '').rstrip()
-    dict_head['maker'] = f"{['Пр-ль:', 'Producer:'][lang]} <i>{wine.get('maker', None)}</i>"
-    dict_head['wtype'] = f"{['Тип:', 'Type:'][lang]} {wine.get('wtype', None)} {wine.get('wstyle', None)} " \
-                         f"{wine.get('sugar', None)}, {wine.get('alcohol', None)}".replace(' None', '')
-    dict_head['grape'] = f"{['Виноград:', 'Grape:'][lang]} {wine.get('grape', None)}"
-    dict_head['region'] = f"{['Регион:', 'Region:'][lang]} {wine.get('country', None)}, {wine.get('region', None)}"
-    if wine.get('subregion', None):
-        dict_head['region'] += f", {wine.get('subregion', None)}"
-    dict_head['price'] = f"{['Цена:', 'Price:'][lang]} <b>{wine.get('price', None)}0 €</b>"
-    dict_head['bouquet'] = f"{['Аромат:', 'Bouquet:'][lang]} {wine.get('bouquet', None)}"
-    dict_head['palate'] = f"{['Вкус:', 'Palate:'][lang]} {wine.get('palate', None)}"
-    dict_head['food'] = f"{['Гастрономия:', 'Gastronomy:'][lang]} {wine.get('food', None)}"
-
-    for header in lst_header:
-        description_text.append(dict_head[header])
-
-    return description_text
 
 
 def show_wines(user_id):
