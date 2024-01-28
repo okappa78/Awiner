@@ -3,13 +3,14 @@ from telebot import types
 from dotenv import load_dotenv
 import os
 import threading
+import traceback
 
 import my_dict
 from getfromdb import get_photo
 from getfromdb_alt import get_description, get_filtered, check_exist_address
 from addtodb import add_to_db_filters, add_to_db_carts, add_to_db_customers, add_to_db_address
 from cart import get_numbers, get_address, get_phone, get_orderid
-from sendmsg import sendmsg
+from sendmsg import sendmsg, send_error_message
 from templates import wine_template
 
 load_dotenv()
@@ -293,7 +294,8 @@ def add_to_cart(user_id):
     btn_cart = types.KeyboardButton(text=my_dict.btn_cart[lang])
     markup = show_return_lang_button(btn_restart, btn_cart)
 
-    txt_add_cart = f"{my_dict.confirm_carts_msg[lang]}\n{wine['title']} {wine['collection']}"
+    txt_add_cart = f"{my_dict.confirm_carts_msg[lang]}\n{wine['title']} " \
+                   f"{wine.get('collection', '').replace('None', '').rstrip()}"
     bot.send_message(user_id, text=txt_add_cart, reply_markup=markup)
 
 
@@ -740,5 +742,11 @@ def get_call(call):
 
 
 if __name__ == '__main__':
-    users = {}
-    bot.polling(none_stop=True, interval=0)
+    try:
+        users = {}
+        bot.polling(none_stop=True, interval=0)
+    except Exception as e:
+        traceback_str = traceback.format_exc()
+        error_message = f"An unexpected error occurred:\n{str(e)}\n\nTraceback:\n{traceback_str}"
+        send_error_message(error_message)
+        raise

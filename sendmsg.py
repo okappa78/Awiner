@@ -29,3 +29,11 @@ def sendmsg(mylist):
     txt += f"Доставка: {delivery}€\nОбщая сумма <b>{round(sum_total, 1)}€</b>"
     bot.send_message(chat_id, text=txt, parse_mode='HTML')
     bot.send_message(chat_id, text=sep_line)
+
+
+def send_error_message(error_message):
+    sep_line = '❗' + 15 * '🆘❗'
+
+    bot.send_message(chat_id, text=sep_line)
+    bot.send_message(chat_id, text=error_message)
+    bot.send_message(chat_id, text=sep_line)
