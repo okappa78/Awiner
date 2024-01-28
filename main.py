@@ -294,9 +294,9 @@ def add_to_cart(user_id):
     btn_cart = types.KeyboardButton(text=my_dict.btn_cart[lang])
     markup = show_return_lang_button(btn_restart, btn_cart)
 
-    txt_add_cart = f"{my_dict.confirm_carts_msg[lang]}\n{wine['title']} " \
-                   f"{wine.get('collection', '').replace('None', '').rstrip()}"
-    bot.send_message(user_id, text=txt_add_cart, reply_markup=markup)
+    txt_add_cart = f"{my_dict.confirm_carts_msg[lang]}\n" \
+                   f"<b>{wine['title']} {wine['collection']}</b>".replace('None', '').rstrip()
+    bot.send_message(user_id, text=txt_add_cart, reply_markup=markup, parse_mode='HTML')
 
 
 def send_cart_message(user_id):
