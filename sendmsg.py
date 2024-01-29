@@ -32,8 +32,12 @@ def sendmsg(mylist):
 
 
 def send_error_message(error_message):
-    sep_line = '❗' + 15 * '🆘❗'
+    max_length = 1024
+    sep_line = '❗' + 15 * '🆘❗' + '🆘'
 
     bot.send_message(chat_id, text=sep_line)
-    bot.send_message(chat_id, text=error_message)
+    while error_message:
+        text_msg = error_message[:max_length]
+        bot.send_message(chat_id, text=text_msg)
+        error_message = error_message[max_length:]
     bot.send_message(chat_id, text=sep_line)
